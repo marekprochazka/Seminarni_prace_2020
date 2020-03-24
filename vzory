@@ -1,0 +1,36 @@
+class PointsInputPage(Frame):
+
+    def __init__(self, parent, controller):
+        Frame.__init__(self, parent)
+        label = Label(self, text="Bodový vstup", font=fonts()["LARGE_FONT"])
+        label.pack(pady=10, padx=10)
+
+        canvas = FigureCanvasTkAgg(f, self)
+        canvas.draw()
+        canvas.get_tk_widget().place(bordermode=OUTSIDE, x=500, y=100)
+
+        self.x_text = Label(self, text="Hodnota x", font=fonts()["SMALL_FONT"])
+        self.y_text = Label(self, text="Hodnota y", font=fonts()["SMALL_FONT"])
+
+        self.x_text.place(bordermode=OUTSIDE, height=MAX_HEIGHT * 0.05, width=MAX_WIDTH * 0.1,
+                          x=MAX_WIDTH * 0.01, y=MAX_HEIGHT * 0.15)
+        self.y_text.place(bordermode=OUTSIDE, height=MAX_HEIGHT * 0.05, width=MAX_WIDTH * 0.1,
+                          x=MAX_WIDTH * 0.11, y=MAX_HEIGHT * 0.15)
+
+        self.x_entry = t.Entry(self, justify="center")
+        self.y_entry = t.Entry(self, justify="center")
+
+        self.x_entry.place(bordermode=OUTSIDE, height=MAX_HEIGHT * 0.05, width=MAX_WIDTH * 0.1,
+                           x=MAX_WIDTH * 0.01, y=MAX_HEIGHT * 0.2)
+
+        self.y_entry.place(bordermode=OUTSIDE, height=MAX_HEIGHT * 0.05, width=MAX_WIDTH * 0.1,
+                           x=MAX_WIDTH * 0.11, y=MAX_HEIGHT * 0.2)
+
+        self.add_coord = t.Button(self, text="Přidat bod", command=lambda: add_coordinate(int(self.x_entry.get()),int(self.y_entry.get())))
+        self.add_coord.place(bordermode=OUTSIDE, height=MAX_HEIGHT * 0.05, width=MAX_WIDTH * 0.1,
+                             x=MAX_WIDTH * 0.21, y=MAX_HEIGHT * 0.2)
+
+        Back = t.Button(self, text="Back",
+                        command=lambda: controller.show_frame(BeginPage))
+        Back.place(bordermode=OUTSIDE, width=MAX_WIDTH - MAX_WIDTH * 0.90, height=MAX_HEIGHT - MAX_HEIGHT * 0.90,
+                   x=MAX_WIDTH - MAX_WIDTH * 0.10, y=MAX_HEIGHT - MAX_HEIGHT * 0.10)
