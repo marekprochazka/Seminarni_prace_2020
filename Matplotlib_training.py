@@ -56,19 +56,19 @@ plt.show()"""
 
 # pie
 
-"""slices = [7, 2, 2, 13]
+slices = [7, 2, 2, 13]
 
 activities = ["sleeping", "eating", "working", "playing"]
 cols = ["b","r","pink","c"]
 
-plt.pie(slices,labels=activities,colors=cols,startangle=90,explode=(0,0.1,0,0),autopct="%1.1f%%")"""
+plt.pie(slices,labels=activities,colors=cols,startangle=90,explode=(0,0.1,0,0),autopct="%1.1f%%")
 # TODO explode u pie koláče vypadá dobře, procenta taky
 
-"""plt.xlabel("osa x")
+plt.xlabel("osa x")
 plt.ylabel("osa y")
 plt.title("zajímavej graf\nČekni to")
 #plt.legend()
-plt.show()"""
+plt.show()
 
 # loading from files
 # v1
@@ -131,7 +131,7 @@ graph_data("TSLA")"""
 # figura
 # TODO rotace labelů, další modifikace
 
-fig = plt.figure()
+"""fig = plt.figure()
 ax1 = plt.subplot2grid((1, 1), (0, 0))
 
 coords.append([[2, 4, 6, 8, 10], [6, 7, 5, 2, 6]])
@@ -166,4 +166,4 @@ plt.title("zajímavej graf\nČekni to")
 plt.legend()
 plt.subplots_adjust(left=0.09, bottom=0.16, right=0.94, top=0.9, wspace=0.2,
                     hspace=0)  # ""space je jako padding subplotů
-plt.show()
+plt.show()"""

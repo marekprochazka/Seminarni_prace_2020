@@ -13,26 +13,29 @@ MAX_HEIGHT = 600
 
 mp.use("TkAgg")
 st.use("ggplot")
-
+import numpy as np
 
 def fonts():
     return {"LARGE_FONT": ("Verdana", 12), "SMALL_FONT": ("Verdana", 9), "TINY_FONT": ('Roboto', 7)}
 
 
-coordinates_scatter = [[1, 2, 3, 4], [3, 2, 4, 6]]
-coordinates_plot = [
+coordinates_scatter = []
+coordinates_plot = np.array([
     [[1, 2, 3, 4], [2, 2, 2, 2]],
     [[1, 3, 5, 7], [1, 2, 3, 4]],
     [[1, 5, 9], [10, 5, 1]]
-]
+])
+coordinates_all_list = []
+
 
 f = Figure(figsize=(4.5, 4.5), dpi=100)
 a = f.add_subplot(111)
 
 
-def animate_plots(i):
+def animate_graphs(i):
     a.clear()
-    a.scatter(coordinates_scatter[0], coordinates_scatter[1])
+    for coord in coordinates_scatter:
+        a.scatter(coord[0],coord[1])
     for coord in coordinates_plot:
         a.plot(coord[0], coord[1])
 
@@ -88,9 +91,9 @@ class MarkoGebra(Tk):
         self.scrollable_frame.bind("<Configure>", lambda e: self.canvas.configure(scrollregion=self.canvas.bbox("all")))
         self.canvas.create_window((0, 0), window=self.scrollable_frame, anchor="nw")
         self.canvas.configure(yscrollcommand=self.scrollbar.set)
-
+        self.update_table()
         for i in range(50):
-            t.Label(self.scrollable_frame, text="Sample scrolling label").pack()
+            t.Label(self.scrollable_frame, text="").pack()
 
         self.Table_container.place(bordermode=OUTSIDE, x=MAX_WIDTH * .01, y=MAX_HEIGHT * .6, width=MAX_WIDTH * .4,
                                    height=MAX_HEIGHT * .3)
@@ -112,8 +115,31 @@ class MarkoGebra(Tk):
         self._frame = new_frame
         self._frame.pack()
 
-    def add_poin_scatter(self, x, y):
-        pass
+    def add_point_scatter(self, x, y):
+        global coordinates_scatter,coordinates_all_list
+        if [x,y] not in coordinates_scatter:
+            coordinates_scatter.append([x,y])
+            coordinates_all_list.append(f"X:{x}/Y:{y} ")
+            self.update_table()
+
+
+
+    def update_table(self):
+        global coordinates_all_list
+
+
+
+        for indx,child in enumerate(self.scrollable_frame.winfo_children()):
+            for indx_coords,value in enumerate(coordinates_all_list):
+                if indx == indx_coords:
+                    child.configure(text=value)
+
+
+
+
+
+
+
 
 
 class ScatterFrame(Frame):
@@ -121,8 +147,29 @@ class ScatterFrame(Frame):
         Frame.__init__(self, parent)
         self.controller = controller
 
-        self.but = t.Button(text="Scatter", command=lambda: controller.show_Setup_Frame(FuncFrame))
-        self.but.place(x=10, y=30, width=90, height=20)
+        # labely
+        self.labelX = t.Label( text="X:", font=fonts()["SMALL_FONT"])
+        self.labelY = t.Label( text="Y:", font=fonts()["SMALL_FONT"])
+        self.labelX.place(bordermode=OUTSIDE, x=MAX_WIDTH * .01, y=MAX_HEIGHT * .3, height=MAX_HEIGHT * .05)
+        self.labelY.place(bordermode=OUTSIDE, x=MAX_WIDTH * .16, y=MAX_HEIGHT * .3, height=MAX_HEIGHT * .05)
+
+        # entryes
+        self.EntryX = t.Entry( justify="center")
+
+        self.EntryY = t.Entry( justify="center")
+
+
+        self.EntryX.place(bordermode=OUTSIDE, x=MAX_WIDTH * .025, y=MAX_HEIGHT * .3,
+                          width=MAX_WIDTH * .135, height=MAX_HEIGHT * .05)
+        self.EntryY.place(bordermode=OUTSIDE, x=MAX_WIDTH * .175, y=MAX_HEIGHT * .3,
+                          width=MAX_WIDTH * .135, height=MAX_HEIGHT * .05)
+        # place button
+        self.placeButton = t.Button( text="Vložit",
+                                    command=lambda: controller.add_point_scatter(int(self.EntryX.get()), int(self.EntryY.get())))
+        self.placeButton.place(bordermode=OUTSIDE, x=MAX_WIDTH * .31, y=MAX_HEIGHT * .3,
+                               width=MAX_WIDTH * .1, height=MAX_HEIGHT * .05)
+
+
 
 
 class FuncFrame(Frame):
@@ -134,5 +181,5 @@ class FuncFrame(Frame):
 
 
 app = MarkoGebra()
-ani = anim.FuncAnimation(f, animate_plots, interval=1000)
+ani = anim.FuncAnimation(f, animate_graphs, interval=1000)
 app.mainloop()
