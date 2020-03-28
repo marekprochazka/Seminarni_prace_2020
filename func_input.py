@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
-f = "((x**2)+(x**3))/(4*x)"
+f = "x**2"
 
 def plotmaker(user_input:str,size:int):
     x = np.arange(-size,size,0.0001)
@@ -20,6 +20,8 @@ ax.plot(to_plt[0],to_plt[1], 'r')
 ax.grid()
 ax.set_yticks([x for x in range(-20,20,4)])
 ax.set_xticks([x for x in range(-20,20,4)])
+ax.set_ylim(0,20)
+
 # show the plot
 
 plt.show()

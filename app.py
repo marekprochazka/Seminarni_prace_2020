@@ -7,6 +7,7 @@ from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolb
 import matplotlib.animation as anim
 from matplotlib import style as st
 from matplotlib.figure import Figure
+import matplotlib.pyplot as plt
 
 MAX_WIDTH = 1200
 MAX_HEIGHT = 600
@@ -20,16 +21,15 @@ def fonts():
 
 
 coordinates_scatter = []
-coordinates_plot = np.array([
-    [[1, 2, 3, 4], [2, 2, 2, 2]],
-    [[1, 3, 5, 7], [1, 2, 3, 4]],
-    [[1, 5, 9], [10, 5, 1]]
-])
+coordinates_plot = []
 coordinates_all_list = []
 
-
+#f = plt.figure(figsize=(4.5, 4.5), dpi=100)
 f = Figure(figsize=(4.5, 4.5), dpi=100)
 a = f.add_subplot(111)
+#a.set_aspect("equal")
+
+a.set_ylim(-20,20)
 
 
 def animate_graphs(i):
@@ -47,7 +47,7 @@ class MarkoGebra(Tk):
         Tk.minsize(self, width=MAX_WIDTH, height=MAX_HEIGHT)
         Tk.maxsize(self, width=MAX_WIDTH, height=MAX_HEIGHT)
 
-
+        self.input_frames = (ScatterFrame,FuncFrame)
 
         self.SetupContainer = t.Frame(self, width=MAX_WIDTH * .4, height=MAX_HEIGHT)
 
@@ -75,6 +75,8 @@ class MarkoGebra(Tk):
         # Combobox - 2
         self.CBB2 = t.Combobox(self, values=["1", "2", "3"],
                                state="readonly")
+        self.CBB2.bind('<<ComboboxSelected>>',
+                       lambda event: self.show_Setup_Frame(self.input_frames[self.CBB2.current()]))
         self.CBB2.current(0)
         self.CBB2.place(bordermode=OUTSIDE, width=MAX_WIDTH * .15, height=MAX_HEIGHT * .05,
                         x=MAX_WIDTH * .01, y=MAX_HEIGHT * .2)
@@ -105,7 +107,9 @@ class MarkoGebra(Tk):
         self.SetupFrames = {}
 
         self._frame = None
-        self.show_Setup_Frame(ScatterFrame)
+        self.show_Setup_Frame(FuncFrame)
+
+
 
     def show_Setup_Frame(self, cont):
 
@@ -123,11 +127,24 @@ class MarkoGebra(Tk):
             self.update_table()
 
 
+    def add_plot_from_function(self,function):
+        global coordinates_plot,coordinates_all_list
+        x = np.arange(-20,20,0.0001)
+        y = eval(function)
+
+        for limit in range(len(y)):
+            if y[limit] > 20:
+                y[limit] = None
+
+
+        #if [x,y] not in coordinates_plot:
+        coordinates_plot.append([x,y])
+        coordinates_all_list.append(f"f(x): {function}")
+        self.update_table()
+
 
     def update_table(self):
         global coordinates_all_list
-
-
 
         for indx,child in enumerate(self.scrollable_frame.winfo_children()):
             for indx_coords,value in enumerate(coordinates_all_list):
@@ -148,7 +165,7 @@ class ScatterFrame(Frame):
         self.controller = controller
 
         # labely
-        self.labelX = t.Label( text="X:", font=fonts()["SMALL_FONT"])
+        self.labelX= t.Label( text="X:", font=fonts()["SMALL_FONT"])
         self.labelY = t.Label( text="Y:", font=fonts()["SMALL_FONT"])
         self.labelX.place(bordermode=OUTSIDE, x=MAX_WIDTH * .01, y=MAX_HEIGHT * .3, height=MAX_HEIGHT * .05)
         self.labelY.place(bordermode=OUTSIDE, x=MAX_WIDTH * .16, y=MAX_HEIGHT * .3, height=MAX_HEIGHT * .05)
@@ -176,10 +193,26 @@ class FuncFrame(Frame):
     def __init__(self, parent, controller):
         Frame.__init__(self, parent)
         self.controller = controller
-        self.but = t.Button(text="Function", command=lambda: controller.show_Setup_Frame(ScatterFrame))
-        self.but.place(x=10, y=30, width=90, height=20)
+
+        # labely
+        self.labelFun = t.Label(text="f(x):", font=fonts()["SMALL_FONT"])
+        self.labelFun.place(bordermode=OUTSIDE, x=MAX_WIDTH * .01, y=MAX_HEIGHT * .3, height=MAX_HEIGHT * .05)
+
+        # entryes
+        self.EntryFun = t.Entry(justify="center")
+
+
+
+        self.EntryFun.place(bordermode=OUTSIDE, x=MAX_WIDTH * .035, y=MAX_HEIGHT * .3,
+                          width=MAX_WIDTH * .275, height=MAX_HEIGHT * .05)
+
+        # place button
+        self.placeButton = t.Button(text="Odložit",command = lambda:controller.add_plot_from_function(self.EntryFun.get()))
+
+        self.placeButton.place(bordermode=OUTSIDE, x=MAX_WIDTH * .31, y=MAX_HEIGHT * .3,
+                               width=MAX_WIDTH * .1, height=MAX_HEIGHT * .05)
 
 
 app = MarkoGebra()
-ani = anim.FuncAnimation(f, animate_graphs, interval=1000)
+ani = anim.FuncAnimation(f, animate_graphs, interval=1000,blit=False)
 app.mainloop()
