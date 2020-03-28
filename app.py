@@ -152,7 +152,7 @@ class MarkoGebra(Tk):
                     child.configure(text=value)
 
 
-
+#poznamka
 
 
 
