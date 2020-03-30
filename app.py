@@ -27,7 +27,8 @@ coordinates_all_list = []
 #f = plt.figure(figsize=(4.5, 4.5), dpi=100)
 f = Figure(figsize=(4.5, 4.5), dpi=100)
 a = f.add_subplot(111)
-#a.set_aspect("equal")
+a.axis("equal")
+a.set_aspect("equal")
 
 a.set_ylim(-20,20)
 
@@ -97,6 +98,7 @@ class MarkoGebra(Tk):
         for i in range(50):
             t.Label(self.scrollable_frame, text="").pack()
 
+
         self.Table_container.place(bordermode=OUTSIDE, x=MAX_WIDTH * .01, y=MAX_HEIGHT * .6, width=MAX_WIDTH * .4,
                                    height=MAX_HEIGHT * .3)
         self.canvas.pack(side="left", fill="both", expand=True)
@@ -133,7 +135,7 @@ class MarkoGebra(Tk):
         y = eval(function)
 
         for limit in range(len(y)):
-            if y[limit] > 20:
+            if y[limit] > 30 or y[limit]<-30:
                 y[limit] = None
 
 
