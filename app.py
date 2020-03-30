@@ -95,8 +95,8 @@ class MarkoGebra(Tk):
         self.canvas.create_window((0, 0), window=self.scrollable_frame, anchor="nw")
         self.canvas.configure(yscrollcommand=self.scrollbar.set)
         self.update_table()
-        for i in range(50):
-            t.Label(self.scrollable_frame, text="").pack()
+        for i in range(5):
+            Frame(self.scrollable_frame).pack()
 
 
         self.Table_container.place(bordermode=OUTSIDE, x=MAX_WIDTH * .01, y=MAX_HEIGHT * .6, width=MAX_WIDTH * .4,
@@ -109,7 +109,7 @@ class MarkoGebra(Tk):
         self.SetupFrames = {}
 
         self._frame = None
-        self.show_Setup_Frame(FuncFrame)
+        self.show_Setup_Frame(ScatterFrame)
 
 
 
@@ -125,7 +125,7 @@ class MarkoGebra(Tk):
         global coordinates_scatter,coordinates_all_list
         if [x,y] not in coordinates_scatter:
             coordinates_scatter.append([x,y])
-            coordinates_all_list.append(f"X:{x}/Y:{y} ")
+            coordinates_all_list.append((f"x:{x}/y:{y}",coordinates_scatter.index(coordinates_scatter[-1])))
             self.update_table()
 
 
@@ -141,20 +141,36 @@ class MarkoGebra(Tk):
 
         #if [x,y] not in coordinates_plot:
         coordinates_plot.append([x,y])
-        coordinates_all_list.append(f"f(x): {function}")
+
+        coordinates_all_list.append((f"f(x): {function}",coordinates_plot.index(coordinates_plot[-1])))
         self.update_table()
 
 
     def update_table(self):
         global coordinates_all_list
 
-        for indx,child in enumerate(self.scrollable_frame.winfo_children()):
-            for indx_coords,value in enumerate(coordinates_all_list):
-                if indx == indx_coords:
-                    child.configure(text=value)
+        for child in self.scrollable_frame.winfo_children():
+            for child_of_child in child.winfo_children():
+                child_of_child.destroy()
+
+        for index,parent in enumerate(self.scrollable_frame.winfo_children()):
+            for indx_val,value in enumerate(coordinates_all_list):
+                if index==indx_val:
+                  t.Button(parent,text=f"try me {value}",command=lambda: self.destroy_value(value)).pack(side=LEFT)
 
 
-#poznamka
+
+
+    def destroy_value(self,value):
+        global coordinates_all_list,coordinates_plot,coordinates_scatter
+        if value[0][0] == "x":
+            coordinates_scatter.remove(coordinates_scatter[value[1]])
+            coordinates_all_list.remove(value)
+        else:
+            coordinates_plot.pop(value[1])
+            coordinates_all_list.remove(value)
+
+        self.update_table()
 
 
 

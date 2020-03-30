@@ -4,8 +4,6 @@
     <list default="true" id="ea9c3f51-27bf-4d67-87b1-2583643052bd" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/func_input.py" beforeDir="false" afterPath="$PROJECT_DIR$/func_input.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/try_plot.py" beforeDir="false" afterPath="$PROJECT_DIR$/try_plot.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -228,68 +226,76 @@
       <option name="project" value="LOCAL" />
       <updated>1585406891750</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="last update">
+      <created>1585569318056</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1585569318056</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="přidán pozdrav" />
     <MESSAGE value="defined function input in 'func_input'" />
     <MESSAGE value="fixed &quot;limit&quot; za použití obechcávky" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed &quot;limit&quot; za použití obechcávky" />
+    <MESSAGE value="last update" />
+    <option name="LAST_COMMIT_MESSAGE" value="last update" />
   </component>
   <component name="WindowStateProjectService">
     <state x="1153" y="330" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1584536909928">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="1153" y="330" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1584536909928" />
-    <state x="614" y="112" key="CommitChangelistDialog2" timestamp="1585406891266">
+    <state x="614" y="112" key="CommitChangelistDialog2" timestamp="1585569317362">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="614" y="112" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1585406891266" />
-    <state x="740" y="276" key="FileChooserDialogImpl" timestamp="1585507213819">
+    <state x="614" y="112" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1585569317362" />
+    <state x="740" y="276" key="FileChooserDialogImpl" timestamp="1585569373477">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="740" y="276" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1585507213819" />
-    <state width="1899" height="271" key="GridCell.Tab.0.bottom" timestamp="1585504261448">
+    <state x="740" y="276" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1585569373477" />
+    <state width="1899" height="347" key="GridCell.Tab.0.bottom" timestamp="1585573809822">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="271" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1585504261448" />
-    <state width="1899" height="271" key="GridCell.Tab.0.center" timestamp="1585504261448">
+    <state width="1899" height="347" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1585573809822" />
+    <state width="1899" height="347" key="GridCell.Tab.0.center" timestamp="1585573809822">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="271" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1585504261448" />
-    <state width="1899" height="271" key="GridCell.Tab.0.left" timestamp="1585504261448">
+    <state width="1899" height="347" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1585573809822" />
+    <state width="1899" height="347" key="GridCell.Tab.0.left" timestamp="1585573809822">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="271" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1585504261448" />
-    <state width="1899" height="271" key="GridCell.Tab.0.right" timestamp="1585504261448">
+    <state width="1899" height="347" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1585573809822" />
+    <state width="1899" height="347" key="GridCell.Tab.0.right" timestamp="1585573809822">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="271" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1585504261448" />
-    <state width="1899" height="347" key="GridCell.Tab.1.bottom" timestamp="1585229752106">
+    <state width="1899" height="347" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1585573809822" />
+    <state width="1899" height="347" key="GridCell.Tab.1.bottom" timestamp="1585573809823">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="347" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1585229752106" />
-    <state width="1899" height="347" key="GridCell.Tab.1.center" timestamp="1585229752106">
+    <state width="1899" height="347" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1585573809823" />
+    <state width="1899" height="347" key="GridCell.Tab.1.center" timestamp="1585573809822">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="347" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1585229752106" />
-    <state width="1899" height="347" key="GridCell.Tab.1.left" timestamp="1585229752106">
+    <state width="1899" height="347" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1585573809822" />
+    <state width="1899" height="347" key="GridCell.Tab.1.left" timestamp="1585573809822">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="347" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1585229752106" />
-    <state width="1899" height="347" key="GridCell.Tab.1.right" timestamp="1585229752106">
+    <state width="1899" height="347" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1585573809822" />
+    <state width="1899" height="347" key="GridCell.Tab.1.right" timestamp="1585573809822">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="347" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1585229752106" />
+    <state width="1899" height="347" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1585573809822" />
     <state x="461" y="163" key="SettingsEditor" timestamp="1584536841824">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="461" y="163" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1584536841824" />
-    <state x="552" y="254" key="Vcs.Push.Dialog.v2" timestamp="1585406896549">
+    <state x="552" y="254" key="Vcs.Push.Dialog.v2" timestamp="1585569320091">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="552" y="254" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1585406896549" />
+    <state x="552" y="254" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1585569320091" />
     <state x="1074" y="362" key="com.intellij.ide.util.TipDialog" timestamp="1585501974045">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -302,5 +308,14 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1585077086971" />
+  </component>
+  <component name="XDebuggerManager">
+    <watches-manager>
+      <configuration name="PythonConfigurationType">
+        <watch expression="coordinates_all_list" language="Python" />
+        <watch expression="coordinates_scatter" language="Python" />
+        <watch expression="value" language="Python" />
+      </configuration>
+    </watches-manager>
   </component>
 </project>
