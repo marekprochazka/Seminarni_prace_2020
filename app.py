@@ -16,6 +16,7 @@ mp.use("TkAgg")
 st.use("ggplot")
 import numpy as np
 
+
 def fonts():
     return {"LARGE_FONT": ("Verdana", 12), "SMALL_FONT": ("Verdana", 9), "TINY_FONT": ('Roboto', 7)}
 
@@ -24,21 +25,27 @@ coordinates_scatter = []
 coordinates_plot = []
 coordinates_all_list = []
 
-#f = plt.figure(figsize=(4.5, 4.5), dpi=100)
+# f = plt.figure(figsize=(4.5, 4.5), dpi=100)
 f = Figure(figsize=(4.5, 4.5), dpi=100)
 a = f.add_subplot(111)
 a.axis("equal")
 a.set_aspect("equal")
 
-a.set_ylim(-20,20)
+a.set_ylim(-20, 20)
 
 
 def animate_graphs(i):
     a.clear()
     for coord in coordinates_scatter:
-        a.scatter(coord[0],coord[1])
+        a.scatter(coord[0], coord[1])
     for coord in coordinates_plot:
-        a.plot(coord[0], coord[1])
+        x = coord[0]
+        y = eval(coord[1])
+
+        for limit in range(len(y)):
+            if y[limit] > 30 or y[limit] < -30:
+                y[limit] = None
+        a.plot(x, y)
 
 
 class MarkoGebra(Tk):
@@ -48,7 +55,7 @@ class MarkoGebra(Tk):
         Tk.minsize(self, width=MAX_WIDTH, height=MAX_HEIGHT)
         Tk.maxsize(self, width=MAX_WIDTH, height=MAX_HEIGHT)
 
-        self.input_frames = (ScatterFrame,FuncFrame)
+        self.input_frames = (ScatterFrame, FuncFrame)
 
         self.SetupContainer = t.Frame(self, width=MAX_WIDTH * .4, height=MAX_HEIGHT)
 
@@ -56,7 +63,6 @@ class MarkoGebra(Tk):
 
         self.SetupContainer.grid_rowconfigure(0, weight=1)
         self.SetupContainer.grid_columnconfigure(0, weight=1)
-
 
         canvas = FigureCanvasTkAgg(f, self)
         canvas.draw()
@@ -86,7 +92,7 @@ class MarkoGebra(Tk):
         {{ relative input part }}
         """
 
-        # TODO scrollable table part WIP
+        # TODO scrollable table part
         self.Table_container = t.Frame(self)
         self.canvas = Canvas(self.Table_container)
         self.scrollbar = t.Scrollbar(self.Table_container, orient="vertical", command=self.canvas.yview)
@@ -98,11 +104,14 @@ class MarkoGebra(Tk):
         for i in range(5):
             Frame(self.scrollable_frame).pack()
 
-
         self.Table_container.place(bordermode=OUTSIDE, x=MAX_WIDTH * .01, y=MAX_HEIGHT * .6, width=MAX_WIDTH * .4,
                                    height=MAX_HEIGHT * .3)
         self.canvas.pack(side="left", fill="both", expand=True)
         self.scrollbar.pack(side="right", fill="y")
+
+        # open console button
+        self.console =  t.Button(self, text="Konzole", command=lambda: self.console_controller())
+        self.console.place(bordermode=OUTSIDE,x=MAX_WIDTH*.01,y=MAX_HEIGHT*.95,height=MAX_HEIGHT*.05,width=MAX_WIDTH*.4)
 
         # Frame-changing part 😉
 
@@ -110,8 +119,6 @@ class MarkoGebra(Tk):
 
         self._frame = None
         self.show_Setup_Frame(ScatterFrame)
-
-
 
     def show_Setup_Frame(self, cont):
 
@@ -122,29 +129,29 @@ class MarkoGebra(Tk):
         self._frame.pack()
 
     def add_point_scatter(self, x, y):
-        global coordinates_scatter,coordinates_all_list
-        if [x,y] not in coordinates_scatter:
-            coordinates_scatter.append([x,y])
-            coordinates_all_list.append((f"x:{x}/y:{y}",coordinates_scatter.index(coordinates_scatter[-1])))
+        global coordinates_scatter, coordinates_all_list
+        if [x, y] not in coordinates_scatter:
+            coordinates_scatter.append([x, y])
+            coordinates_all_list.append(f"{x}:{y}")
             self.update_table()
 
-
-    def add_plot_from_function(self,function):
-        global coordinates_plot,coordinates_all_list
-        x = np.arange(-20,20,0.0001)
-        y = eval(function)
-
-        for limit in range(len(y)):
-            if y[limit] > 30 or y[limit]<-30:
-                y[limit] = None
+    def add_plot_from_function(self, function):
+        global coordinates_plot, coordinates_all_list
+        x = np.arange(-20, 20, 0.0001)
+        y = function
 
 
-        #if [x,y] not in coordinates_plot:
-        coordinates_plot.append([x,y])
 
-        coordinates_all_list.append((f"f(x): {function}",coordinates_plot.index(coordinates_plot[-1])))
+        checnk = True
+        if len(coordinates_plot) >= 1:
+            for val in coordinates_plot:
+                if val[1] == y:
+                    checnk = False
+        if checnk:
+            coordinates_plot.append([x, y])
+            coordinates_all_list.append(f"f(x):{function}")
+
         self.update_table()
-
 
     def update_table(self):
         global coordinates_all_list
@@ -152,29 +159,43 @@ class MarkoGebra(Tk):
         for child in self.scrollable_frame.winfo_children():
             for child_of_child in child.winfo_children():
                 child_of_child.destroy()
+        counter = 0
+        for index, parent in enumerate(self.scrollable_frame.winfo_children()):
+            try:
+                t.Button(parent, text=f"{coordinates_all_list[index]}, {counter}",
+                         command=lambda: self.destroy_value(counter)).pack(side=LEFT)
+                counter += 1
+            except IndexError:
+                pass
 
-        for index,parent in enumerate(self.scrollable_frame.winfo_children()):
-            for indx_val,value in enumerate(coordinates_all_list):
-                if index==indx_val:
-                  t.Button(parent,text=f"try me {value}",command=lambda: self.destroy_value(value)).pack(side=LEFT)
+    def console_controller(self):
+        global coordinates_all_list,coordinates_scatter,coordinates_plot
+        top = Toplevel()
+        top.config(background="black")
+        top.wm_geometry("800x500")
+        top.maxsize(width=800,height=500)
+        top.minsize(width=800,height=500)
+        top.title("Konzole")
+        types = t.Entry(top)
+        types.place(bordermode=OUTSIDE,width=700,height=20,x=0,y=480)
+
+        #TODO Ošetřit uživatelský vstup
+        def delete_value(index):
+            try:
+                int(coordinates_all_list[index][0])
+                coordinates_scatter.remove(list(map(int, list(coordinates_all_list[index].split(":")))))
+                del coordinates_all_list[index]
+                self.update_table()
+            except ValueError:
+                for val in coordinates_plot:
+                    if val[1] == coordinates_all_list[index].split(":")[1]:
+                        coordinates_plot.remove(val)
+                        del coordinates_all_list[index]
+                        self.update_table()
 
 
-
-
-    def destroy_value(self,value):
-        global coordinates_all_list,coordinates_plot,coordinates_scatter
-        if value[0][0] == "x":
-            coordinates_scatter.remove(coordinates_scatter[value[1]])
-            coordinates_all_list.remove(value)
-        else:
-            coordinates_plot.pop(value[1])
-            coordinates_all_list.remove(value)
-
-        self.update_table()
-
-
-
-
+        test_but = t.Button(top,text="poof",command=lambda: delete_value(0))
+        test_but.pack()
 
 
 class ScatterFrame(Frame):
@@ -183,28 +204,26 @@ class ScatterFrame(Frame):
         self.controller = controller
 
         # labely
-        self.labelX= t.Label( text="X:", font=fonts()["SMALL_FONT"])
-        self.labelY = t.Label( text="Y:", font=fonts()["SMALL_FONT"])
+        self.labelX = t.Label(text="X:", font=fonts()["SMALL_FONT"])
+        self.labelY = t.Label(text="Y:", font=fonts()["SMALL_FONT"])
         self.labelX.place(bordermode=OUTSIDE, x=MAX_WIDTH * .01, y=MAX_HEIGHT * .3, height=MAX_HEIGHT * .05)
         self.labelY.place(bordermode=OUTSIDE, x=MAX_WIDTH * .16, y=MAX_HEIGHT * .3, height=MAX_HEIGHT * .05)
 
         # entryes
-        self.EntryX = t.Entry( justify="center")
+        self.EntryX = t.Entry(justify="center")
 
-        self.EntryY = t.Entry( justify="center")
-
+        self.EntryY = t.Entry(justify="center")
 
         self.EntryX.place(bordermode=OUTSIDE, x=MAX_WIDTH * .025, y=MAX_HEIGHT * .3,
                           width=MAX_WIDTH * .135, height=MAX_HEIGHT * .05)
         self.EntryY.place(bordermode=OUTSIDE, x=MAX_WIDTH * .175, y=MAX_HEIGHT * .3,
                           width=MAX_WIDTH * .135, height=MAX_HEIGHT * .05)
         # place button
-        self.placeButton = t.Button( text="Vložit",
-                                    command=lambda: controller.add_point_scatter(int(self.EntryX.get()), int(self.EntryY.get())))
+        self.placeButton = t.Button(text="Vložit",
+                                    command=lambda: controller.add_point_scatter(int(self.EntryX.get()),
+                                                                                 int(self.EntryY.get())))
         self.placeButton.place(bordermode=OUTSIDE, x=MAX_WIDTH * .31, y=MAX_HEIGHT * .3,
                                width=MAX_WIDTH * .1, height=MAX_HEIGHT * .05)
-
-
 
 
 class FuncFrame(Frame):
@@ -219,18 +238,17 @@ class FuncFrame(Frame):
         # entryes
         self.EntryFun = t.Entry(justify="center")
 
-
-
         self.EntryFun.place(bordermode=OUTSIDE, x=MAX_WIDTH * .035, y=MAX_HEIGHT * .3,
-                          width=MAX_WIDTH * .275, height=MAX_HEIGHT * .05)
+                            width=MAX_WIDTH * .275, height=MAX_HEIGHT * .05)
 
         # place button
-        self.placeButton = t.Button(text="Odložit",command = lambda:controller.add_plot_from_function(self.EntryFun.get()))
+        self.placeButton = t.Button(text="Odložit",
+                                    command=lambda: controller.add_plot_from_function(self.EntryFun.get()))
 
         self.placeButton.place(bordermode=OUTSIDE, x=MAX_WIDTH * .31, y=MAX_HEIGHT * .3,
                                width=MAX_WIDTH * .1, height=MAX_HEIGHT * .05)
 
 
 app = MarkoGebra()
-ani = anim.FuncAnimation(f, animate_graphs, interval=1000,blit=False)
+ani = anim.FuncAnimation(f, animate_graphs, interval=1000, blit=False)
 app.mainloop()
