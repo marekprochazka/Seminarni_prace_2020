@@ -13,7 +13,9 @@ MAX_WIDTH = 1200
 MAX_HEIGHT = 600
 
 mp.use("TkAgg")
-st.use("ggplot")
+st.use('ggplot')
+
+
 import numpy as np
 
 
@@ -29,6 +31,7 @@ coordinates_all_list = []
 f = Figure(figsize=(4.5, 4.5), dpi=100)
 a = f.add_subplot(111)
 a.axis("equal")
+
 a.set_aspect("equal")
 
 a.set_ylim(-20, 20)
@@ -45,7 +48,7 @@ def animate_graphs(i):
         for limit in range(len(y)):
             if y[limit] > 30 or y[limit] < -30:
                 y[limit] = None
-        a.plot(x, y)
+        a.plot(x, y,linestyle=coord[2])
 
 
 class MarkoGebra(Tk):
@@ -110,8 +113,9 @@ class MarkoGebra(Tk):
         self.scrollbar.pack(side="right", fill="y")
 
         # open console button
-        self.console =  t.Button(self, text="Konzole", command=lambda: self.console_controller())
-        self.console.place(bordermode=OUTSIDE,x=MAX_WIDTH*.01,y=MAX_HEIGHT*.95,height=MAX_HEIGHT*.05,width=MAX_WIDTH*.4)
+        self.console = t.Button(self, text="Konzole", command=lambda: self.console_controller())
+        self.console.place(bordermode=OUTSIDE, x=MAX_WIDTH * .01, y=MAX_HEIGHT * .95, height=MAX_HEIGHT * .05,
+                           width=MAX_WIDTH * .4)
 
         # Frame-changing part 😉
 
@@ -135,12 +139,11 @@ class MarkoGebra(Tk):
             coordinates_all_list.append(f"{x}:{y}")
             self.update_table()
 
+
     def add_plot_from_function(self, function):
         global coordinates_plot, coordinates_all_list
         x = np.arange(-20, 20, 0.0001)
         y = function
-
-
 
         checnk = True
         if len(coordinates_plot) >= 1:
@@ -148,7 +151,7 @@ class MarkoGebra(Tk):
                 if val[1] == y:
                     checnk = False
         if checnk:
-            coordinates_plot.append([x, y])
+            coordinates_plot.append([x, y,"dotted"])
             coordinates_all_list.append(f"f(x):{function}")
 
         self.update_table()
@@ -169,34 +172,113 @@ class MarkoGebra(Tk):
                 pass
 
     def console_controller(self):
-        global coordinates_all_list,coordinates_scatter,coordinates_plot
+        global coordinates_all_list, coordinates_scatter, coordinates_plot
         top = Toplevel()
         top.config(background="black")
         top.wm_geometry("800x500")
-        top.maxsize(width=800,height=500)
-        top.minsize(width=800,height=500)
+        top.maxsize(width=800, height=500)
+        top.minsize(width=800, height=500)
         top.title("Konzole")
         types = t.Entry(top)
-        types.place(bordermode=OUTSIDE,width=700,height=20,x=0,y=480)
+        types.place(bordermode=OUTSIDE, width=700, height=20, x=0, y=480)
+        types.focus()
+        send_command = t.Button(top, text="odeslat", command=lambda: self.command_entered(types, scrollable_Frame))
+        send_command.place(bordermode=OUTSIDE, width=100, height=20, x=700, y=480)
 
-        #TODO Ošetřit uživatelský vstup
-        def delete_value(index):
+        table_container = t.Frame(top)
+        canvas = Canvas(table_container)
+        canvas.configure(bg="black")
+        scrollbar = t.Scrollbar(table_container, orient="vertical", command=canvas.yview)
+        scrollable_Frame = Frame(canvas)
+        scrollable_Frame.configure(bg="black")
+        scrollable_Frame.bind("<Configure>", lambda e: canvas.configure(scrollregion=self.canvas.bbox("all")))
+        canvas.create_window((0, 0), window=scrollable_Frame, anchor="nw")
+        canvas.configure(yscrollcommand=scrollbar.set)
+        table_container.place(bordermode=OUTSIDE, x=0, y=0, width=800,
+                              height=480)
+        canvas.pack(side="left", fill="both", expand=True)
+        scrollbar.pack(side="right", fill="y")
+
+        top.bind("<Return>", lambda event: self.command_entered(types, scrollable_Frame))
+
+    def command_entered(self, entry, frame):
+        command = entry.get().split(" ")
+        if command[0] == "del":
             try:
-                int(coordinates_all_list[index][0])
-                coordinates_scatter.remove(list(map(int, list(coordinates_all_list[index].split(":")))))
-                del coordinates_all_list[index]
-                self.update_table()
+                if int(command[1]) <= len(coordinates_all_list):
+                    self.delete_value(int(command[1]))
+                    Label(frame, text=f"{' '.join(command)}", bg="black", fg="yellow", font=fonts()["SMALL_FONT"],
+                          anchor="w").pack(fill=BOTH)
+                    Label(frame, text=f"Souřadnice indexu {command[1]} odstraněna!", bg="black", fg="green",
+                          font=fonts()["SMALL_FONT"], anchor="w").pack(fill=BOTH)
+                    entry.delete(0, END)
+            except IndexError:
+                Label(frame, text="Neplatný index!", bg="black", fg="red", font=fonts()["SMALL_FONT"], anchor="w").pack(
+                    fill=BOTH)
+                entry.delete(0, END)
             except ValueError:
-                for val in coordinates_plot:
-                    if val[1] == coordinates_all_list[index].split(":")[1]:
-                        coordinates_plot.remove(val)
-                        del coordinates_all_list[index]
-                        self.update_table()
+                Label(frame, text="Neplatný index!", bg="black", fg="red", font=fonts()["SMALL_FONT"], anchor="w").pack(
+                    fill=BOTH)
+                entry.delete(0, END)
+
+        elif command == ["?"] or command == ["help"]:
+            Label(frame, text="Dostupné příkazy", bg="black", fg="green", font=fonts()["SMALL_FONT"], anchor="w").pack(
+                fill=BOTH)
+            Label(frame, text="del [index] - pro odstranění konkrétního vstupu", bg="black", fg="green",
+                  font=fonts()["SMALL_FONT"], anchor="w").pack(
+                fill=BOTH)
+
+        else:
+            Label(frame, text="Neplatný příkaz!", bg="black", fg="red", font=fonts()["SMALL_FONT"], anchor="w").pack(
+                fill=BOTH)
+            entry.delete(0, END)
+
+        """elif command[0] == "lntype":
+            try:
+                if int(command[1]) <= len(coordinates_all_list):
+                    self.changeLine(int(command[1]),command[2])
 
 
-        test_but = t.Button(top,text="poof",command=lambda: delete_value(0))
-        test_but.pack()
+            except IndexError:
+                Label(frame, text="Neplatný index!", bg="black", fg="red", font=fonts()["SMALL_FONT"], anchor="w").pack(
+                    fill=BOTH)
+                entry.delete(0, END)
+            except ValueError:
+                Label(frame, text="Neplatný index!", bg="black", fg="red", font=fonts()["SMALL_FONT"], anchor="w").pack(
+                    fill=BOTH)
+                entry.delete(0, END)"""
 
+
+
+
+
+    # TODO Ošetřit uživatelský vstup
+
+    def delete_value(self, index):
+        try:
+            int(coordinates_all_list[index][0])
+            coordinates_scatter.remove(list(map(int, list(coordinates_all_list[index].split(":")))))
+            del coordinates_all_list[index]
+            self.update_table()
+        except ValueError:
+            for val in coordinates_plot:
+                if val[1] == coordinates_all_list[index].split(":")[1]:
+                    coordinates_plot.remove(val)
+                    del coordinates_all_list[index]
+                    self.update_table()
+
+    """def changeLine(self,index,linetype):
+        try:
+            int(coordinates_all_list[index][0])
+            for index,val in enumerate(coordinates_scatter):
+                if val[0] == int(coordinates_all_list[index].split(":")[0]):
+                    coordinates_scatter[index][2] = linetype
+            self.update_table()
+        except ValueError:
+            for val in coordinates_plot:
+                if val[1] == coordinates_all_list[index].split(":")[1]:
+                    pass
+                    self.update_table()"""
 
 class ScatterFrame(Frame):
     def __init__(self, parent, controller):
