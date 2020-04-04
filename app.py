@@ -15,7 +15,6 @@ MAX_HEIGHT = 600
 mp.use("TkAgg")
 st.use('ggplot')
 
-
 import numpy as np
 
 
@@ -40,7 +39,7 @@ a.set_ylim(-20, 20)
 def animate_graphs(i):
     a.clear()
     for coord in coordinates_scatter:
-        a.scatter(coord[0], coord[1])
+        a.scatter(coord[0], coord[1], marker=coord[2])
     for coord in coordinates_plot:
         x = coord[0]
         y = eval(coord[1])
@@ -48,7 +47,7 @@ def animate_graphs(i):
         for limit in range(len(y)):
             if y[limit] > 30 or y[limit] < -30:
                 y[limit] = None
-        a.plot(x, y,linestyle=coord[2])
+        a.plot(x, y, linestyle=coord[2])
 
 
 class MarkoGebra(Tk):
@@ -135,10 +134,9 @@ class MarkoGebra(Tk):
     def add_point_scatter(self, x, y):
         global coordinates_scatter, coordinates_all_list
         if [x, y] not in coordinates_scatter:
-            coordinates_scatter.append([x, y])
+            coordinates_scatter.append([x, y, "v"])
             coordinates_all_list.append(f"{x}:{y}")
             self.update_table()
-
 
     def add_plot_from_function(self, function):
         global coordinates_plot, coordinates_all_list
@@ -151,7 +149,7 @@ class MarkoGebra(Tk):
                 if val[1] == y:
                     checnk = False
         if checnk:
-            coordinates_plot.append([x, y,"dotted"])
+            coordinates_plot.append([x, y, "dotted"])
             coordinates_all_list.append(f"f(x):{function}")
 
         self.update_table()
@@ -221,23 +219,15 @@ class MarkoGebra(Tk):
                     fill=BOTH)
                 entry.delete(0, END)
 
-        elif command == ["?"] or command == ["help"]:
-            Label(frame, text="Dostupné příkazy", bg="black", fg="green", font=fonts()["SMALL_FONT"], anchor="w").pack(
-                fill=BOTH)
-            Label(frame, text="del [index] - pro odstranění konkrétního vstupu", bg="black", fg="green",
-                  font=fonts()["SMALL_FONT"], anchor="w").pack(
-                fill=BOTH)
-
-        else:
-            Label(frame, text="Neplatný příkaz!", bg="black", fg="red", font=fonts()["SMALL_FONT"], anchor="w").pack(
-                fill=BOTH)
-            entry.delete(0, END)
-
-        """elif command[0] == "lntype":
+        elif command[0] == "mktype":
             try:
                 if int(command[1]) <= len(coordinates_all_list):
-                    self.changeLine(int(command[1]),command[2])
-
+                    self.changeLine(int(command[1]), command[2])
+                    Label(frame, text=f"{' '.join(command)}", bg="black", fg="yellow", font=fonts()["SMALL_FONT"],
+                          anchor="w").pack(fill=BOTH)
+                    Label(frame, text=f"Značkování indexu {command[1]} upraveno!", bg="black", fg="green",
+                          font=fonts()["SMALL_FONT"], anchor="w").pack(fill=BOTH)
+                    entry.delete(0, END)
 
             except IndexError:
                 Label(frame, text="Neplatný index!", bg="black", fg="red", font=fonts()["SMALL_FONT"], anchor="w").pack(
@@ -246,18 +236,54 @@ class MarkoGebra(Tk):
             except ValueError:
                 Label(frame, text="Neplatný index!", bg="black", fg="red", font=fonts()["SMALL_FONT"], anchor="w").pack(
                     fill=BOTH)
-                entry.delete(0, END)"""
+                entry.delete(0, END)
+        elif command == ["markers"]:
+            Label(frame, text="Dostupné značky: ", bg="black", fg="green", font=fonts()["SMALL_FONT"], anchor="w").pack(
+                fill=BOTH)
+            Label(frame, text="Body: ", bg="black", fg="green", font=fonts()["SMALL_FONT"], anchor="w").pack(
+                fill=BOTH)
+            Label(frame, text="Funkce: '-', '--', '-.', ':', 'None', ' ', '', 'solid', 'dashed', 'dashdot', 'dotted' ", bg="black", fg="green", font=fonts()["SMALL_FONT"], anchor="w").pack(
+                fill=BOTH)
+
+        elif command == ["clear"]:
+            for child in frame.winfo_children():
+                child.destroy()
+
+
+        elif command == ["?"] or command == ["help"]:
+            Label(frame, text="Dostupné příkazy", bg="black", fg="green", font=fonts()["SMALL_FONT"], anchor="w").pack(
+                fill=BOTH)
+            Label(frame, text="del [index] - pro odstranění konkrétního vstupu", bg="black", fg="green",
+                  font=fonts()["SMALL_FONT"], anchor="w").pack(
+                fill=BOTH)
+            Label(frame, text="mktype [index] - pro změnu značkování vstupu", bg="black", fg="green",
+                  font=fonts()["SMALL_FONT"], anchor="w").pack(
+                fill=BOTH)
+            Label(frame, text="markers - pro vypsání značek", bg="black", fg="green",
+                  font=fonts()["SMALL_FONT"], anchor="w").pack(
+                fill=BOTH)
+            Label(frame, text="clear - pro vyčištění konzole", bg="black", fg="green",
+                  font=fonts()["SMALL_FONT"], anchor="w").pack(
+                fill=BOTH)
 
 
 
 
+
+        else:
+            Label(frame, text="Neplatný příkaz!", bg="black", fg="red", font=fonts()["SMALL_FONT"], anchor="w").pack(
+                fill=BOTH)
+            entry.delete(0, END)
 
     # TODO Ošetřit uživatelský vstup
 
     def delete_value(self, index):
         try:
             int(coordinates_all_list[index][0])
-            coordinates_scatter.remove(list(map(int, list(coordinates_all_list[index].split(":")))))
+            for coord in coordinates_scatter:
+                pep = list(map(int, list(coordinates_all_list[index].split(":"))))
+                if coord[0:2] == pep:
+                    coordinates_scatter.remove(coord)
             del coordinates_all_list[index]
             self.update_table()
         except ValueError:
@@ -267,18 +293,20 @@ class MarkoGebra(Tk):
                     del coordinates_all_list[index]
                     self.update_table()
 
-    """def changeLine(self,index,linetype):
+    def changeLine(self, index, linetype:str):
+        linetype = linetype.replace("-"," ")
         try:
             int(coordinates_all_list[index][0])
-            for index,val in enumerate(coordinates_scatter):
+            for index, val in enumerate(coordinates_scatter):
                 if val[0] == int(coordinates_all_list[index].split(":")[0]):
                     coordinates_scatter[index][2] = linetype
             self.update_table()
         except ValueError:
-            for val in coordinates_plot:
+            for indx,val in enumerate(coordinates_plot):
                 if val[1] == coordinates_all_list[index].split(":")[1]:
-                    pass
-                    self.update_table()"""
+                    coordinates_plot[index][2] = linetype
+                    self.update_table()
+
 
 class ScatterFrame(Frame):
     def __init__(self, parent, controller):
