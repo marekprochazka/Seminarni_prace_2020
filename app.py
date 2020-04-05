@@ -13,47 +13,59 @@ import matplotlib.pyplot as plt
 MAX_WIDTH = 1200
 MAX_HEIGHT = 600
 
-POINT_MARKERS = ['.',',','o','v','^','<','>','1','2','3','4','8','s','p','P','*','h','H','+','x','X','D','d','|','_']
-EXTRA_POINT_MARKERS = ['0 (TICKLEFT)','1 (TICKRIGHT)','2 (TICKUP)','3 (TICKDOWN)','4 (CARETLEFT)',
-                 '5 (CARETRIGHT)','6 (CARETUP)','7 (CARETDOWN)','8 (CARETLEFTBASE)','9 (CARETRIGHTBASE)','10 (CARETUPBASE)','11 (CARETDOWNBASE)','None','$TEXT$']
+POINT_MARKERS = ['.', ',', 'o', 'v', '^', '<', '>', '1', '2', '3', '4', '8', 's', 'p', 'P', '*', 'h', 'H', '+', 'x',
+                 'X', 'D', 'd', '|', '_']
+EXTRA_POINT_MARKERS = ['0 (TICKLEFT)', '1 (TICKRIGHT)', '2 (TICKUP)', '3 (TICKDOWN)', '4 (CARETLEFT)',
+                       '5 (CARETRIGHT)', '6 (CARETUP)', '7 (CARETDOWN)', '8 (CARETLEFTBASE)', '9 (CARETRIGHTBASE)',
+                       '10 (CARETUPBASE)', '11 (CARETDOWNBASE)', 'None', '$TEXT$']
 LINE_MARKERS = ['-', '--', '-.', ':', 'None', ' ', '', 'solid', 'dashed', 'dashdot', 'dotted']
 
+AVALIBLE_STYLES = ['Solarize_Light2', '_classic_test_patch', 'bmh', 'classic', 'dark_background', 'fast', 'fivethirtyeight', 'ggplot', 'grayscale', 'seaborn', 'seaborn-bright', 'seaborn-colorblind', 'seaborn-dark', 'seaborn-dark-palette', 'seaborn-darkgrid', 'seaborn-deep', 'seaborn-muted', 'seaborn-notebook', 'seaborn-paper', 'seaborn-pastel', 'seaborn-poster', 'seaborn-talk', 'seaborn-ticks', 'seaborn-white', 'seaborn-whitegrid', 'tableau-colorblind10']
+
+
 mp.use("TkAgg")
-st.use('ggplot')
+print(len(st.available))
+with open("graphstyle.txt", "r") as style:
+    st.use(style)
+
+# st.use('ggplot')
 
 import numpy as np
 
 
 def fonts():
-    return {"LARGE_FONT": ("Verdana", 12), "SMALL_FONT": ("Verdana", 9), "TINY_FONT": ('Roboto', 7)}
+    return {"LARGE_FONT": ("Verdana", 12), "SMALL_FONT": ("Verdana", 9), "TINY_FONT": ('Roboto', 7),
+            "ITALIC_SMALL":("Verdana", 9,"italic")}
 
 
 coordinates_scatter = []
 coordinates_plot = []
 coordinates_all_list = []
 
-# f = plt.figure(figsize=(4.5, 4.5), dpi=100)
+#f = plt.figure(figsize=(4.5, 4.5), dpi=100)
 f = Figure(figsize=(4.5, 4.5), dpi=100)
 a = f.add_subplot(111)
 a.axis("equal")
 
 a.set_aspect("equal")
 
-a.set_ylim(-20, 20)
+a.set_ylim(-10, 10)
 
+lim1 = 30
+lim2 = -30
 
 def animate_graphs(i):
     a.clear()
     for coord in coordinates_scatter:
-        a.scatter(coord[0], coord[1], marker=coord[2],color=coord[3],linewidths=float(coord[4]))
+        a.scatter(coord[0], coord[1], marker=coord[2], color=coord[3], linewidths=float(coord[4]))
     for coord in coordinates_plot:
         x = coord[0]
         y = eval(coord[1])
 
         for limit in range(len(y)):
-            if y[limit] > 30 or y[limit] < -30:
+            if y[limit] > lim1 or y[limit] < lim2:
                 y[limit] = None
-        a.plot(x, y, linestyle=coord[2],color=coord[3],linewidth=float(coord[4]))
+        a.plot(x, y, linestyle=coord[2], color=coord[3], linewidth=float(coord[4]))
 
 
 class MarkoGebra(Tk):
@@ -122,10 +134,6 @@ class MarkoGebra(Tk):
         self.console.place(bordermode=OUTSIDE, x=MAX_WIDTH * .01, y=MAX_HEIGHT * .95, height=MAX_HEIGHT * .05,
                            width=MAX_WIDTH * .4)
 
-
-
-
-
         # Frame-changing part 😉
 
         self.SetupFrames = {}
@@ -141,17 +149,24 @@ class MarkoGebra(Tk):
         self._frame = new_frame
         self._frame.pack()
 
-
     def add_point_scatter(self, x, y):
-        global coordinates_scatter, coordinates_all_list
+        global coordinates_scatter, coordinates_all_list,lim1,lim2
+        if x > lim1:
+            lim1 = x
+        if x < lim2:
+            lim2 = x
+        if y > lim1:
+            lim1 = y
+        if y < lim2:
+            lim2 = y
         if [x, y] not in coordinates_scatter:
-            coordinates_scatter.append([x, y, "v","blue","1"])
+            coordinates_scatter.append([x, y, "v", "blue", "1"])
             coordinates_all_list.append(f"{x}:{y}")
             self.update_table()
 
     def add_plot_from_function(self, function):
         global coordinates_plot, coordinates_all_list
-        x = np.arange(-20, 20, 0.0001)
+        x = np.arange(lim2, lim1, 0.0001)
         y = function
 
         checnk = True
@@ -160,7 +175,7 @@ class MarkoGebra(Tk):
                 if val[1] == y:
                     checnk = False
         if checnk:
-            coordinates_plot.append([x, y, "dotted","blue","1"])
+            coordinates_plot.append([x, y, "dotted", "blue", "1",function])
             coordinates_all_list.append(f"f(x):{function}")
 
         self.update_table()
@@ -241,9 +256,9 @@ class MarkoGebra(Tk):
                 if int(command[1]) <= len(coordinates_all_list):
                     self.changeColor(int(command[1]))
                     Label(frame, text=f"{' '.join(command)}", bg="black", fg="yellow", font=fonts()["SMALL_FONT"],
-                            anchor="w").pack(fill=BOTH)
+                          anchor="w").pack(fill=BOTH)
                     Label(frame, text=f"Barva indexu {command[1]} změněna!", bg="black", fg="green",
-                            font=fonts()["SMALL_FONT"], anchor="w").pack(fill=BOTH)
+                          font=fonts()["SMALL_FONT"], anchor="w").pack(fill=BOTH)
 
                     entry.delete(0, END)
                 else:
@@ -265,11 +280,11 @@ class MarkoGebra(Tk):
         elif command[0] == "size":
             try:
                 if int(command[1]) <= len(coordinates_all_list):
-                    self.changeSize(int(command[1]),command[2])
+                    self.changeSize(int(command[1]), command[2])
                     Label(frame, text=f"{' '.join(command)}", bg="black", fg="yellow", font=fonts()["SMALL_FONT"],
-                            anchor="w").pack(fill=BOTH)
+                          anchor="w").pack(fill=BOTH)
                     Label(frame, text=f"Tloušťka indexu {command[1]} změněna!", bg="black", fg="green",
-                            font=fonts()["SMALL_FONT"], anchor="w").pack(fill=BOTH)
+                          font=fonts()["SMALL_FONT"], anchor="w").pack(fill=BOTH)
 
                     entry.delete(0, END)
                 else:
@@ -310,21 +325,62 @@ class MarkoGebra(Tk):
                     fill=BOTH)
                 entry.delete(0, END)
             except SyntaxError:
-                Label(frame, text="Neplatná značka!", bg="black", fg="red", font=fonts()["SMALL_FONT"], anchor="w").pack(
+                Label(frame, text="Neplatná značka!", bg="black", fg="red", font=fonts()["SMALL_FONT"],
+                      anchor="w").pack(
                     fill=BOTH)
-                Label(frame, text="Použij 'markers' pro zobrazení dostupných značek", bg="black", fg="red", font=fonts()["SMALL_FONT"],
+                Label(frame, text="Použij 'markers' pro zobrazení dostupných značek", bg="black", fg="red",
+                      font=fonts()["SMALL_FONT"],
                       anchor="w").pack(
                     fill=BOTH)
                 entry.delete(0, END)
 
+        elif command[0] == "GPstyle":
+            try:
+                self.changeGraphStyle(command[1])
+                Label(frame, text=f"{' '.join(command)}", bg="black", fg="yellow", font=fonts()["SMALL_FONT"],
+                      anchor="w").pack(fill=BOTH)
+                Label(frame, text=f"Styl grafu úspěšně změněn na {command[1]}!", bg="black", fg="green",
+                      font=fonts()["SMALL_FONT"], anchor="w").pack(fill=BOTH)
+                Label(frame, text=f"Změny na grafu se projeví po restartu aplikace", bg="black", fg="aqua",
+                      font=fonts()["ITALIC_SMALL"], anchor="w").pack(fill=BOTH)
+                entry.delete(0, END)
+            except SyntaxError:
+                Label(frame, text="Neplatný styl!", bg="black", fg="red", font=fonts()["SMALL_FONT"],
+                     anchor="w").pack(
+                    fill=BOTH)
+                Label(frame, text="Použij 'ShowMeStyles' pro zobrazení dostupných stylů", bg="black", fg="aqua",
+                      font=fonts()["ITALIC_SMALL"],
+                      anchor="w").pack(
+                    fill=BOTH)
+                entry.delete(0, END)
 
+        elif command==["ShowMeStyles"]:
+            Label(frame, text=f"{', '.join(AVALIBLE_STYLES[0:10])},", bg="black", fg="green",
+                  font=fonts()["SMALL_FONT"],
+                  anchor="w").pack(
+                fill=BOTH)
+            Label(frame, text=f"{', '.join(AVALIBLE_STYLES[10:16])},", bg="black", fg="green",
+                  font=fonts()["SMALL_FONT"],
+                  anchor="w").pack(
+                fill=BOTH)
+            Label(frame, text=f"{', '.join(AVALIBLE_STYLES[16:23])},", bg="black", fg="green",
+                  font=fonts()["SMALL_FONT"],
+                  anchor="w").pack(
+                fill=BOTH)
+            Label(frame, text=f"{', '.join(AVALIBLE_STYLES[23:27])}", bg="black", fg="green",
+                  font=fonts()["SMALL_FONT"],
+                  anchor="w").pack(
+                fill=BOTH)
+            entry.delete(0, END)
 
         elif command == ["markers"]:
             Label(frame, text="Dostupné značky: ", bg="black", fg="green", font=fonts()["SMALL_FONT"], anchor="w").pack(
                 fill=BOTH)
-            Label(frame, text=f"Body: {'; '.join(POINT_MARKERS)}", bg="black", fg="green", font=fonts()["SMALL_FONT"], anchor="w").pack(
+            Label(frame, text=f"Body: {'; '.join(POINT_MARKERS)}", bg="black", fg="green", font=fonts()["SMALL_FONT"],
+                  anchor="w").pack(
                 fill=BOTH)
-            Label(frame, text=f"Body Extra: {'; '.join(EXTRA_POINT_MARKERS[0:7])},", bg="black", fg="green", font=fonts()["SMALL_FONT"],
+            Label(frame, text=f"Body Extra: {'; '.join(EXTRA_POINT_MARKERS[0:7])},", bg="black", fg="green",
+                  font=fonts()["SMALL_FONT"],
                   anchor="w").pack(
                 fill=BOTH)
             Label(frame, text=f"{'; '.join(EXTRA_POINT_MARKERS[7:13])};", bg="black", fg="green",
@@ -335,7 +391,8 @@ class MarkoGebra(Tk):
                   font=fonts()["SMALL_FONT"],
                   anchor="w").pack(
                 fill=BOTH)
-            Label(frame, text=f"Funkce: {'; '.join(LINE_MARKERS)} ", bg="black", fg="green", font=fonts()["SMALL_FONT"], anchor="w").pack(
+            Label(frame, text=f"Funkce: {'; '.join(LINE_MARKERS)} ", bg="black", fg="green", font=fonts()["SMALL_FONT"],
+                  anchor="w").pack(
                 fill=BOTH)
             entry.delete(0, END)
 
@@ -353,7 +410,7 @@ class MarkoGebra(Tk):
             Label(frame, text="del [index] - pro odstranění konkrétního vstupu", bg="black", fg="green",
                   font=fonts()["SMALL_FONT"], anchor="w").pack(
                 fill=BOTH)
-            Label(frame, text="mktype [index] - pro změnu značkování vstupu", bg="black", fg="green",
+            Label(frame, text="mktype [index] [marker] - pro změnu značkování vstupu", bg="black", fg="green",
                   font=fonts()["SMALL_FONT"], anchor="w").pack(
                 fill=BOTH)
             Label(frame, text="markers - pro vypsání značek", bg="black", fg="green",
@@ -362,6 +419,13 @@ class MarkoGebra(Tk):
             Label(frame, text="clear - pro vyčištění konzole", bg="black", fg="green",
                   font=fonts()["SMALL_FONT"], anchor="w").pack(
                 fill=BOTH)
+            Label(frame, text="col [index] - pro změnu barvy indexu", bg="black", fg="green",
+                  font=fonts()["SMALL_FONT"], anchor="w").pack(
+                fill=BOTH)
+            Label(frame, text="size [index] [size] - pro vyčištění konzole", bg="black", fg="green",
+                  font=fonts()["SMALL_FONT"], anchor="w").pack(
+                fill=BOTH)
+
             entry.delete(0, END)
 
 
@@ -372,8 +436,6 @@ class MarkoGebra(Tk):
             Label(frame, text="Neplatný příkaz!", bg="black", fg="red", font=fonts()["SMALL_FONT"], anchor="w").pack(
                 fill=BOTH)
             entry.delete(0, END)
-
-    # TODO Ošetřit uživatelský vstup
 
     def delete_value(self, index):
         try:
@@ -390,18 +452,19 @@ class MarkoGebra(Tk):
                     coordinates_plot.remove(val)
                     del coordinates_all_list[index]
                     self.update_table()
-
-    def changeLine(self, index, linetype:str):
-        if (linetype in LINE_MARKERS+EXTRA_POINT_MARKERS+POINT_MARKERS) or ((linetype[0] and linetype[-1]) == "$"):
+    #TODO prohodit try a if
+    def changeLine(self, index, linetype: str):
+        if (linetype in LINE_MARKERS + EXTRA_POINT_MARKERS + POINT_MARKERS) or ((linetype[0] and linetype[-1]) == "$"):
             try:
                 int(coordinates_all_list[index][0])
                 for indx, val in enumerate(coordinates_scatter):
-                    if val[0] == int(coordinates_all_list[index].split(":")[0]) and val[1] == int(coordinates_all_list[index].split(":")[1]):
+                    if val[0] == int(coordinates_all_list[index].split(":")[0]) and val[1] == int(
+                            coordinates_all_list[index].split(":")[1]):
                         coordinates_scatter[indx][2] = linetype
                 self.update_table()
             except ValueError:
 
-                for indx,val in enumerate(coordinates_plot):
+                for indx, val in enumerate(coordinates_plot):
                     if val[1] == coordinates_all_list[index].split(":")[1]:
                         coordinates_plot[indx][2] = linetype
                         self.update_table()
@@ -409,13 +472,14 @@ class MarkoGebra(Tk):
 
         else:
             raise SyntaxError
-    def changeColor(self,index):
+
+    def changeColor(self, index):
         try:
             int(coordinates_all_list[index][0])
             for indx, val in enumerate(coordinates_scatter):
-                if val[0] == int(coordinates_all_list[index].split(":")[0]) and val[1] == int(coordinates_all_list[index].split(":")[1]):
+                if val[0] == int(coordinates_all_list[index].split(":")[0]) and val[1] == int(
+                        coordinates_all_list[index].split(":")[1]):
                     color = col.askcolor()
-
                     coordinates_scatter[indx][3] = color[1]
             self.update_table()
         except ValueError:
@@ -426,11 +490,12 @@ class MarkoGebra(Tk):
                     coordinates_plot[indx][3] = color[1]
                     self.update_table()
 
-    def changeSize(self,index,size):
+    def changeSize(self, index, size):
         try:
             int(coordinates_all_list[index][0])
             for indx, val in enumerate(coordinates_scatter):
-                if val[0] == int(coordinates_all_list[index].split(":")[0]) and val[1] == int(coordinates_all_list[index].split(":")[1]):
+                if val[0] == int(coordinates_all_list[index].split(":")[0]) and val[1] == int(
+                        coordinates_all_list[index].split(":")[1]):
                     coordinates_scatter[indx][4] = size
             self.update_table()
         except ValueError:
@@ -439,28 +504,36 @@ class MarkoGebra(Tk):
                     coordinates_plot[indx][4] = size
                     self.update_table()
 
+    def changeGraphStyle(self, style):
+        if style in AVALIBLE_STYLES:
+            with open("graphstyle.txt","w") as stl:
+                stl.truncate()
+            with open("graphstyle.txt", "w") as stl:
+                stl.write(style)
+        else:
+            raise SyntaxError
 class ScatterFrame(Frame):
     def __init__(self, parent, controller):
         Frame.__init__(self, parent)
         self.controller = controller
 
         # labely
-        self.labelX = t.Label(text="X:", font=fonts()["SMALL_FONT"])
-        self.labelY = t.Label(text="Y:", font=fonts()["SMALL_FONT"])
+        self.labelX = t.Label(parent, text="X:", font=fonts()["SMALL_FONT"])
+        self.labelY = t.Label(parent, text="Y:", font=fonts()["SMALL_FONT"])
         self.labelX.place(bordermode=OUTSIDE, x=MAX_WIDTH * .01, y=MAX_HEIGHT * .3, height=MAX_HEIGHT * .05)
         self.labelY.place(bordermode=OUTSIDE, x=MAX_WIDTH * .16, y=MAX_HEIGHT * .3, height=MAX_HEIGHT * .05)
 
         # entryes
-        self.EntryX = t.Entry(justify="center")
+        self.EntryX = t.Entry(parent, justify="center")
 
-        self.EntryY = t.Entry(justify="center")
+        self.EntryY = t.Entry(parent, justify="center")
 
         self.EntryX.place(bordermode=OUTSIDE, x=MAX_WIDTH * .025, y=MAX_HEIGHT * .3,
                           width=MAX_WIDTH * .135, height=MAX_HEIGHT * .05)
         self.EntryY.place(bordermode=OUTSIDE, x=MAX_WIDTH * .175, y=MAX_HEIGHT * .3,
                           width=MAX_WIDTH * .135, height=MAX_HEIGHT * .05)
         # place button
-        self.placeButton = t.Button(text="Vložit",
+        self.placeButton = t.Button(parent, text="Vložit",
                                     command=lambda: controller.add_point_scatter(int(self.EntryX.get()),
                                                                                  int(self.EntryY.get())))
         self.placeButton.place(bordermode=OUTSIDE, x=MAX_WIDTH * .31, y=MAX_HEIGHT * .3,
@@ -473,17 +546,17 @@ class FuncFrame(Frame):
         self.controller = controller
 
         # labely
-        self.labelFun = t.Label(text="f(x):", font=fonts()["SMALL_FONT"])
+        self.labelFun = t.Label(parent, text="f(x):", font=fonts()["SMALL_FONT"])
         self.labelFun.place(bordermode=OUTSIDE, x=MAX_WIDTH * .01, y=MAX_HEIGHT * .3, height=MAX_HEIGHT * .05)
 
         # entryes
-        self.EntryFun = t.Entry(justify="center")
+        self.EntryFun = t.Entry(parent, justify="center")
 
         self.EntryFun.place(bordermode=OUTSIDE, x=MAX_WIDTH * .035, y=MAX_HEIGHT * .3,
                             width=MAX_WIDTH * .275, height=MAX_HEIGHT * .05)
 
         # place button
-        self.placeButton = t.Button(text="Odložit",
+        self.placeButton = t.Button(parent, text="Odložit",
                                     command=lambda: controller.add_plot_from_function(self.EntryFun.get()))
 
         self.placeButton.place(bordermode=OUTSIDE, x=MAX_WIDTH * .31, y=MAX_HEIGHT * .3,
