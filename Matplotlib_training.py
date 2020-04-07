@@ -56,7 +56,7 @@ plt.show()"""
 
 # pie
 
-slices = [7, 2, 2, 13]
+"""slices = [7, 2, 2, 13]
 
 activities = ["sleeping", "eating", "working", "playing"]
 cols = ["b","r","pink","c"]
@@ -71,7 +71,7 @@ plt.title("zajímavej graf\nČekni to")
 plt.show()
 
 # loading from files
-# v1
+# v1"""
 """x=[]
 y=[]
 import csv
@@ -167,3 +167,15 @@ plt.legend()
 plt.subplots_adjust(left=0.09, bottom=0.16, right=0.94, top=0.9, wspace=0.2,
                     hspace=0)  # ""space je jako padding subplotů
 plt.show()"""
+slices = [7, 2, 2, 13]
+cols = ["b","r","pink","c"]
+activities = ["sleeping", "eating", "working", "playing"]
+
+
+f = plt.figure()
+a = plt.subplot2grid((1,1),(0,0))
+a.pie(slices,labels=activities,colors=cols)
+a.plot([1,2,3,4,5,6],[6,5,4,3,2,1])
+
+
+plt.show()

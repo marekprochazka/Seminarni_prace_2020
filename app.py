@@ -20,8 +20,20 @@ EXTRA_POINT_MARKERS = ['0 (TICKLEFT)', '1 (TICKRIGHT)', '2 (TICKUP)', '3 (TICKDO
                        '10 (CARETUPBASE)', '11 (CARETDOWNBASE)', 'None', '$TEXT$']
 LINE_MARKERS = ['-', '--', '-.', ':', 'None', ' ', '', 'solid', 'dashed', 'dashdot', 'dotted']
 
-AVALIBLE_STYLES = ['Solarize_Light2', '_classic_test_patch', 'bmh', 'classic', 'dark_background', 'fast', 'fivethirtyeight', 'ggplot', 'grayscale', 'seaborn', 'seaborn-bright', 'seaborn-colorblind', 'seaborn-dark', 'seaborn-dark-palette', 'seaborn-darkgrid', 'seaborn-deep', 'seaborn-muted', 'seaborn-notebook', 'seaborn-paper', 'seaborn-pastel', 'seaborn-poster', 'seaborn-talk', 'seaborn-ticks', 'seaborn-white', 'seaborn-whitegrid', 'tableau-colorblind10']
+AVALIBLE_STYLES = ['Solarize_Light2', '_classic_test_patch', 'bmh', 'classic', 'dark_background', 'fast',
+                   'fivethirtyeight', 'ggplot', 'grayscale', 'seaborn', 'seaborn-bright', 'seaborn-colorblind',
+                   'seaborn-dark', 'seaborn-dark-palette', 'seaborn-darkgrid', 'seaborn-deep', 'seaborn-muted',
+                   'seaborn-notebook', 'seaborn-paper', 'seaborn-pastel', 'seaborn-poster', 'seaborn-talk',
+                   'seaborn-ticks', 'seaborn-white', 'seaborn-whitegrid', 'tableau-colorblind10']
 
+GRAPHING_METHOD = {
+    "matematical": 1,
+    "pie": 2,
+    "bar": 3,
+    "noise": 4
+}
+
+TO_ANIMATE = GRAPHING_METHOD["matematical"]
 
 mp.use("TkAgg")
 print(len(st.available))
@@ -35,14 +47,18 @@ import numpy as np
 
 def fonts():
     return {"LARGE_FONT": ("Verdana", 12), "SMALL_FONT": ("Verdana", 9), "TINY_FONT": ('Roboto', 7),
-            "ITALIC_SMALL":("Verdana", 9,"italic")}
+            "ITALIC_SMALL": ("Verdana", 9, "italic")}
 
 
 coordinates_scatter = []
 coordinates_plot = []
 coordinates_all_list = []
 
-#f = plt.figure(figsize=(4.5, 4.5), dpi=100)
+slices = [3,2,12]
+cols = ["r","b","pink"]
+activities = ["sleep","eat","coding"]
+
+# f = plt.figure(figsize=(4.5, 4.5), dpi=100)
 f = Figure(figsize=(4.5, 4.5), dpi=100)
 a = f.add_subplot(111)
 a.axis("equal")
@@ -54,18 +70,32 @@ a.set_ylim(-10, 10)
 lim1 = 30
 lim2 = -30
 
-def animate_graphs(i):
-    a.clear()
-    for coord in coordinates_scatter:
-        a.scatter(coord[0], coord[1], marker=coord[2], color=coord[3], linewidths=float(coord[4]))
-    for coord in coordinates_plot:
-        x = coord[0]
-        y = eval(coord[1])
 
-        for limit in range(len(y)):
-            if y[limit] > lim1 or y[limit] < lim2:
-                y[limit] = None
-        a.plot(x, y, linestyle=coord[2], color=coord[3], linewidth=float(coord[4]))
+
+
+class GraphAnimation:
+    def Go(self,i):
+        if TO_ANIMATE == 1:
+            self.animate_graphs()
+        elif TO_ANIMATE ==2:
+            self.animate_pie()
+
+    def animate_graphs(i):
+        a.clear()
+        for coord in coordinates_scatter:
+            a.scatter(coord[0], coord[1], marker=coord[2], color=coord[3], linewidths=float(coord[4]))
+        for coord in coordinates_plot:
+            x = coord[0]
+            y = eval(coord[1])
+
+            for limit in range(len(y)):
+                if y[limit] > lim1 or y[limit] < lim2:
+                    y[limit] = None
+            a.plot(x, y, linestyle=coord[2], color=coord[3], linewidth=float(coord[4]))
+
+    def animate_pie(i):
+        a.clear()
+        a.pie(slices, labels=activities, colors=cols)
 
 
 class MarkoGebra(Tk):
@@ -75,7 +105,7 @@ class MarkoGebra(Tk):
         Tk.minsize(self, width=MAX_WIDTH, height=MAX_HEIGHT)
         Tk.maxsize(self, width=MAX_WIDTH, height=MAX_HEIGHT)
 
-        self.input_frames = (ScatterFrame, FuncFrame)
+        self.input_frames = (Mathematical, Pie, Bar, Noise)
 
         self.SetupContainer = t.Frame(self, width=MAX_WIDTH * .4, height=MAX_HEIGHT)
 
@@ -88,25 +118,14 @@ class MarkoGebra(Tk):
         canvas.draw()
         canvas.get_tk_widget().place(bordermode=OUTSIDE, x=MAX_WIDTH - 470, y=MAX_HEIGHT - 470)
 
-        # Combobox - 1
-
-        self.CBB1 = t.Combobox(self, values=["Matematické Grafování", "Statistické Grafování", "Náhodný Šum"],
-                               state="readonly")
-
-        self.CBB1.place(bordermode=OUTSIDE, width=MAX_WIDTH * .15, height=MAX_HEIGHT * .05,
-                        x=MAX_WIDTH * .01, y=MAX_HEIGHT * .15)
-
-        # self.CBB1.bind('<<ComboboxSelected>>',lambda event: self.show_Setup_Frame(self.pages_tuple[self.CBB1.current()]))
-
-        self.CBB1.current(0)
         # Combobox - 2
-        self.CBB2 = t.Combobox(self, values=["1", "2", "3"],
+        self.CBB2 = t.Combobox(self, values=["Matematické", "Koláč", "Sloupcový", "Náhodný šum"],
                                state="readonly")
         self.CBB2.bind('<<ComboboxSelected>>',
                        lambda event: self.show_Setup_Frame(self.input_frames[self.CBB2.current()]))
         self.CBB2.current(0)
         self.CBB2.place(bordermode=OUTSIDE, width=MAX_WIDTH * .15, height=MAX_HEIGHT * .05,
-                        x=MAX_WIDTH * .01, y=MAX_HEIGHT * .2)
+                        x=MAX_WIDTH * .01, y=MAX_HEIGHT * .05)
 
         """
         {{ relative input part }}
@@ -139,18 +158,29 @@ class MarkoGebra(Tk):
         self.SetupFrames = {}
 
         self._frame = None
-        self.show_Setup_Frame(ScatterFrame)
+        self.show_Setup_Frame(Mathematical)
 
     def show_Setup_Frame(self, cont):
+        global coordinates_all_list, coordinates_scatter, coordinates_plot, TO_ANIMATE
+
 
         new_frame = cont(self.SetupContainer, self)
+        TO_ANIMATE = GRAPHING_METHOD[new_frame.type]
+        print(new_frame.type)
+
         if self._frame is not None:
+            for child in self._frame.winfo_children():
+                child.destroy()
             self._frame.destroy()
         self._frame = new_frame
-        self._frame.pack()
+        self._frame.place(x=MAX_WIDTH * .01, y=MAX_HEIGHT * .15, height=MAX_HEIGHT * 45, width=MAX_WIDTH * .40)
+        coordinates_plot = []
+        coordinates_scatter = []
+        coordinates_all_list = []
+        self.update_table()
 
     def add_point_scatter(self, x, y):
-        global coordinates_scatter, coordinates_all_list,lim1,lim2
+        global coordinates_scatter, coordinates_all_list, lim1, lim2
         if x > lim1:
             lim1 = x
         if x < lim2:
@@ -175,7 +205,7 @@ class MarkoGebra(Tk):
                 if val[1] == y:
                     checnk = False
         if checnk:
-            coordinates_plot.append([x, y, "dotted", "blue", "1",function])
+            coordinates_plot.append([x, y, "dotted", "blue", "1", function])
             coordinates_all_list.append(f"f(x):{function}")
 
         self.update_table()
@@ -346,7 +376,7 @@ class MarkoGebra(Tk):
                 entry.delete(0, END)
             except SyntaxError:
                 Label(frame, text="Neplatný styl!", bg="black", fg="red", font=fonts()["SMALL_FONT"],
-                     anchor="w").pack(
+                      anchor="w").pack(
                     fill=BOTH)
                 Label(frame, text="Použij 'ShowMeStyles' pro zobrazení dostupných stylů", bg="black", fg="aqua",
                       font=fonts()["ITALIC_SMALL"],
@@ -354,7 +384,7 @@ class MarkoGebra(Tk):
                     fill=BOTH)
                 entry.delete(0, END)
 
-        elif command==["ShowMeStyles"]:
+        elif command == ["ShowMeStyles"]:
             Label(frame, text=f"{', '.join(AVALIBLE_STYLES[0:10])},", bg="black", fg="green",
                   font=fonts()["SMALL_FONT"],
                   anchor="w").pack(
@@ -452,7 +482,8 @@ class MarkoGebra(Tk):
                     coordinates_plot.remove(val)
                     del coordinates_all_list[index]
                     self.update_table()
-    #TODO prohodit try a if
+
+    # TODO prohodit try a if
     def changeLine(self, index, linetype: str):
         if (linetype in LINE_MARKERS + EXTRA_POINT_MARKERS + POINT_MARKERS) or ((linetype[0] and linetype[-1]) == "$"):
             try:
@@ -506,63 +537,91 @@ class MarkoGebra(Tk):
 
     def changeGraphStyle(self, style):
         if style in AVALIBLE_STYLES:
-            with open("graphstyle.txt","w") as stl:
+            with open("graphstyle.txt", "w") as stl:
                 stl.truncate()
             with open("graphstyle.txt", "w") as stl:
                 stl.write(style)
         else:
             raise SyntaxError
-class ScatterFrame(Frame):
+
+
+class Mathematical(Frame):
     def __init__(self, parent, controller):
         Frame.__init__(self, parent)
         self.controller = controller
-
+        self.type = "matematical"
+        # Scatter
         # labely
-        self.labelX = t.Label(parent, text="X:", font=fonts()["SMALL_FONT"])
-        self.labelY = t.Label(parent, text="Y:", font=fonts()["SMALL_FONT"])
-        self.labelX.place(bordermode=OUTSIDE, x=MAX_WIDTH * .01, y=MAX_HEIGHT * .3, height=MAX_HEIGHT * .05)
-        self.labelY.place(bordermode=OUTSIDE, x=MAX_WIDTH * .16, y=MAX_HEIGHT * .3, height=MAX_HEIGHT * .05)
+        self.labelX = t.Label(self, text="X:", font=fonts()["SMALL_FONT"])
+        self.labelY = t.Label(self, text="Y:", font=fonts()["SMALL_FONT"])
+
+        self.labelX.grid(row=0, column=0)
+        self.labelY.grid(row=0, column=2)
 
         # entryes
-        self.EntryX = t.Entry(parent, justify="center")
+        self.EntryX = t.Entry(self, justify="center")
+        self.EntryY = t.Entry(self, justify="center")
 
-        self.EntryY = t.Entry(parent, justify="center")
-
-        self.EntryX.place(bordermode=OUTSIDE, x=MAX_WIDTH * .025, y=MAX_HEIGHT * .3,
-                          width=MAX_WIDTH * .135, height=MAX_HEIGHT * .05)
-        self.EntryY.place(bordermode=OUTSIDE, x=MAX_WIDTH * .175, y=MAX_HEIGHT * .3,
-                          width=MAX_WIDTH * .135, height=MAX_HEIGHT * .05)
+        self.EntryX.grid(row=0, column=1, sticky="we")
+        self.EntryY.grid(row=0, column=3, sticky="we")
         # place button
-        self.placeButton = t.Button(parent, text="Vložit",
-                                    command=lambda: controller.add_point_scatter(int(self.EntryX.get()),
-                                                                                 int(self.EntryY.get())))
-        self.placeButton.place(bordermode=OUTSIDE, x=MAX_WIDTH * .31, y=MAX_HEIGHT * .3,
-                               width=MAX_WIDTH * .1, height=MAX_HEIGHT * .05)
+        self.placeButtonScatter = t.Button(self, text="Vložit",
+                                           command=lambda: controller.add_point_scatter(int(self.EntryX.get()),
+                                                                                        int(self.EntryY.get())))
+        self.placeButtonScatter.grid(row=0, column=4, sticky="we")
+
+        # Funkce
+        # labely
+        self.labelFun = t.Label(self, text="f(x):", font=fonts()["SMALL_FONT"])
+        self.labelFun.grid(row=1, column=0)
+
+        # entryes
+        self.EntryFun = t.Entry(self, justify="center")
+
+        self.EntryFun.grid(row=1, column=1, columnspan=3, sticky="we")
+
+        # place button
+        self.placeButtonPlot = t.Button(self, text="Odložit",
+                                        command=lambda: controller.add_plot_from_function(self.EntryFun.get()))
+
+        self.placeButtonPlot.grid(row=1, column=4, sticky="we", pady=20)
+
+        self.grid_columnconfigure(1, weight=3)
+        self.grid_columnconfigure(3, weight=3)
+        self.grid_columnconfigure(4, weight=2)
 
 
-class FuncFrame(Frame):
+class Pie(Frame):
     def __init__(self, parent, controller):
         Frame.__init__(self, parent)
         self.controller = controller
+        self.type = "pie"
+        jo = t.Label(self, text="Koláč")
+        jo.grid(row=0, column=0)
 
-        # labely
-        self.labelFun = t.Label(parent, text="f(x):", font=fonts()["SMALL_FONT"])
-        self.labelFun.place(bordermode=OUTSIDE, x=MAX_WIDTH * .01, y=MAX_HEIGHT * .3, height=MAX_HEIGHT * .05)
 
-        # entryes
-        self.EntryFun = t.Entry(parent, justify="center")
+class Bar(Frame):
+    def __init__(self, parent, controller):
+        Frame.__init__(self, parent)
+        self.controller = controller
+        self.type = "bar"
+        jo = t.Label(self, text="Sloup").pack()
 
-        self.EntryFun.place(bordermode=OUTSIDE, x=MAX_WIDTH * .035, y=MAX_HEIGHT * .3,
-                            width=MAX_WIDTH * .275, height=MAX_HEIGHT * .05)
 
-        # place button
-        self.placeButton = t.Button(parent, text="Odložit",
-                                    command=lambda: controller.add_plot_from_function(self.EntryFun.get()))
+class Noise(Frame):
+    def __init__(self, parent, controller):
+        Frame.__init__(self, parent)
+        self.controller = controller
+        self.type = "noise"
+        jo = t.Label(self, text="Šum").pack()
 
-        self.placeButton.place(bordermode=OUTSIDE, x=MAX_WIDTH * .31, y=MAX_HEIGHT * .3,
-                               width=MAX_WIDTH * .1, height=MAX_HEIGHT * .05)
 
+aniObj = GraphAnimation()
+aniFun = aniObj.Go
 
 app = MarkoGebra()
-ani = anim.FuncAnimation(f, animate_graphs, interval=1000, blit=False)
+
+ani = anim.FuncAnimation(f, aniFun, interval=1000, blit=False)
+
+
 app.mainloop()
