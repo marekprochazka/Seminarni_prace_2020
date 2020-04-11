@@ -2,6 +2,7 @@ from tkinter import *
 import tkinter.ttk as t
 from tkinter.ttk import Button
 import tkinter.colorchooser as col
+from colormap import rgb2hex
 
 import matplotlib as mp
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2Tk
@@ -35,8 +36,10 @@ GRAPHING_METHOD = {
 
 TO_ANIMATE = GRAPHING_METHOD["matematical"]
 
+pie_colors = []
+
 mp.use("TkAgg")
-print(len(st.available))
+
 with open("graphstyle.txt", "r") as style:
     st.use(style)
 
@@ -54,9 +57,14 @@ coordinates_scatter = []
 coordinates_plot = []
 coordinates_all_list = []
 
-slices = [3,2,12]
-cols = ["r","b","pink"]
-activities = ["sleep","eat","coding"]
+slices = []
+cols = []
+activities = []
+explode = []
+start_angle = 90
+
+
+noise = []
 
 # f = plt.figure(figsize=(4.5, 4.5), dpi=100)
 f = Figure(figsize=(4.5, 4.5), dpi=100)
@@ -71,13 +79,11 @@ lim1 = 30
 lim2 = -30
 
 
-
-
 class GraphAnimation:
-    def Go(self,i):
+    def Go(self, i):
         if TO_ANIMATE == 1:
             self.animate_graphs()
-        elif TO_ANIMATE ==2:
+        elif TO_ANIMATE == 2:
             self.animate_pie()
 
     def animate_graphs(i):
@@ -95,7 +101,7 @@ class GraphAnimation:
 
     def animate_pie(i):
         a.clear()
-        a.pie(slices, labels=activities, colors=cols)
+        a.pie(slices, labels=activities, colors=cols, explode=explode, startangle=start_angle)
 
 
 class MarkoGebra(Tk):
@@ -158,15 +164,13 @@ class MarkoGebra(Tk):
         self.SetupFrames = {}
 
         self._frame = None
-        self.show_Setup_Frame(Mathematical)
+        self.show_Setup_Frame(Noise)
 
     def show_Setup_Frame(self, cont):
         global coordinates_all_list, coordinates_scatter, coordinates_plot, TO_ANIMATE
 
-
         new_frame = cont(self.SetupContainer, self)
         TO_ANIMATE = GRAPHING_METHOD[new_frame.type]
-        print(new_frame.type)
 
         if self._frame is not None:
             for child in self._frame.winfo_children():
@@ -209,6 +213,25 @@ class MarkoGebra(Tk):
             coordinates_all_list.append(f"f(x):{function}")
 
         self.update_table()
+
+    def add_pie_data(self, data, entry1, entry2, cbb):
+        global slices, cols, activities, coordinates_all_list
+
+        try:
+            float(data[0])
+            slices.append(data[0])
+            activities.append(data[1])
+            cols.append(data[2])
+            explode.append(0)
+            entry1.delete(0, END)
+            entry2.delete(0, END)
+            cbb.set("")
+            coordinates_all_list.append(f"{data[1]}:{data[0]}/{data[2]}/0")
+            self.update_table()
+        except:
+            entry1.delete(0, END)
+            entry2.delete(0, END)
+            cbb.set("")
 
     def update_table(self):
         global coordinates_all_list
@@ -384,6 +407,59 @@ class MarkoGebra(Tk):
                     fill=BOTH)
                 entry.delete(0, END)
 
+        # pie specials
+        elif command[0] == "explode":
+            try:
+                if int(command[1]) <= len(coordinates_all_list):
+                    self.explode(int(command[1]), float(command[2]))
+                    Label(frame, text=f"{' '.join(command)}", bg="black", fg="yellow", font=fonts()["SMALL_FONT"],
+                          anchor="w").pack(fill=BOTH)
+                    Label(frame, text=f"Vysunutí indexu {command[1]} upraveno!", bg="black", fg="green",
+                          font=fonts()["SMALL_FONT"], anchor="w").pack(fill=BOTH)
+                    entry.delete(0, END)
+                else:
+                    Label(frame, text="Neplatný index!", bg="black", fg="red", font=fonts()["SMALL_FONT"],
+                          anchor="w").pack(
+                        fill=BOTH)
+                    entry.delete(0, END)
+            except IndexError:
+                Label(frame, text="Neplatný index!", bg="black", fg="red", font=fonts()["SMALL_FONT"], anchor="w").pack(
+                    fill=BOTH)
+                entry.delete(0, END)
+            except ValueError:
+                Label(frame, text="Neplatná hodnota!", bg="black", fg="red", font=fonts()["SMALL_FONT"],
+                      anchor="w").pack(
+                    fill=BOTH)
+                entry.delete(0, END)
+            except SyntaxError:
+                Label(frame, text="Akce lze porovést pouze u PIE grafu!", bg="black", fg="red",
+                      font=fonts()["SMALL_FONT"],
+                      anchor="w").pack(
+                    fill=BOTH)
+                entry.delete(0, END)
+
+
+        elif command[0] == "stAngle":
+            try:
+                self.stAngle(int(command[1]))
+                Label(frame, text=f"{' '.join(command)}", bg="black", fg="yellow", font=fonts()["SMALL_FONT"],
+                      anchor="w").pack(fill=BOTH)
+                Label(frame, text=f" Počáteční úhel změněn!", bg="black", fg="green",
+                      font=fonts()["SMALL_FONT"], anchor="w").pack(fill=BOTH)
+                entry.delete(0, END)
+            except ValueError:
+                Label(frame, text="Neplatná hodnota!", bg="black", fg="red", font=fonts()["SMALL_FONT"],
+                      anchor="w").pack(
+                    fill=BOTH)
+                entry.delete(0, END)
+            except SyntaxError:
+                Label(frame, text="Akce lze porovést pouze u PIE grafu!", bg="black", fg="red",
+                      font=fonts()["SMALL_FONT"],
+                      anchor="w").pack(
+                    fill=BOTH)
+                entry.delete(0, END)
+
+
         elif command == ["ShowMeStyles"]:
             Label(frame, text=f"{', '.join(AVALIBLE_STYLES[0:10])},", bg="black", fg="green",
                   font=fonts()["SMALL_FONT"],
@@ -455,6 +531,21 @@ class MarkoGebra(Tk):
             Label(frame, text="size [index] [size] - pro vyčištění konzole", bg="black", fg="green",
                   font=fonts()["SMALL_FONT"], anchor="w").pack(
                 fill=BOTH)
+            Label(frame, text="GPstyle [style] - pro změnu stylu grafu (projeví se po restartu)", bg="black", fg="green",
+                  font=fonts()["SMALL_FONT"], anchor="w").pack(
+                fill=BOTH)
+            Label(frame, text="ShowMeStyles - pro zobrazení dostupných stylů grafu", bg="black",
+                  fg="green",
+                  font=fonts()["SMALL_FONT"], anchor="w").pack(
+                fill=BOTH)
+            Label(frame, text="explode [index] [value] - pro 'vystoupení' hodnoty z grafu (pouze pro PIE) ", bg="black",
+                  fg="green",
+                  font=fonts()["SMALL_FONT"], anchor="w").pack(
+                fill=BOTH)
+            Label(frame, text="StAngle - pro změnu začánajícího úhlu grafu (poze pro PIE) ", bg="black",
+                  fg="green",
+                  font=fonts()["SMALL_FONT"], anchor="w").pack(
+                fill=BOTH)
 
             entry.delete(0, END)
 
@@ -468,58 +559,70 @@ class MarkoGebra(Tk):
             entry.delete(0, END)
 
     def delete_value(self, index):
-        try:
-            int(coordinates_all_list[index][0])
-            for coord in coordinates_scatter:
-                pep = list(map(int, list(coordinates_all_list[index].split(":"))))
-                if coord[0:2] == pep:
-                    coordinates_scatter.remove(coord)
-            del coordinates_all_list[index]
-            self.update_table()
-        except ValueError:
-            for val in coordinates_plot:
-                if val[1] == coordinates_all_list[index].split(":")[1]:
-                    coordinates_plot.remove(val)
-                    del coordinates_all_list[index]
-                    self.update_table()
-
-    # TODO prohodit try a if
-    def changeLine(self, index, linetype: str):
-        if (linetype in LINE_MARKERS + EXTRA_POINT_MARKERS + POINT_MARKERS) or ((linetype[0] and linetype[-1]) == "$"):
+        if TO_ANIMATE == 1:
             try:
+                int(coordinates_all_list[index][0])
+                for coord in coordinates_scatter:
+                    pep = list(map(int, list(coordinates_all_list[index].split(":"))))
+                    if coord[0:2] == pep:
+                        coordinates_scatter.remove(coord)
+                del coordinates_all_list[index]
+                self.update_table()
+            except ValueError:
+                for val in coordinates_plot:
+                    if val[1] == coordinates_all_list[index].split(":")[1]:
+                        coordinates_plot.remove(val)
+                        del coordinates_all_list[index]
+                        self.update_table()
+
+        if TO_ANIMATE == 2:
+            del coordinates_all_list[index]
+            del slices[index]
+            del cols[index]
+            del activities[index]
+            self.update_table()
+
+    def changeLine(self, index, linetype: str):
+        try:
+            if (linetype in EXTRA_POINT_MARKERS + POINT_MARKERS) or ((linetype[0] and linetype[-1]) == "$"):
                 int(coordinates_all_list[index][0])
                 for indx, val in enumerate(coordinates_scatter):
                     if val[0] == int(coordinates_all_list[index].split(":")[0]) and val[1] == int(
                             coordinates_all_list[index].split(":")[1]):
                         coordinates_scatter[indx][2] = linetype
                 self.update_table()
-            except ValueError:
-
+            else:
+                raise SyntaxError
+        except ValueError:
+            if linetype in LINE_MARKERS:
                 for indx, val in enumerate(coordinates_plot):
                     if val[1] == coordinates_all_list[index].split(":")[1]:
                         coordinates_plot[indx][2] = linetype
                         self.update_table()
-
-
-        else:
-            raise SyntaxError
+            else:
+                raise SyntaxError
 
     def changeColor(self, index):
-        try:
-            int(coordinates_all_list[index][0])
-            for indx, val in enumerate(coordinates_scatter):
-                if val[0] == int(coordinates_all_list[index].split(":")[0]) and val[1] == int(
-                        coordinates_all_list[index].split(":")[1]):
-                    color = col.askcolor()
-                    coordinates_scatter[indx][3] = color[1]
-            self.update_table()
-        except ValueError:
-            for indx, val in enumerate(coordinates_plot):
-                if val[1] == coordinates_all_list[index].split(":")[1]:
-                    color = col.askcolor()
+        if TO_ANIMATE == 1:
+            try:
+                int(coordinates_all_list[index][0])
+                for indx, val in enumerate(coordinates_scatter):
+                    if val[0] == int(coordinates_all_list[index].split(":")[0]) and val[1] == int(
+                            coordinates_all_list[index].split(":")[1]):
+                        color = col.askcolor()
+                        coordinates_scatter[indx][3] = color[1]
+                self.update_table()
+            except ValueError:
+                for indx, val in enumerate(coordinates_plot):
+                    if val[1] == coordinates_all_list[index].split(":")[1]:
+                        color = col.askcolor()
 
-                    coordinates_plot[indx][3] = color[1]
-                    self.update_table()
+                        coordinates_plot[indx][3] = color[1]
+                        self.update_table()
+        elif TO_ANIMATE == 2:
+            color = col.askcolor()
+            cols[index] = color[1]
+            self.update_table()
 
     def changeSize(self, index, size):
         try:
@@ -541,6 +644,21 @@ class MarkoGebra(Tk):
                 stl.truncate()
             with open("graphstyle.txt", "w") as stl:
                 stl.write(style)
+        else:
+            raise SyntaxError
+
+    def explode(self, index, value):
+        if TO_ANIMATE == 2:
+            explode[index] = value
+            self.update_table()
+        else:
+            raise SyntaxError
+
+    def stAngle(self, angle):
+        global start_angle
+        if TO_ANIMATE == 2:
+            start_angle = angle
+            self.update_table()
         else:
             raise SyntaxError
 
@@ -596,8 +714,28 @@ class Pie(Frame):
         Frame.__init__(self, parent)
         self.controller = controller
         self.type = "pie"
-        jo = t.Label(self, text="Koláč")
-        jo.grid(row=0, column=0)
+        self.basic_colors = ["b", "g", "r", "c", "m", "gold", "k"]
+        self.cb_values = ["Modrá", "Zelená", "Červená", "Světle modrá", "Fialová", "Žlutá", "Černá"]
+
+        self.txt1 = t.Label(self, text="Množství:", font=fonts()["SMALL_FONT"])
+        self.txt2 = t.Label(self, text="Název:", font=fonts()["SMALL_FONT"])
+        self.txt3 = t.Label(self, text="Barva:", font=fonts()["SMALL_FONT"])
+
+        self.slice = t.Entry(self, justify="center")
+        self.label = t.Entry(self, justify="center")
+        self.color = t.Combobox(self, values=self.cb_values, state="readonly")
+        self.add_value = t.Button(self, text="Přidat hodnotu", command=lambda: controller.add_pie_data(
+            [self.slice.get(), self.label.get(), self.basic_colors[self.color.current()]], self.slice, self.label,
+            self.color))
+
+        self.txt1.grid(row=0, column=0, sticky="we")
+        self.txt2.grid(row=1, column=0, sticky="we")
+        self.txt3.grid(row=2, column=0, sticky="we")
+
+        self.slice.grid(row=0, column=1, sticky="we", padx=20)
+        self.label.grid(row=1, column=1, sticky="we", padx=20)
+        self.color.grid(row=2, column=1, sticky="we", padx=20)
+        self.add_value.grid(row=3, column=1, sticky="we", padx=20)
 
 
 class Bar(Frame):
@@ -613,8 +751,25 @@ class Noise(Frame):
         Frame.__init__(self, parent)
         self.controller = controller
         self.type = "noise"
-        jo = t.Label(self, text="Šum").pack()
+        self.basic_colors = ["b", "g", "r", "c", "m", "gold", "k"]
+        self.cb_values = ["Modrá", "Zelená", "Červená", "Světle modrá", "Fialová", "Žlutá", "Černá"]
 
+        self.number = Scale(self,activebackground="aqua",bd=0,from_=0,to=100,orient=HORIZONTAL)
+        self.number.grid(row=0, column=0, sticky="we")
+        self.number_label = t.Label(self,text="Množství",font=fonts()["SMALL_FONT"])
+        self.number_label.grid(row=0, column=1, sticky="nswe",padx=15)
+
+        self.dispersion = Scale(self,activebackground="aqua",bd=0,from_=0,to=100,orient=HORIZONTAL)
+        self.dispersion.grid(row=1, column=0, sticky="we")
+        self.dispersion_label = t.Label(self, text="Rozptyl", font=fonts()["SMALL_FONT"])
+        self.dispersion_label.grid(row=1, column=1, sticky="S",padx=15)
+
+
+        self.color = t.Combobox(self, values=self.cb_values, state="readonly")
+        self.color.grid(row=2, column=0, sticky="we",pady=10)
+
+        self.lock = t.Button(self,text="Uzamknout")
+        self.lock.grid(row=3, column=0, sticky="we")
 
 aniObj = GraphAnimation()
 aniFun = aniObj.Go
@@ -622,6 +777,5 @@ aniFun = aniObj.Go
 app = MarkoGebra()
 
 ani = anim.FuncAnimation(f, aniFun, interval=1000, blit=False)
-
 
 app.mainloop()
