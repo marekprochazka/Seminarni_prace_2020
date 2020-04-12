@@ -5,7 +5,6 @@ import tkinter.colorchooser as col
 from colormap import rgb2hex
 from math import floor
 
-
 import matplotlib as mp
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2Tk
 import matplotlib.animation as anim
@@ -65,7 +64,10 @@ activities = []
 explode = []
 start_angle = 90
 
-noises = [[[0,0,".","#fff",1],[0,0,".","#fff",1]]]
+bars = []
+# [name,value,color]
+
+noises = [[[0, 0, ".", "#fff", 1], [0, 0, ".", "#fff", 1]]]
 dispersion = []
 number = []
 basic_gen = []
@@ -73,9 +75,9 @@ basic_gen = []
 # f = plt.figure(figsize=(4.5, 4.5), dpi=100)
 f = Figure(figsize=(4.5, 4.5), dpi=100)
 a = f.add_subplot(111)
-a.axis("equal")
+# a.axis("equal")
 
-a.set_aspect("equal")
+# a.set_aspect("equal")
 
 a.set_ylim(-10, 10)
 
@@ -89,6 +91,8 @@ class GraphAnimation:
             self.animate_graphs()
         elif TO_ANIMATE == 2:
             self.animate_pie()
+        elif TO_ANIMATE == 3:
+            self.animate_bar()
         elif TO_ANIMATE == 4:
             self.animate_noise()
 
@@ -109,11 +113,17 @@ class GraphAnimation:
         a.clear()
         a.pie(slices, labels=activities, colors=cols, explode=explode, startangle=start_angle)
 
+    def animate_bar(self):
+        a.clear()
+        for bar in bars:
+            a.bar([str(bar[0])], [int(bar[1])], color=bar[2], width=bar[3])
+
     def animate_noise(self):
         a.clear()
         for noise in noises:
             for coord in noise:
-                a.scatter(coord[0],coord[1],marker=coord[2], color=coord[3], linewidths=float(coord[4]))
+                a.scatter(coord[0], coord[1], marker=coord[2], color=coord[3], linewidths=float(coord[4]))
+
 
 class MarkoGebra(Tk):
     def __init__(self):
@@ -175,10 +185,10 @@ class MarkoGebra(Tk):
         self.SetupFrames = {}
 
         self._frame = None
-        self.show_Setup_Frame(Noise)
+        self.show_Setup_Frame(Bar)
 
     def show_Setup_Frame(self, cont):
-        global coordinates_all_list, coordinates_scatter, coordinates_plot, TO_ANIMATE
+        global coordinates_all_list, coordinates_scatter, coordinates_plot, TO_ANIMATE, slices, cols, activities, explode, start_angle, bars, noises, dispersion, number, basic_gen
 
         new_frame = cont(self.SetupContainer, self)
         TO_ANIMATE = GRAPHING_METHOD[new_frame.type]
@@ -191,6 +201,17 @@ class MarkoGebra(Tk):
         self._frame.place(x=MAX_WIDTH * .01, y=MAX_HEIGHT * .15, height=MAX_HEIGHT * 45, width=MAX_WIDTH * .40)
         coordinates_plot = []
         coordinates_scatter = []
+        slices = []
+        cols = []
+        activities = []
+        explode = []
+        start_angle = 90
+        bars = []
+        noises = [[[0, 0, ".", "#fff", 1], [0, 0, ".", "#fff", 1]]]
+        dispersion = []
+        number = []
+        basic_gen = []
+
         coordinates_all_list = []
         self.update_table()
 
@@ -244,15 +265,30 @@ class MarkoGebra(Tk):
             entry2.delete(0, END)
             cbb.set("")
 
-    def create_basic_gen(self,number,dispersion,col):
+    def add_bar_data(self, name, value, color, entry1, entry2, cbb):
+        try:
+            float(value)
+            bars.append([name, value, color, 0.3])
+            coordinates_all_list.append(f"{name}:{value}:{color}")
+            entry1.delete(0, END)
+            entry2.delete(0, END)
+            cbb.set("")
+            self.update_table()
+        except:
+            entry1.delete(0, END)
+            entry2.delete(0, END)
+            cbb.set("")
+
+    def create_basic_gen(self, number, dispersion, col):
         global basic_gen
-        basic_gen = [np.random.rand(number),np.random.rand(number)]
-        self.update_dispersion(dispersion,col)
+        basic_gen = [np.random.rand(number), np.random.rand(number)]
+        self.update_dispersion(dispersion, col)
 
-    def update_dispersion(self,dispersion,col):
-        noises[0] = [[floor(basic_gen[0][indx]*dispersion),floor(basic_gen[1][indx]*dispersion),".",col,1] for indx,gn in enumerate(basic_gen[0])]
+    def update_dispersion(self, dispersion, col):
+        noises[0] = [[floor(basic_gen[0][indx] * dispersion), floor(basic_gen[1][indx] * dispersion), ".", col, 1] for
+                     indx, gn in enumerate(basic_gen[0])]
 
-    def lock_noise(self,dispersion,num):
+    def lock_noise(self, dispersion, num):
         noises.append(noises[0])
         coordinates_all_list.append(f"{noises[-1][0]}:{noises[-1][1]}:{num}:{dispersion}:{noises[-1][3]}")
         self.update_table()
@@ -768,7 +804,29 @@ class Bar(Frame):
         Frame.__init__(self, parent)
         self.controller = controller
         self.type = "bar"
-        jo = t.Label(self, text="Sloup").pack()
+        self.basic_colors = ["b", "g", "r", "c", "m", "gold", "k"]
+        self.cb_values = ["Modrá", "Zelená", "Červená", "Světle modrá", "Fialová", "Žlutá", "Černá"]
+
+        self.txt1 = t.Label(self, text="Množství:", font=fonts()["SMALL_FONT"])
+        self.txt2 = t.Label(self, text="Název:", font=fonts()["SMALL_FONT"])
+        self.txt3 = t.Label(self, text="Barva:", font=fonts()["SMALL_FONT"])
+
+        self.value = t.Entry(self, justify="center")
+        self.name = t.Entry(self, justify="center")
+        self.color = t.Combobox(self, values=self.cb_values, state="readonly")
+        self.go = t.Button(self, text="Zapsat hodnotu",
+                           command=lambda: controller.add_bar_data(self.name.get(), self.value.get(),
+                                                                   self.basic_colors[self.color.current()], self.name,
+                                                                   self.value, self.color))
+
+        self.txt1.grid(row=0, column=0, sticky="we")
+        self.txt2.grid(row=1, column=0, sticky="we")
+        self.txt3.grid(row=2, column=0, sticky="we")
+
+        self.value.grid(row=0, column=1, sticky="we", padx=20)
+        self.name.grid(row=1, column=1, sticky="we", padx=20)
+        self.color.grid(row=2, column=1, sticky="we", padx=20)
+        self.go.grid(row=3, column=1, sticky="we", padx=20)
 
 
 class Noise(Frame):
@@ -781,22 +839,28 @@ class Noise(Frame):
 
         self.number = Scale(self, activebackground="aqua", bd=0, from_=0, to=100, orient=HORIZONTAL)
         self.number.grid(row=0, column=0, sticky="we")
-        self.number.bind("<ButtonRelease-1>",lambda event: controller.create_basic_gen(self.number.get(),self.dispersion.get(),self.basic_colors[self.color.current()]))
+        self.number.bind("<ButtonRelease-1>",
+                         lambda event: controller.create_basic_gen(self.number.get(), self.dispersion.get(),
+                                                                   self.basic_colors[self.color.current()]))
         self.number_label = t.Label(self, text="Množství", font=fonts()["SMALL_FONT"])
         self.number_label.grid(row=0, column=1, sticky="nswe", padx=15)
 
         self.dispersion = Scale(self, activebackground="aqua", bd=0, from_=0, to=100, orient=HORIZONTAL)
         self.dispersion.grid(row=1, column=0, sticky="we")
-        self.dispersion.bind("<ButtonRelease-1>",lambda event: controller.update_dispersion(self.dispersion.get(),self.basic_colors[self.color.current()]))
+        self.dispersion.bind("<ButtonRelease-1>", lambda event: controller.update_dispersion(self.dispersion.get(),
+                                                                                             self.basic_colors[
+                                                                                                 self.color.current()]))
         self.dispersion_label = t.Label(self, text="Rozptyl", font=fonts()["SMALL_FONT"])
         self.dispersion_label.grid(row=1, column=1, sticky="S", padx=15)
 
         self.color = t.Combobox(self, values=self.cb_values, state="readonly")
         self.color.grid(row=2, column=0, sticky="we", pady=10)
         self.color.bind('<<ComboboxSelected>>',
-                       lambda event: controller.update_dispersion(self.dispersion.get(),self.basic_colors[self.color.current()]))
+                        lambda event: controller.update_dispersion(self.dispersion.get(),
+                                                                   self.basic_colors[self.color.current()]))
 
-        self.lock = t.Button(self, text="Uzamknout",command=lambda:controller.lock_noise(self.dispersion.get(),self.number.get()))
+        self.lock = t.Button(self, text="Uzamknout",
+                             command=lambda: controller.lock_noise(self.dispersion.get(), self.number.get()))
         self.lock.grid(row=3, column=0, sticky="we")
 
 

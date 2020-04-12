@@ -141,7 +141,7 @@ coords.append([[1, 3, 5, 7, 9], [random.randrange(40) for x in range(5)]])
 
 ax1.plot(coords[0][0], coords[0][1], label="plot1", color="c")
 ax1.plot(coords[1][0], coords[1][1], label="plot2", color="k")
-ax1.axhline(2, color="c", linewidth=2)
+ax1.axhline(2, color="c", bdth=2)
 # ax1.fill_between(coords[2][0], coords[2][1], coords[2][1][0], label="fill", color="r",
 #                 alpha=0.3)  # TODO zajímavá možnost *alpha průsvitnost**třetí hodnota značí kde začíná fill
 
@@ -167,15 +167,20 @@ plt.legend()
 plt.subplots_adjust(left=0.09, bottom=0.16, right=0.94, top=0.9, wspace=0.2,
                     hspace=0)  # ""space je jako padding subplotů
 plt.show()"""
-slices = [7, 2, 2, 13]
+"""slices = [7, 2, 2, 13]
 cols = ["b","r","pink","c"]
-activities = ["sleeping", "eating", "working", "playing"]
+activities = ["sleeping", "eating", "working", "playing"]"""
 
+values=[110,220,180]
+names = ["jo","ne","ach"]
 
 f = plt.figure()
 a = plt.subplot2grid((1,1),(0,0))
-a.pie(slices,labels=activities,colors=cols)
-a.plot([1,2,3,4,5,6],[6,5,4,3,2,1])
+a.bar(names[0],values[0],color="k")
+a.bar(names[1],values[1],color="r")
+a.bar(names[2],values[2],color="y")
+
+
 
 
 plt.show()
