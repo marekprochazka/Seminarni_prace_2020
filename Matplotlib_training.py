@@ -182,5 +182,4 @@ a.bar(names[2],values[2],color="y")
 
 
 
-
 plt.show()
