@@ -12,6 +12,10 @@ from matplotlib import style as st
 from matplotlib.figure import Figure
 import matplotlib.pyplot as plt
 
+#TODO upravit coords_all[]
+#
+
+
 MAX_WIDTH = 1200
 MAX_HEIGHT = 600
 
@@ -116,7 +120,7 @@ class GraphAnimation:
     def animate_bar(self):
         a.clear()
         for bar in bars:
-            a.bar([str(bar[0])], [int(bar[1])], color=bar[2], width=bar[3])
+            a.bar([str(bar[0])], [int(bar[1])], color=bar[2], width=float(bar[3]))
 
     def animate_noise(self):
         a.clear()
@@ -267,8 +271,10 @@ class MarkoGebra(Tk):
 
     def add_bar_data(self, name, value, color, entry1, entry2, cbb):
         try:
+
+
             float(value)
-            bars.append([name, value, color, 0.3])
+            bars.append([name, value, color, 0.8])
             coordinates_all_list.append(f"{name}:{value}:{color}")
             entry1.delete(0, END)
             entry2.delete(0, END)
@@ -288,9 +294,11 @@ class MarkoGebra(Tk):
         noises[0] = [[floor(basic_gen[0][indx] * dispersion), floor(basic_gen[1][indx] * dispersion), ".", col, 1] for
                      indx, gn in enumerate(basic_gen[0])]
 
-    def lock_noise(self, dispersion, num):
+    def lock_noise(self, disper, num):
         noises.append(noises[0])
-        coordinates_all_list.append(f"{noises[-1][0]}:{noises[-1][1]}:{num}:{dispersion}:{noises[-1][3]}")
+        dispersion.append(disper)
+        number.append(num)
+        coordinates_all_list.append(f"{noises[-1][0]}:{noises[-1][1]}:{num}:{disper}:{noises[-1][3]}")
         self.update_table()
 
     def update_table(self):
@@ -414,6 +422,16 @@ class MarkoGebra(Tk):
                 Label(frame, text="Neplatný index!", bg="black", fg="red", font=fonts()["SMALL_FONT"], anchor="w").pack(
                     fill=BOTH)
                 entry.delete(0, END)
+            except ArithmeticError:
+                Label(frame, text="Neplatná velikost!", bg="black", fg="red", font=fonts()["SMALL_FONT"], anchor="w").pack(
+                    fill=BOTH)
+                entry.delete(0, END)
+            except BlockingIOError:
+                Label(frame, text="Příkaz nelze použít pro aktuální způsob grafování!", bg="black", fg="red", font=fonts()["SMALL_FONT"],
+                      anchor="w").pack(
+                    fill=BOTH)
+                entry.delete(0, END)
+
 
         elif command[0] == "mktype":
             try:
@@ -443,6 +461,11 @@ class MarkoGebra(Tk):
                     fill=BOTH)
                 Label(frame, text="Použij 'markers' pro zobrazení dostupných značek", bg="black", fg="red",
                       font=fonts()["SMALL_FONT"],
+                      anchor="w").pack(
+                    fill=BOTH)
+                entry.delete(0, END)
+            except BlockingIOError:
+                Label(frame, text="Příkaz nelze použít pro aktuální způsob grafování!", bg="black", fg="red", font=fonts()["SMALL_FONT"],
                       anchor="w").pack(
                     fill=BOTH)
                 entry.delete(0, END)
@@ -570,7 +593,7 @@ class MarkoGebra(Tk):
             entry.delete(0, END)
 
 
-        elif command == ["?"] or command == ["help"]:
+        elif (command == ["?"]) or (command == ["help"]):
             Label(frame, text="Dostupné příkazy", bg="black", fg="green", font=fonts()["SMALL_FONT"], anchor="w").pack(
                 fill=BOTH)
             Label(frame, text="del [index] - pro odstranění konkrétního vstupu", bg="black", fg="green",
@@ -610,10 +633,6 @@ class MarkoGebra(Tk):
 
             entry.delete(0, END)
 
-
-
-
-
         else:
             Label(frame, text="Neplatný příkaz!", bg="black", fg="red", font=fonts()["SMALL_FONT"], anchor="w").pack(
                 fill=BOTH)
@@ -643,25 +662,47 @@ class MarkoGebra(Tk):
             del activities[index]
             self.update_table()
 
+        if TO_ANIMATE == 3:
+            del bars[index]
+            del coordinates_all_list[index]
+            self.update_table()
+
+        if TO_ANIMATE == 4:
+            del noises[index+1]
+            del dispersion[index]
+            del number[index]
+            del coordinates_all_list[index]
+            self.update_table()
+
     def changeLine(self, index, linetype: str):
-        try:
+        if TO_ANIMATE ==1:
+            try:
+                if (linetype in EXTRA_POINT_MARKERS + POINT_MARKERS) or ((linetype[0] and linetype[-1]) == "$"):
+                    int(coordinates_all_list[index][0])
+                    for indx, val in enumerate(coordinates_scatter):
+                        if val[0] == int(coordinates_all_list[index].split(":")[0]) and val[1] == int(
+                                coordinates_all_list[index].split(":")[1]):
+                            coordinates_scatter[indx][2] = linetype
+                    self.update_table()
+                else:
+                    raise SyntaxError
+            except ValueError:
+                if linetype in LINE_MARKERS:
+                    for indx, val in enumerate(coordinates_plot):
+                        if val[1] == coordinates_all_list[index].split(":")[1]:
+                            coordinates_plot[indx][2] = linetype
+                            self.update_table()
+                else:
+                    raise SyntaxError
+        if TO_ANIMATE == 4:
             if (linetype in EXTRA_POINT_MARKERS + POINT_MARKERS) or ((linetype[0] and linetype[-1]) == "$"):
-                int(coordinates_all_list[index][0])
-                for indx, val in enumerate(coordinates_scatter):
-                    if val[0] == int(coordinates_all_list[index].split(":")[0]) and val[1] == int(
-                            coordinates_all_list[index].split(":")[1]):
-                        coordinates_scatter[indx][2] = linetype
-                self.update_table()
+                for coord in noises[index + 1]:
+                    coord[2] = linetype
+
             else:
                 raise SyntaxError
-        except ValueError:
-            if linetype in LINE_MARKERS:
-                for indx, val in enumerate(coordinates_plot):
-                    if val[1] == coordinates_all_list[index].split(":")[1]:
-                        coordinates_plot[indx][2] = linetype
-                        self.update_table()
-            else:
-                raise SyntaxError
+        else:
+            raise BlockingIOError
 
     def changeColor(self, index):
         if TO_ANIMATE == 1:
@@ -684,20 +725,44 @@ class MarkoGebra(Tk):
             color = col.askcolor()
             cols[index] = color[1]
             self.update_table()
+        elif TO_ANIMATE == 3:
+            color = col.askcolor()
+            bars[index][2] = color[1]
+            self.update_table()
+        elif TO_ANIMATE==4:
+            color = col.askcolor()
+            for coord in noises[index +1]:
+                coord[3] = color[1]
+
 
     def changeSize(self, index, size):
         try:
-            int(coordinates_all_list[index][0])
-            for indx, val in enumerate(coordinates_scatter):
-                if val[0] == int(coordinates_all_list[index].split(":")[0]) and val[1] == int(
-                        coordinates_all_list[index].split(":")[1]):
-                    coordinates_scatter[indx][4] = size
-            self.update_table()
-        except ValueError:
-            for indx, val in enumerate(coordinates_plot):
-                if val[1] == coordinates_all_list[index].split(":")[1]:
-                    coordinates_plot[indx][4] = size
+            float(size)
+            if TO_ANIMATE == 1:
+                try:
+                    int(coordinates_all_list[index][0])
+                    for indx, val in enumerate(coordinates_scatter):
+                        if val[0] == int(coordinates_all_list[index].split(":")[0]) and val[1] == int(
+                                coordinates_all_list[index].split(":")[1]):
+                            coordinates_scatter[indx][4] = float(size)
                     self.update_table()
+                except ValueError:
+                    for indx, val in enumerate(coordinates_plot):
+                        if val[1] == coordinates_all_list[index].split(":")[1]:
+                            coordinates_plot[indx][4] = size
+                            self.update_table()
+            if TO_ANIMATE == 3:
+                #TODO během po úpravě coord_all přidat úpravu
+                bars[index][3] = size
+                self.update_table()
+            if TO_ANIMATE == 4:
+                for coord in noises[index+1]:
+                    coord[4] = size
+
+            else:
+                raise BlockingIOError
+        except:
+            raise ArithmeticError
 
     def changeGraphStyle(self, style):
         if style in AVALIBLE_STYLES:

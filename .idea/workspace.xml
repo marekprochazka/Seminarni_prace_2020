@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="ea9c3f51-27bf-4d67-87b1-2583643052bd" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Matplotlib_training.py" beforeDir="false" afterPath="$PROJECT_DIR$/Matplotlib_training.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -297,8 +296,26 @@
       <option name="project" value="LOCAL" />
       <updated>1586677872791</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="added bar frontend and backend">
+      <created>1586681604459</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1586681604459</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="přidán pozdrav" />
@@ -314,53 +331,54 @@
     <MESSAGE value="made grid layout and pie call" />
     <MESSAGE value="console pie command and noise frontend" />
     <MESSAGE value="made noise generator" />
-    <option name="LAST_COMMIT_MESSAGE" value="made noise generator" />
+    <MESSAGE value="added bar frontend and backend" />
+    <option name="LAST_COMMIT_MESSAGE" value="added bar frontend and backend" />
   </component>
   <component name="WindowStateProjectService">
     <state x="1153" y="330" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1584536909928">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="1153" y="330" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1584536909928" />
-    <state x="614" y="112" key="CommitChangelistDialog2" timestamp="1586677871651">
+    <state x="614" y="112" key="CommitChangelistDialog2" timestamp="1586681603889">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="614" y="112" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1586677871651" />
+    <state x="614" y="112" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1586681603889" />
     <state x="740" y="276" key="FileChooserDialogImpl" timestamp="1586176508284">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="740" y="276" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1586176508284" />
-    <state width="1899" height="271" key="GridCell.Tab.0.bottom" timestamp="1586681552675">
+    <state width="1899" height="271" key="GridCell.Tab.0.bottom" timestamp="1586685525419">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="271" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1586681552675" />
-    <state width="1899" height="271" key="GridCell.Tab.0.center" timestamp="1586681552675">
+    <state width="1899" height="271" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1586685525419" />
+    <state width="1899" height="271" key="GridCell.Tab.0.center" timestamp="1586685525419">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="271" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1586681552675" />
-    <state width="1899" height="271" key="GridCell.Tab.0.left" timestamp="1586681552675">
+    <state width="1899" height="271" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1586685525419" />
+    <state width="1899" height="271" key="GridCell.Tab.0.left" timestamp="1586685525419">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="271" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1586681552675" />
-    <state width="1899" height="271" key="GridCell.Tab.0.right" timestamp="1586681552675">
+    <state width="1899" height="271" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1586685525419" />
+    <state width="1899" height="271" key="GridCell.Tab.0.right" timestamp="1586685525419">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="271" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1586681552675" />
-    <state width="1899" height="343" key="GridCell.Tab.1.bottom" timestamp="1586680648628">
+    <state width="1899" height="271" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1586685525419" />
+    <state width="1899" height="343" key="GridCell.Tab.1.bottom" timestamp="1586683456955">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="343" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1586680648628" />
-    <state width="1899" height="343" key="GridCell.Tab.1.center" timestamp="1586680648628">
+    <state width="1899" height="343" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1586683456955" />
+    <state width="1899" height="343" key="GridCell.Tab.1.center" timestamp="1586683456955">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="343" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1586680648628" />
-    <state width="1899" height="343" key="GridCell.Tab.1.left" timestamp="1586680648628">
+    <state width="1899" height="343" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1586683456955" />
+    <state width="1899" height="343" key="GridCell.Tab.1.left" timestamp="1586683456955">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="343" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1586680648628" />
-    <state width="1899" height="343" key="GridCell.Tab.1.right" timestamp="1586680648628">
+    <state width="1899" height="343" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1586683456955" />
+    <state width="1899" height="343" key="GridCell.Tab.1.right" timestamp="1586683456955">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="343" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1586680648628" />
+    <state width="1899" height="343" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1586683456955" />
     <state x="461" y="163" key="SettingsEditor" timestamp="1584536841824">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -373,6 +391,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="552" y="254" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1586615269921" />
+    <state width="968" height="528" key="XDebugger.FullValuePopup" timestamp="1586682076678">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="968" height="528" key="XDebugger.FullValuePopup/0.0.1920.1040@0.0.1920.1040" timestamp="1586682076678" />
     <state x="1074" y="362" key="com.intellij.ide.util.TipDialog" timestamp="1586674366016">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -387,20 +409,20 @@
     <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1586674371643" />
   </component>
   <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/app.py</url>
+          <line>350</line>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
     <watches-manager>
       <configuration name="PythonConfigurationType">
         <watch expression="coordinates_all_list" language="Python" />
-        <watch expression="coordinates_scatter" language="Python" />
-        <watch expression="value" language="Python" />
-        <watch expression="val" language="Python" />
-        <watch expression="self.delete_value()" language="Python" />
-        <watch expression="pep" language="Python" />
-        <watch expression="coord[0:2]" language="Python" />
-        <watch expression="col" language="Python" />
-        <watch expression="noises" language="Python" />
-        <watch expression="noise" language="Python" />
-        <watch expression="coord" language="Python" />
-        <watch expression="bar" language="Python" />
+        <watch expression="len(noises)" language="Python" />
+        <watch expression="len(dispersion)" language="Python" />
       </configuration>
     </watches-manager>
   </component>
