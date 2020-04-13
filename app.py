@@ -171,7 +171,7 @@ class MarkoGebra(Tk):
         self.canvas.create_window((0, 0), window=self.scrollable_frame, anchor="nw")
         self.canvas.configure(yscrollcommand=self.scrollbar.set)
         self.update_table()
-        for i in range(50):
+        for i in range(2):
             Frame(self.scrollable_frame).pack()
 
         self.Table_container.place(bordermode=OUTSIDE, x=MAX_WIDTH * .01, y=MAX_HEIGHT * .6, width=MAX_WIDTH * .4,
@@ -262,7 +262,7 @@ class MarkoGebra(Tk):
             entry1.delete(0, END)
             entry2.delete(0, END)
             cbb.set("")
-            coordinates_all_list.append(f"{data[1]}:{data[0]}/{data[2]}/0")
+            coordinates_all_list.append([data[1],data[0],data[2]])
             self.update_table()
         except:
             entry1.delete(0, END)
@@ -274,7 +274,8 @@ class MarkoGebra(Tk):
 
             float(value)
             bars.append([name, value, color, 0.8])
-            coordinates_all_list.append(f"{name}:{value}:{color}")
+            print(color)
+            coordinates_all_list.append([name,value,color])
             entry1.delete(0, END)
             entry2.delete(0, END)
             cbb.set("")
@@ -297,7 +298,7 @@ class MarkoGebra(Tk):
         noises.append(noises[0])
         dispersion.append(disper)
         number.append(num)
-        coordinates_all_list.append(f"{noises[-1][0]}:{noises[-1][1]}:{num}:{disper}:{noises[-1][3]}")
+        coordinates_all_list.append([num,disper,noises[-1][0][2],noises[-1][0][3],noises[-1][0][4]])
         self.update_table()
 
     def update_table(self):
@@ -310,9 +311,20 @@ class MarkoGebra(Tk):
         for index, parent in enumerate(self.scrollable_frame.winfo_children()):
             try:
                 if TO_ANIMATE == 1:
-                    t.Label(parent, text=f"{coordinates_all_list[index]}, {counter}", font=fonts()["SMALL_FONT"],
+                    t.Label(parent, text=f"{coordinates_all_list[index][0][0]}:{coordinates_all_list[index][0][1]}; Značka: {coordinates_all_list[index][1]}; Barva: {coordinates_all_list[index][2]}; Velikost: {coordinates_all_list[index][3]}", font=fonts()["SMALL_FONT"],
+                                justify=LEFT, anchor="w").grid(row=counter, column=0, sticky="we")
+
+                elif TO_ANIMATE ==2 or TO_ANIMATE == 3:
+                    t.Label(parent,text=f"Název: {coordinates_all_list[index][0]}; Hodnota: {coordinates_all_list[index][1]}; Barva: {coordinates_all_list[index][2]}",font=fonts()["SMALL_FONT"],
+                                justify=LEFT, anchor="w").grid(row=counter, column=0, sticky="we")
+                elif TO_ANIMATE ==4:
+                    t.Label(parent,
+                            text=f"Množství: {coordinates_all_list[index][0]}; Rozptyl: {coordinates_all_list[index][1]}; Značka: {coordinates_all_list[index][2]}; Barva: {coordinates_all_list[index][3]}; Velikost: {coordinates_all_list[index][4]}",
+                            font=fonts()["SMALL_FONT"],
                             justify=LEFT, anchor="w").grid(row=counter, column=0, sticky="we")
-                counter += 1
+
+                    counter += 1
+
             except IndexError:
                 pass
 
@@ -686,6 +698,7 @@ class MarkoGebra(Tk):
                     for indx, val in enumerate(coordinates_plot):
                         if val[1] == coordinates_all_list[index][0][1]:
                             coordinates_plot[indx][2] = linetype
+                            coordinates_all_list[index][1] = linetype
                             self.update_table()
                 else:
                     raise SyntaxError
@@ -696,6 +709,8 @@ class MarkoGebra(Tk):
                     for indx, val in enumerate(coordinates_scatter):
                         if val[0:2] == coordinates_all_list[index][0]:
                             coordinates_scatter[indx][2] = linetype
+                            coordinates_all_list[index][1] = linetype
+
                     self.update_table()
                 else:
                     raise SyntaxError
@@ -704,6 +719,8 @@ class MarkoGebra(Tk):
             if (linetype in EXTRA_POINT_MARKERS + POINT_MARKERS) or ((linetype[0] and linetype[-1]) == "$"):
                 for coord in noises[index + 1]:
                     coord[2] = linetype
+                coordinates_all_list[index][2] = linetype
+                self.update_table()
 
             else:
                 raise SyntaxError
@@ -719,6 +736,7 @@ class MarkoGebra(Tk):
                         color = col.askcolor()
 
                         coordinates_plot[indx][3] = color[1]
+                        coordinates_all_list[index][2] = color[1]
                         self.update_table()
 
             else:
@@ -727,21 +745,26 @@ class MarkoGebra(Tk):
                     if val[0:2] == coordinates_all_list[index][0]:
                         color = col.askcolor()
                         coordinates_scatter[indx][3] = color[1]
-                self.update_table()
+                        coordinates_all_list[index][2] = color[1]
+                        self.update_table()
 
 
         elif TO_ANIMATE == 2:
             color = col.askcolor()
             cols[index] = color[1]
+            coordinates_all_list[index][2] = color[1]
             self.update_table()
         elif TO_ANIMATE == 3:
             color = col.askcolor()
             bars[index][2] = color[1]
+            coordinates_all_list[index][2] = color[1]
             self.update_table()
         elif TO_ANIMATE == 4:
             color = col.askcolor()
             for coord in noises[index + 1]:
                 coord[3] = color[1]
+            coordinates_all_list[index][3] = color[1]
+            self.update_table()
 
     #DONE
     def changeSize(self, index, size):
@@ -752,6 +775,7 @@ class MarkoGebra(Tk):
                     for indx, val in enumerate(coordinates_plot):
                         if val[1] == coordinates_all_list[index][0][1]:
                             coordinates_plot[indx][4] = size
+                            coordinates_all_list[index][3] = size
                             self.update_table()
 
                 else:
@@ -759,15 +783,20 @@ class MarkoGebra(Tk):
                     for indx, val in enumerate(coordinates_scatter):
                         if val[0:2] == coordinates_all_list[index][0]:
                             coordinates_scatter[indx][4] = float(size)
+                            coordinates_all_list[index][3] = size
+
                     self.update_table()
 
             elif TO_ANIMATE == 3:
                 # TODO během po úpravě coord_all přidat úpravu
                 bars[index][3] = size
-                self.update_table()
+
             elif TO_ANIMATE == 4:
                 for coord in noises[index + 1]:
                     coord[4] = size
+                coordinates_all_list[index][4] = size
+                self.update_table()
+
 
             else:
                 raise BlockingIOError
