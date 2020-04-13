@@ -173,7 +173,7 @@ class MarkoGebra(Tk):
         self.canvas.create_window((0, 0), window=self.scrollable_frame, anchor="nw")
         self.canvas.configure(yscrollcommand=self.scrollbar.set)
         self.update_table()
-        for i in range(2):
+        for i in range(50):
             Frame(self.scrollable_frame).pack()
 
         self.Table_container.place(bordermode=OUTSIDE, x=MAX_WIDTH * .01, y=MAX_HEIGHT * .6, width=MAX_WIDTH * .4,
