@@ -19,6 +19,8 @@ import matplotlib.pyplot as plt
 MAX_WIDTH = 1200
 MAX_HEIGHT = 600
 
+FUNCTION_ALLOWED_MARKS = ["0","1","2","3","4","5","6","7","8","9","x","+","-","*","/"]
+
 POINT_MARKERS = ['.', ',', 'o', 'v', '^', '<', '>', '1', '2', '3', '4', '8', 's', 'p', 'P', '*', 'h', 'H', '+', 'x',
                  'X', 'D', 'd', '|', '_']
 EXTRA_POINT_MARKERS = ['0 (TICKLEFT)', '1 (TICKRIGHT)', '2 (TICKUP)', '3 (TICKDOWN)', '4 (CARETLEFT)',
@@ -236,19 +238,25 @@ class MarkoGebra(Tk):
 
     def add_plot_from_function(self, function):
         global coordinates_plot, coordinates_all_list
-        x = np.arange(lim2, lim1, 0.5)
-        y = function
+        is_all_fine = True
+        for char in function:
+            if char not in FUNCTION_ALLOWED_MARKS:
+                is_all_fine = False
 
-        checnk = True
-        if len(coordinates_plot) >= 1:
-            for val in coordinates_plot:
-                if val[1] == y:
-                    checnk = False
-        if checnk:
-            coordinates_plot.append([x, y, "dotted", "blue", "1", function])
-            coordinates_all_list.append([["f(x)", function], "dotted", "blue", "1"])
+        if is_all_fine:
+            x = np.arange(lim2, lim1, 0.5)
+            y = function
 
-        self.update_table()
+            checnk = True
+            if len(coordinates_plot) >= 1:
+                for val in coordinates_plot:
+                    if val[1] == y:
+                        checnk = False
+            if checnk:
+                coordinates_plot.append([x, y, "dotted", "blue", "1", function])
+                coordinates_all_list.append([["f(x)", function], "dotted", "blue", "1"])
+
+            self.update_table()
 
     def add_pie_data(self, data, entry1, entry2, cbb):
         global slices, cols, activities, coordinates_all_list
