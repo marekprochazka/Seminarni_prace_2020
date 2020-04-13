@@ -319,19 +319,19 @@ class MarkoGebra(Tk):
         for index, parent in enumerate(self.scrollable_frame.winfo_children()):
             try:
                 if TO_ANIMATE == 1:
-                    t.Label(parent, text=f"{coordinates_all_list[index][0][0]}:{coordinates_all_list[index][0][1]}; Značka: {coordinates_all_list[index][1]}; Barva: {coordinates_all_list[index][2]}; Velikost: {coordinates_all_list[index][3]}", font=fonts()["SMALL_FONT"],
+                    t.Label(parent, text=f"{counter}. {coordinates_all_list[index][0][0]}:{coordinates_all_list[index][0][1]}; Značka: {coordinates_all_list[index][1]}; Barva: {coordinates_all_list[index][2]}; Velikost: {coordinates_all_list[index][3]}", font=fonts()["SMALL_FONT"],
                                 justify=LEFT, anchor="w").grid(row=counter, column=0, sticky="we")
 
                 elif TO_ANIMATE ==2 or TO_ANIMATE == 3:
-                    t.Label(parent,text=f"Název: {coordinates_all_list[index][0]}; Hodnota: {coordinates_all_list[index][1]}; Barva: {coordinates_all_list[index][2]}",font=fonts()["SMALL_FONT"],
+                    t.Label(parent,text=f"{counter}. Název: {coordinates_all_list[index][0]}; Hodnota: {coordinates_all_list[index][1]}; Barva: {coordinates_all_list[index][2]}",font=fonts()["SMALL_FONT"],
                                 justify=LEFT, anchor="w").grid(row=counter, column=0, sticky="we")
                 elif TO_ANIMATE ==4:
                     t.Label(parent,
-                            text=f"Množství: {coordinates_all_list[index][0]}; Rozptyl: {coordinates_all_list[index][1]}; Značka: {coordinates_all_list[index][2]}; Barva: {coordinates_all_list[index][3]}; Velikost: {coordinates_all_list[index][4]}",
+                            text=f"{counter}. Množství: {coordinates_all_list[index][0]}; Rozptyl: {coordinates_all_list[index][1]}; Značka: {coordinates_all_list[index][2]}; Barva: {coordinates_all_list[index][3]}; Velikost: {coordinates_all_list[index][4]}",
                             font=fonts()["SMALL_FONT"],
                             justify=LEFT, anchor="w").grid(row=counter, column=0, sticky="we")
 
-                    counter += 1
+                counter += 1
 
             except IndexError:
                 pass
