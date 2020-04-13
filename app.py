@@ -16,7 +16,7 @@ import matplotlib.pyplot as plt
 #
 
 
-MAX_WIDTH = 1200
+MAX_WIDTH = 1600
 MAX_HEIGHT = 600
 
 FUNCTION_ALLOWED_MARKS = ["0","1","2","3","4","5","6","7","8","9","x","+","-","*","/"]
@@ -60,6 +60,8 @@ def fonts():
             "ITALIC_SMALL": ("Verdana", 9, "italic")}
 
 
+
+
 coordinates_scatter = []
 coordinates_plot = []
 coordinates_all_list = []
@@ -81,6 +83,10 @@ basic_gen = []
 # f = plt.figure(figsize=(4.5, 4.5), dpi=100)
 f = Figure(figsize=(4.5, 4.5), dpi=100)
 a = f.add_subplot(111)
+
+
+a.grid(color='k', linestyle='-', linewidth=1)
+a.set_axisbelow(True)
 # a.axis("equal")
 
 # a.set_aspect("equal")
@@ -150,6 +156,34 @@ class MarkoGebra(Tk):
         canvas = FigureCanvasTkAgg(f, self)
         canvas.draw()
         canvas.get_tk_widget().place(bordermode=OUTSIDE, x=MAX_WIDTH - 470, y=MAX_HEIGHT - 470)
+
+        #TODO settings
+        self.settings_container = Frame(self,bg="grey")
+        self.settings_container.place(bordermode=OUTSIDE,x=MAX_WIDTH*.45,y=MAX_HEIGHT*.22,width=MAX_WIDTH*.24,height=MAX_HEIGHT*.8)
+
+        self.InfoLabel = t.Label(self.settings_container,text="Nastavení mřížky" ,font=fonts()["LARGE_FONT"])
+        self.InfoLabel.grid(row=0,column=1,pady=15)
+
+        self.Col_button = t.Button(self.settings_container,text="Změnit barvu",command=lambda: self.colorize_grid())
+        self.Col_button.grid(row=1,column=1,sticky="e",pady=15)
+
+        self.size_label = t.Label(self.settings_container,text="Velikost mřížky")
+        self.size_label.grid(row=2,column=1,sticky="e")
+
+        self.grid_size = Scale(self.settings_container, activebackground="aqua", bd=0, from_=0, to=10, orient=HORIZONTAL,sliderlength=22)
+        self.grid_size.set(1)
+        self.grid_size.grid(row=3, column=1, sticky="e")
+        self.grid_size.bind("<ButtonRelease-1>",
+                         lambda event: self.size_grid(self.grid_size.get()))
+
+        self.cbb_convertion = ["-","--","-.",":",""]
+        self.cbb_line = t.Combobox(self.settings_container, values=["'-'","'--'","'-.'","':'","' '"],state="readonly")
+        self.cbb_line.current(0)
+        self.cbb_line.bind('<<ComboboxSelected>>',
+                       lambda event: self.line_grid(self.cbb_convertion[self.cbb_line.current()]))
+        self.cbb_line.grid(row=4,column=1,sticky="e")
+
+        self.settings_container.grid_columnconfigure(0,weight=2)
 
         # Combobox - 2
         self.CBB2 = t.Combobox(self, values=["Matematické", "Koláč", "Sloupcový", "Náhodný šum"],
@@ -221,6 +255,15 @@ class MarkoGebra(Tk):
         coordinates_all_list = []
         self.update_table()
 
+    def colorize_grid(self):
+        color = col.askcolor()
+        a.grid(color=color[1])
+
+    def size_grid(self,size):
+        a.grid(linewidth=size)
+    def line_grid(self,line):
+        a.grid(linestyle=line)
+
     def add_point_scatter(self, x, y):
         global coordinates_scatter, coordinates_all_list, lim1, lim2
         if x > lim1:
@@ -282,7 +325,7 @@ class MarkoGebra(Tk):
 
             float(value)
             bars.append([name, value, color, 0.8])
-            print(color)
+
             coordinates_all_list.append([name,value,color])
             entry1.delete(0, END)
             entry2.delete(0, END)
@@ -341,14 +384,14 @@ class MarkoGebra(Tk):
         top = Toplevel()
         top.config(background="black")
         top.wm_geometry("800x500")
-        top.maxsize(width=800, height=500)
-        top.minsize(width=800, height=500)
+        top.maxsize(width=800, height=400)
+        top.minsize(width=800, height=400)
         top.title("Konzole")
         types = t.Entry(top)
-        types.place(bordermode=OUTSIDE, width=700, height=20, x=0, y=480)
+        types.place(bordermode=OUTSIDE, width=700, height=20, x=0, y=380)
         types.focus()
         send_command = t.Button(top, text="odeslat", command=lambda: self.command_entered(types, scrollable_Frame))
-        send_command.place(bordermode=OUTSIDE, width=100, height=20, x=700, y=480)
+        send_command.place(bordermode=OUTSIDE, width=100, height=20, x=700, y=380)
 
         table_container = t.Frame(top)
         canvas = Canvas(table_container)
@@ -360,7 +403,7 @@ class MarkoGebra(Tk):
         canvas.create_window((0, 0), window=scrollable_Frame, anchor="nw")
         canvas.configure(yscrollcommand=scrollbar.set)
         table_container.place(bordermode=OUTSIDE, x=0, y=0, width=800,
-                              height=480)
+                              height=380)
         canvas.pack(side="left", fill="both", expand=True)
         scrollbar.pack(side="right", fill="y")
 
