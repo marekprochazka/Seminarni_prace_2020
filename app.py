@@ -12,7 +12,7 @@ from matplotlib import style as st
 from matplotlib.figure import Figure
 import matplotlib.pyplot as plt
 
-# TODO upravit coords_all[]
+# Ver. Alpha 1.1
 #
 
 
