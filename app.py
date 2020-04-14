@@ -13,7 +13,7 @@ from matplotlib.figure import Figure
 import matplotlib.pyplot as plt
 
 # Ver. Alpha 1.1
-#
+#Snapshot 1.0
 
 
 MAX_WIDTH = 1600
