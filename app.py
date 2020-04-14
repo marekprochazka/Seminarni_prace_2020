@@ -229,9 +229,12 @@ class MarkoGebra(Tk):
         self.SetupFrames = {}
 
         self._frame = None
-        self.show_Setup_Frame(Mathematical)
+        self.show_Setup_Frame(cont=Mathematical)
 
-    def show_Setup_Frame(self, cont):
+    def on_exit(self):
+        self.show_Setup_Frame()
+        self.destroy()
+    def show_Setup_Frame(self, cont=None):
         global coordinates_all_list, coordinates_scatter, coordinates_plot, TO_ANIMATE, slices, cols, activities, explode, start_angle, bars, noises, dispersion, number, basic_gen
         if TO_ANIMATE == 1:
             with(open("plot_save.txt","w")) as save:
@@ -242,17 +245,30 @@ class MarkoGebra(Tk):
                 for info in coordinates_plot:
                     save.write(f"{','.join([str(val) for val in info[1:]])}|")
 
+        if TO_ANIMATE == 2:
+            with(open("pie_save.txt","w")) as save:
+                save.truncate()
+
+                save.write(f"{','.join([str(val) for val in slices])}")
+                save.write("\n")
+                save.write(f"{','.join([str(val) for val in cols])}")
+                save.write("\n")
+                save.write(f"{','.join([str(val) for val in activities])}")
+                save.write("\n")
+                save.write(f"{','.join([str(val) for val in explode])}")
 
 
-        new_frame = cont(self.SetupContainer, self)
-        TO_ANIMATE = GRAPHING_METHOD[new_frame.type]
 
-        if self._frame is not None:
-            for child in self._frame.winfo_children():
-                child.destroy()
-            self._frame.destroy()
-        self._frame = new_frame
-        self._frame.place(x=MAX_WIDTH * .01, y=MAX_HEIGHT * .15, height=MAX_HEIGHT * 45, width=MAX_WIDTH * .40)
+        if cont != None:
+            new_frame = cont(self.SetupContainer, self)
+            TO_ANIMATE = GRAPHING_METHOD[new_frame.type]
+
+            if self._frame is not None:
+                for child in self._frame.winfo_children():
+                    child.destroy()
+                self._frame.destroy()
+            self._frame = new_frame
+            self._frame.place(x=MAX_WIDTH * .01, y=MAX_HEIGHT * .15, height=MAX_HEIGHT * 45, width=MAX_WIDTH * .40)
 
         coordinates_plot = []
         coordinates_scatter = []
@@ -278,17 +294,29 @@ class MarkoGebra(Tk):
                     for scatter in new_scatters:
                         scatter = scatter.split(",")
                         self.add_point_scatter(int(scatter[0]),int(scatter[1]),marker=scatter[2],color=scatter[3],size=int(scatter[4]))
-                    new_plots = save_txt[1].split("|")
-                    del new_plots[-1]
-                    for plot in new_plots:
-                        plot = plot.split(",")
-                        self.add_plot_from_function(plot[0],line=plot[1],color=plot[2],size=plot[3] )
+                    try:
+                        new_plots = save_txt[1].split("|")
+                        del new_plots[-1]
+                        for plot in new_plots:
+                            plot = plot.split(",")
+                            self.add_plot_from_function(plot[0],line=plot[1],color=plot[2],size=plot[3] )
+                    except IndexError:
+                        pass
+        elif TO_ANIMATE == 2:
+            with(open("pie_save.txt", "r")) as save:
+                save_txt = save.readlines()
+                save_txt = [val.replace("\n","") for val in save_txt]
+                save_txt = [val.split(",") for val in save_txt]
 
+                if save_txt != []:
+                    for index,_ in enumerate(save_txt[0]):
+                        self.add_pie_data(data=[save_txt[0][index],save_txt[2][index],save_txt[1][index]],expl=int(save_txt[3][index]))
 
 
 
 
         self.update_table()
+
 
     def colorize_grid(self):
         color = col.askcolor()
@@ -336,7 +364,7 @@ class MarkoGebra(Tk):
 
             self.update_table()
 
-    def add_pie_data(self, data, entry1, entry2, cbb):
+    def add_pie_data(self, data,expl=0, entry1=None, entry2=None, cbb=None):
         global slices, cols, activities, coordinates_all_list
 
         try:
@@ -344,10 +372,11 @@ class MarkoGebra(Tk):
             slices.append(data[0])
             activities.append(data[1])
             cols.append(data[2])
-            explode.append(0)
-            entry1.delete(0, END)
-            entry2.delete(0, END)
-            cbb.set("")
+            explode.append(expl)
+            if entry1 != None:
+                entry1.delete(0, END)
+                entry2.delete(0, END)
+                cbb.set("")
             coordinates_all_list.append([data[1],data[0],data[2]])
             self.update_table()
         except:
@@ -762,6 +791,7 @@ class MarkoGebra(Tk):
             del slices[index]
             del cols[index]
             del activities[index]
+            del explode[index]
             self.update_table()
 
         if TO_ANIMATE == 3:
@@ -976,8 +1006,8 @@ class Pie(Frame):
         self.label = t.Entry(self, justify="center")
         self.color = t.Combobox(self, values=self.cb_values, state="readonly")
         self.add_value = t.Button(self, text="Přidat hodnotu", command=lambda: controller.add_pie_data(
-            [self.slice.get(), self.label.get(), self.basic_colors[self.color.current()]], self.slice, self.label,
-            self.color))
+            [self.slice.get(), self.label.get(), self.basic_colors[self.color.current()]], entry1=self.slice,entry2=self.label,
+            cbb=self.color))
 
         self.txt1.grid(row=0, column=0, sticky="we")
         self.txt2.grid(row=1, column=0, sticky="we")
@@ -1060,5 +1090,5 @@ aniFun = aniObj.Go
 app = MarkoGebra()
 
 ani = anim.FuncAnimation(f, aniFun, interval=1000, blit=False)
-
+app.protocol("WM_DELETE_WINDOW", app.on_exit)
 app.mainloop()
