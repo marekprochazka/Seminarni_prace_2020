@@ -19,7 +19,7 @@ import matplotlib.pyplot as plt
 MAX_WIDTH = 1600
 MAX_HEIGHT = 600
 
-FUNCTION_ALLOWED_MARKS = ["0","1","2","3","4","5","6","7","8","9","x","+","-","*","/"]
+FUNCTION_ALLOWED_MARKS = ["0","1","2","3","4","5","6","7","8","9","x","+","-","*","/","(",")"]
 
 POINT_MARKERS = ['.', ',', 'o', 'v', '^', '<', '>', '1', '2', '3', '4', '8', 's', 'p', 'P', '*', 'h', 'H', '+', 'x',
                  'X', 'D', 'd', '|', '_']
@@ -85,16 +85,13 @@ f = Figure(figsize=(4.5, 4.5), dpi=100)
 a = f.add_subplot(111)
 
 
-a.grid(color='k', linestyle='-', linewidth=1)
+a.grid(color='k', linestyle='-', linewidth=0.1)
 a.set_axisbelow(True)
-# a.axis("equal")
-
-# a.set_aspect("equal")
 
 a.set_ylim(-10, 10)
-
 lim1 = 30
 lim2 = -30
+
 
 
 class GraphAnimation:
@@ -110,6 +107,8 @@ class GraphAnimation:
 
     def animate_graphs(i):
         a.clear()
+        a.axis("equal")
+
         for coord in coordinates_scatter:
             a.scatter(coord[0], coord[1], marker=coord[2], color=coord[3], linewidths=float(coord[4]))
         for coord in coordinates_plot:
@@ -127,11 +126,13 @@ class GraphAnimation:
 
     def animate_bar(self):
         a.clear()
+        a.axis("auto")
         for bar in bars:
             a.bar([str(bar[0])], [int(bar[1])], color=bar[2], width=float(bar[3]))
 
     def animate_noise(self):
         a.clear()
+        a.axis("equal")
         for noise in noises:
             for coord in noise:
                 a.scatter(coord[0], coord[1], marker=coord[2], color=coord[3], linewidths=float(coord[4]))
@@ -158,30 +159,33 @@ class MarkoGebra(Tk):
         canvas.get_tk_widget().place(bordermode=OUTSIDE, x=MAX_WIDTH - 470, y=MAX_HEIGHT - 470)
 
         #TODO settings
-        self.settings_container = Frame(self,bg="grey")
-        self.settings_container.place(bordermode=OUTSIDE,x=MAX_WIDTH*.45,y=MAX_HEIGHT*.22,width=MAX_WIDTH*.24,height=MAX_HEIGHT*.8)
+        self.settings_container = Frame(self)
+        self.settings_container.place(bordermode=OUTSIDE,x=MAX_WIDTH*.55,y=MAX_HEIGHT*.22,width=MAX_WIDTH*.14,height=MAX_HEIGHT*.8)
 
         self.InfoLabel = t.Label(self.settings_container,text="Nastavení mřížky" ,font=fonts()["LARGE_FONT"])
-        self.InfoLabel.grid(row=0,column=1,pady=15)
+        self.InfoLabel.grid(row=0,column=0,pady=15)
 
         self.Col_button = t.Button(self.settings_container,text="Změnit barvu",command=lambda: self.colorize_grid())
-        self.Col_button.grid(row=1,column=1,sticky="e",pady=15)
+        self.Col_button.grid(row=1,column=0,sticky="we",pady=15)
 
         self.size_label = t.Label(self.settings_container,text="Velikost mřížky")
-        self.size_label.grid(row=2,column=1,sticky="e")
+        self.size_label.grid(row=2,column=0,sticky="we")
 
-        self.grid_size = Scale(self.settings_container, activebackground="aqua", bd=0, from_=0, to=10, orient=HORIZONTAL,sliderlength=22)
+        self.grid_size = Scale(self.settings_container, activebackground="aqua", bd=0, from_=0, to=50, orient=HORIZONTAL,sliderlength=22)
         self.grid_size.set(1)
-        self.grid_size.grid(row=3, column=1, sticky="e")
+        self.grid_size.grid(row=3, column=0, sticky="we")
         self.grid_size.bind("<ButtonRelease-1>",
-                         lambda event: self.size_grid(self.grid_size.get()))
+                         lambda event: self.size_grid(self.grid_size.get()/10))
+
+        self.line_label = t.Label(self.settings_container, text="Druh mřížky")
+        self.line_label.grid(row=4, column=0, sticky="we",pady=15)
 
         self.cbb_convertion = ["-","--","-.",":",""]
         self.cbb_line = t.Combobox(self.settings_container, values=["'-'","'--'","'-.'","':'","' '"],state="readonly")
         self.cbb_line.current(0)
         self.cbb_line.bind('<<ComboboxSelected>>',
                        lambda event: self.line_grid(self.cbb_convertion[self.cbb_line.current()]))
-        self.cbb_line.grid(row=4,column=1,sticky="e")
+        self.cbb_line.grid(row=5,column=0,sticky="we")
 
         self.settings_container.grid_columnconfigure(0,weight=2)
 
@@ -275,8 +279,8 @@ class MarkoGebra(Tk):
         if y < lim2:
             lim2 = y
         if [x, y] not in coordinates_scatter:
-            coordinates_scatter.append([x, y, "v", "blue", "1"])
-            coordinates_all_list.append([[x, y], "v", "blue", "1"])
+            coordinates_scatter.append([x, y, ".", "blue", "1"])
+            coordinates_all_list.append([[x, y], ".", "blue", "1"])
             self.update_table()
 
     def add_plot_from_function(self, function):
@@ -296,8 +300,8 @@ class MarkoGebra(Tk):
                     if val[1] == y:
                         checnk = False
             if checnk:
-                coordinates_plot.append([x, y, "dotted", "blue", "1", function])
-                coordinates_all_list.append([["f(x)", function], "dotted", "blue", "1"])
+                coordinates_plot.append([x, y, "solid", "blue", "1", function])
+                coordinates_all_list.append([["f(x)", function], "solid", "blue", "1"])
 
             self.update_table()
 
