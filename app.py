@@ -41,7 +41,7 @@ GRAPHING_METHOD = {
     "noise": 4
 }
 
-TO_ANIMATE = GRAPHING_METHOD["matematical"]
+TO_ANIMATE = 0
 
 pie_colors = []
 
@@ -233,6 +233,16 @@ class MarkoGebra(Tk):
 
     def show_Setup_Frame(self, cont):
         global coordinates_all_list, coordinates_scatter, coordinates_plot, TO_ANIMATE, slices, cols, activities, explode, start_angle, bars, noises, dispersion, number, basic_gen
+        if TO_ANIMATE == 1:
+            with(open("plot_save.txt","w")) as save:
+                save.truncate()
+                for info in coordinates_scatter:
+                    save.write(f"{','.join([str(val) for val in info])}|")
+                save.write("\n")
+                for info in coordinates_plot:
+                    save.write(f"{','.join([str(val) for val in info[1:]])}|")
+
+
 
         new_frame = cont(self.SetupContainer, self)
         TO_ANIMATE = GRAPHING_METHOD[new_frame.type]
@@ -243,6 +253,7 @@ class MarkoGebra(Tk):
             self._frame.destroy()
         self._frame = new_frame
         self._frame.place(x=MAX_WIDTH * .01, y=MAX_HEIGHT * .15, height=MAX_HEIGHT * 45, width=MAX_WIDTH * .40)
+
         coordinates_plot = []
         coordinates_scatter = []
         slices = []
@@ -257,6 +268,26 @@ class MarkoGebra(Tk):
         basic_gen = []
 
         coordinates_all_list = []
+
+        if TO_ANIMATE == 1:
+            with(open("plot_save.txt","r")) as save:
+                save_txt = save.readlines()
+                if save_txt != []:
+                    new_scatters = save_txt[0].split("|")
+                    del new_scatters[-1]
+                    for scatter in new_scatters:
+                        scatter = scatter.split(",")
+                        self.add_point_scatter(int(scatter[0]),int(scatter[1]),marker=scatter[2],color=scatter[3],size=int(scatter[4]))
+                    new_plots = save_txt[1].split("|")
+                    del new_plots[-1]
+                    for plot in new_plots:
+                        plot = plot.split(",")
+                        self.add_plot_from_function(plot[0],line=plot[1],color=plot[2],size=plot[3] )
+
+
+
+
+
         self.update_table()
 
     def colorize_grid(self):
@@ -268,7 +299,7 @@ class MarkoGebra(Tk):
     def line_grid(self,line):
         a.grid(linestyle=line)
 
-    def add_point_scatter(self, x, y):
+    def add_point_scatter(self, x, y,marker=".",color="blue",size="1"):
         global coordinates_scatter, coordinates_all_list, lim1, lim2
         if x > lim1:
             lim1 = x
@@ -279,11 +310,11 @@ class MarkoGebra(Tk):
         if y < lim2:
             lim2 = y
         if [x, y] not in coordinates_scatter:
-            coordinates_scatter.append([x, y, ".", "blue", "1"])
-            coordinates_all_list.append([[x, y], ".", "blue", "1"])
+            coordinates_scatter.append([x, y, marker, color, size])
+            coordinates_all_list.append([[x, y], marker, color, size])
             self.update_table()
 
-    def add_plot_from_function(self, function):
+    def add_plot_from_function(self, function,line="solid",color="blue",size="1"):
         global coordinates_plot, coordinates_all_list
         is_all_fine = True
         for char in function:
@@ -300,8 +331,8 @@ class MarkoGebra(Tk):
                     if val[1] == y:
                         checnk = False
             if checnk:
-                coordinates_plot.append([x, y, "solid", "blue", "1", function])
-                coordinates_all_list.append([["f(x)", function], "solid", "blue", "1"])
+                coordinates_plot.append([x, y, line, color, size, function])
+                coordinates_all_list.append([["f(x)", function], line, color, size])
 
             self.update_table()
 
