@@ -190,7 +190,8 @@ class MarkoGebra(Tk):
         self.cbb_line.grid(row=5,column=0,sticky="we")
 
         self.settings_container.grid_columnconfigure(0,weight=2)
-
+        self.save_but = t.Button(self.settings_container,text="uložit jako orázek",command=lambda :self.saver())
+        self.save_but.grid(row=6,column=0,sticky="we")
         # Combobox - 2
         self.CBB2 = t.Combobox(self, values=["Matematické", "Koláč", "Sloupcový", "Náhodný šum"],
                                state="readonly")
@@ -232,13 +233,75 @@ class MarkoGebra(Tk):
 
         self._frame = None
         self.show_Setup_Frame(cont=Mathematical)
-        #self.saver()
+
 
 
     def on_exit(self):
         self.show_Setup_Frame()
         self.destroy()
 
+    @staticmethod
+    def __callback():
+        return
+
+    def exit_top(self,top):
+        a.axes.get_xaxis().set_visible(True)
+        a.axes.get_yaxis().set_visible(True)
+        top.destroy()
+    def saver(self):
+        top = Toplevel()
+        top.wm_geometry("400x400")
+        top.wm_title("Uložit graf")
+        top.minsize(400,400)
+        top.maxsize(400,400)
+
+        top.protocol("WM_DELETE_WINDOW", self.__callback)
+
+        name_label = t.Label(top,text="Název souboru:")
+        name_label.grid(row=0,column=0,padx=8)
+        name = t.Entry(top)
+        name.grid(row=0,column=1,sticky="we")
+        name_png = t.Label(top,text=".png")
+        name_png.grid(row=0,column=2,sticky="w")
+        direct_button = t.Button(top,text="Umístění",command=lambda:self.find_dir(direct,top))
+        direct_button.grid(row=1,column=0,columnspan=2,sticky="we")
+        direct = t.Label(top,text="")
+        direct.grid(row=1,column=2)
+        is_grid_label = t.Label(top, text="Neukládat s popisem os: ")
+        is_grid_label.grid(row=2,column=0)
+        is_grid = t.Checkbutton(top,command=lambda :self.is_grid_func(is_grid.state()))
+        is_grid.grid(row=2,column=1)
+        send = t.Button(top,text="go",command=lambda:self.save_as_img(direct["text"],name.get(),top))
+        send.grid(row=3,column=0,columnspan=2,sticky="we")
+        go_back = t.Button(top,text="zrušit",command=lambda :self.exit_top(top))
+        go_back.grid(row=3,column=4)
+
+
+
+    def find_dir(self,dir_label,top):
+        file = filedialog.askdirectory()
+        if file:
+            dir_label["text"]=file
+        top.lift()
+    def is_grid_func(self,state):
+        if "selected" in state:
+            a.axes.get_xaxis().set_visible(False)
+            a.axes.get_yaxis().set_visible(False)
+        else:
+            a.axes.get_xaxis().set_visible(True)
+            a.axes.get_yaxis().set_visible(True)
+
+    def save_as_img(self,file,name,top):
+        w, h = f.canvas.get_width_height()
+        buf = np.frombuffer(f.canvas.tostring_argb(), dtype=np.uint8)
+        buf.shape = (w, h, 4)
+        buf = np.roll(buf, 3, axis=2)
+        w, h, d = buf.shape
+        im = Image.frombytes("RGBA", (w, h), buf.tostring())
+        im.save(f"{file}/{name}.png")
+        top.destroy()
+        a.axes.get_xaxis().set_visible(True)
+        a.axes.get_yaxis().set_visible(True)
 
     def show_Setup_Frame(self, cont=None):
         global coordinates_all_list, coordinates_scatter, coordinates_plot, TO_ANIMATE, slices, cols, activities, explode, start_angle, bars, noises, dispersion, number, basic_gen
