@@ -3,6 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="ea9c3f51-27bf-4d67-87b1-2583643052bd" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pie_save.txt" beforeDir="false" afterPath="$PROJECT_DIR$/pie_save.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/plot_save.txt" beforeDir="false" afterPath="$PROJECT_DIR$/plot_save.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -21,6 +23,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="5050cb67695ca62c3e4ca92b8fddf717f0f9ffdd" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="UPDATE_TYPE" value="MERGE" />
   </component>
@@ -437,22 +444,22 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="740" y="276" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1586722182573" />
-    <state width="1899" height="319" key="GridCell.Tab.0.bottom" timestamp="1586893753572">
+    <state width="1899" height="143" key="GridCell.Tab.0.bottom" timestamp="1586939189895">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="319" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1586893753572" />
-    <state width="1899" height="319" key="GridCell.Tab.0.center" timestamp="1586893753572">
+    <state width="1899" height="143" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1586939189895" />
+    <state width="1899" height="143" key="GridCell.Tab.0.center" timestamp="1586939189895">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="319" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1586893753572" />
-    <state width="1899" height="319" key="GridCell.Tab.0.left" timestamp="1586893753572">
+    <state width="1899" height="143" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1586939189895" />
+    <state width="1899" height="143" key="GridCell.Tab.0.left" timestamp="1586939189895">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="319" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1586893753572" />
-    <state width="1899" height="319" key="GridCell.Tab.0.right" timestamp="1586893753572">
+    <state width="1899" height="143" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1586939189895" />
+    <state width="1899" height="143" key="GridCell.Tab.0.right" timestamp="1586939189895">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="319" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1586893753572" />
+    <state width="1899" height="143" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1586939189895" />
     <state width="1899" height="343" key="GridCell.Tab.1.bottom" timestamp="1586879355814">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -499,15 +506,6 @@
     <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1586674371643" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/app.py</url>
-          <line>527</line>
-          <option name="timeStamp" value="6" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
     <watches-manager>
       <configuration name="PythonConfigurationType">
         <watch expression="coordinates_scatter" />

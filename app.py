@@ -4,6 +4,8 @@ from tkinter.ttk import Button
 import tkinter.colorchooser as col
 from colormap import rgb2hex
 from math import floor
+from tkinter import filedialog
+from PIL import Image
 
 import matplotlib as mp
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2Tk
@@ -230,10 +232,63 @@ class MarkoGebra(Tk):
 
         self._frame = None
         self.show_Setup_Frame(cont=Mathematical)
+        self.saver()
+
 
     def on_exit(self):
         self.show_Setup_Frame()
+
+
         self.destroy()
+    def saver(self):
+        top = Toplevel()
+        top.wm_geometry("400x400")
+        top.wm_title("Uložit graf")
+        top.minsize(400,400)
+        top.maxsize(400,400)
+
+        name_label = t.Label(top,text="Název souboru:")
+        name_label.grid(row=0,column=0,padx=8)
+        name = t.Entry(top)
+        name.grid(row=0,column=1,sticky="we")
+        name_png = t.Label(top,text=".png")
+        name_png.grid(row=0,column=2,sticky="w")
+        direct_button = t.Button(top,text="Umístění",command=lambda:self.find_dir(direct,top,is_grid.state()))
+        direct_button.grid(row=1,column=0,columnspan=2,sticky="we")
+        direct = t.Label(top,text="")
+        direct.grid(row=1,column=2)
+        is_grid_label = t.Label(top, text="Neukládat s popisem os: ")
+        is_grid_label.grid(row=2,column=0)
+        is_grid = t.Checkbutton(top)
+        print(is_grid.state())
+        is_grid.grid(row=2,column=1)
+        send = t.Button(top,text="go",command=lambda:self.save_as_img(direct["text"],name.get(),top))
+        send.grid(row=3,column=0,columnspan=2,sticky="we")
+
+
+        top.columnconfigure(2,minsize=200)
+
+    def find_dir(self,dir_label,top,state):
+        if state == ("selected",):
+            a.axes.get_xaxis().set_visible(False)
+            a.axes.get_yaxis().set_visible(False)
+        file = filedialog.askdirectory()
+        if file:
+            dir_label["text"]=file
+        top.lift()
+
+    def save_as_img(self,file,name,top):
+        w, h = f.canvas.get_width_height()
+        buf = np.frombuffer(f.canvas.tostring_argb(), dtype=np.uint8)
+        buf.shape = (w, h, 4)
+        buf = np.roll(buf, 3, axis=2)
+        w, h, d = buf.shape
+        im = Image.frombytes("RGBA", (w, h), buf.tostring())
+        im.save(f"{file}/{name}.png")
+        top.destroy()
+        a.axes.get_xaxis().set_visible(True)
+        a.axes.get_yaxis().set_visible(True)
+
     def show_Setup_Frame(self, cont=None):
         global coordinates_all_list, coordinates_scatter, coordinates_plot, TO_ANIMATE, slices, cols, activities, explode, start_angle, bars, noises, dispersion, number, basic_gen
         if TO_ANIMATE == 1:
@@ -779,9 +834,7 @@ class MarkoGebra(Tk):
             else:
                 for coord in coordinates_scatter:
                     if coord[0:2] == coordinates_all_list[index][0]:
-                        print(coordinates_scatter)
                         coordinates_scatter.remove(coord)
-                        print(coordinates_scatter)
 
                 del coordinates_all_list[index]
                 self.update_table()

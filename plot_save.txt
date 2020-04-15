@@ -1,2 +1,2 @@
-45,3,.,blue,1|78,546,.,blue,1|
-x**2,solid,#cbdb00,4,x**2|x/2,solid,#d70428,1,x/2|
+45,2,.,blue,1|
+x**2,solid,blue,1,x**2|
