@@ -4,7 +4,6 @@
     <list default="true" id="ea9c3f51-27bf-4d67-87b1-2583643052bd" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/plot_save.txt" beforeDir="false" afterPath="$PROJECT_DIR$/plot_save.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -400,7 +399,14 @@
       <option name="project" value="LOCAL" />
       <updated>1586939646875</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="added choice of grid and cancel button">
+      <created>1586941436342</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1586941436342</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -417,7 +423,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="fixed &quot;limit&quot; za použití obechcávky" />
     <MESSAGE value="last update" />
     <MESSAGE value="destroy_value has to be repaired, bug in function add" />
     <MESSAGE value="added console with delete function" />
@@ -442,37 +447,38 @@
     <MESSAGE value="snapshot 1.0 - Math and Pie Autosave" />
     <MESSAGE value="save as img ver 0.1" />
     <MESSAGE value="fixed pie error, save img moved to another branch" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed pie error, save img moved to another branch" />
+    <MESSAGE value="added choice of grid and cancel button" />
+    <option name="LAST_COMMIT_MESSAGE" value="added choice of grid and cancel button" />
   </component>
   <component name="WindowStateProjectService">
     <state x="1153" y="330" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1584536909928">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="1153" y="330" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1584536909928" />
-    <state x="614" y="112" key="CommitChangelistDialog2" timestamp="1586939645840">
+    <state x="614" y="112" key="CommitChangelistDialog2" timestamp="1586941435169">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="614" y="112" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1586939645840" />
+    <state x="614" y="112" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1586941435169" />
     <state x="740" y="276" key="FileChooserDialogImpl" timestamp="1586722182573">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="740" y="276" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1586722182573" />
-    <state width="1899" height="143" key="GridCell.Tab.0.bottom" timestamp="1586941379320">
+    <state width="1899" height="143" key="GridCell.Tab.0.bottom" timestamp="1586941527271">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="143" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1586941379320" />
-    <state width="1899" height="143" key="GridCell.Tab.0.center" timestamp="1586941379320">
+    <state width="1899" height="143" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1586941527271" />
+    <state width="1899" height="143" key="GridCell.Tab.0.center" timestamp="1586941527271">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="143" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1586941379320" />
-    <state width="1899" height="143" key="GridCell.Tab.0.left" timestamp="1586941379320">
+    <state width="1899" height="143" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1586941527271" />
+    <state width="1899" height="143" key="GridCell.Tab.0.left" timestamp="1586941527271">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="143" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1586941379320" />
-    <state width="1899" height="143" key="GridCell.Tab.0.right" timestamp="1586941379320">
+    <state width="1899" height="143" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1586941527271" />
+    <state width="1899" height="143" key="GridCell.Tab.0.right" timestamp="1586941527271">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="143" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1586941379320" />
+    <state width="1899" height="143" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1586941527271" />
     <state width="1899" height="343" key="GridCell.Tab.1.bottom" timestamp="1586879355814">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

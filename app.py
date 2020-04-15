@@ -274,7 +274,7 @@ class MarkoGebra(Tk):
         send = t.Button(top,text="go",command=lambda:self.save_as_img(direct["text"],name.get(),top))
         send.grid(row=3,column=0,columnspan=2,sticky="we")
         go_back = t.Button(top,text="zrušit",command=lambda :self.exit_top(top))
-        go_back.grid(row=3,column=4)
+        go_back.grid(row=3,column=2)
 
 
 
