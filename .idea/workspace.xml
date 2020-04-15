@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="ea9c3f51-27bf-4d67-87b1-2583643052bd" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/plot_save.txt" beforeDir="false" afterPath="$PROJECT_DIR$/plot_save.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -413,7 +413,14 @@
       <option name="project" value="LOCAL" />
       <updated>1586941545549</updated>
     </task>
-    <option name="localTasksCounter" value="32" />
+    <task id="LOCAL-00032" summary="Save as img ver 1.0">
+      <created>1586941826178</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1586941826178</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -430,7 +437,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="destroy_value has to be repaired, bug in function add" />
     <MESSAGE value="added console with delete function" />
     <MESSAGE value="delete console command" />
     <MESSAGE value="added help,markers and mktype to console" />
@@ -455,7 +461,8 @@
     <MESSAGE value="fixed pie error, save img moved to another branch" />
     <MESSAGE value="added choice of grid and cancel button" />
     <MESSAGE value="corections in grid layout" />
-    <option name="LAST_COMMIT_MESSAGE" value="corections in grid layout" />
+    <MESSAGE value="Save as img ver 1.0" />
+    <option name="LAST_COMMIT_MESSAGE" value="Save as img ver 1.0" />
   </component>
   <component name="WindowStateProjectService">
     <state x="1153" y="330" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1584536909928">
