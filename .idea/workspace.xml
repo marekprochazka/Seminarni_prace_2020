@@ -3,7 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="ea9c3f51-27bf-4d67-87b1-2583643052bd" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Matplotlib_training.py" beforeDir="false" afterPath="$PROJECT_DIR$/Matplotlib_training.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pie_save.txt" beforeDir="false" afterPath="$PROJECT_DIR$/pie_save.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/plot_save.txt" beforeDir="false" afterPath="$PROJECT_DIR$/plot_save.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -420,7 +422,14 @@
       <option name="project" value="LOCAL" />
       <updated>1586941826178</updated>
     </task>
-    <option name="localTasksCounter" value="33" />
+    <task id="LOCAL-00033" summary="Snapshot 1.1 - save as img (ver 1), memory on math and PIE">
+      <created>1586942016976</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1586942016976</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -437,7 +446,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="added console with delete function" />
     <MESSAGE value="delete console command" />
     <MESSAGE value="added help,markers and mktype to console" />
     <MESSAGE value="added col and size command to console" />
@@ -462,37 +470,38 @@
     <MESSAGE value="added choice of grid and cancel button" />
     <MESSAGE value="corections in grid layout" />
     <MESSAGE value="Save as img ver 1.0" />
-    <option name="LAST_COMMIT_MESSAGE" value="Save as img ver 1.0" />
+    <MESSAGE value="Snapshot 1.1 - save as img (ver 1), memory on math and PIE" />
+    <option name="LAST_COMMIT_MESSAGE" value="Snapshot 1.1 - save as img (ver 1), memory on math and PIE" />
   </component>
   <component name="WindowStateProjectService">
     <state x="1153" y="330" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1584536909928">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="1153" y="330" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1584536909928" />
-    <state x="614" y="112" key="CommitChangelistDialog2" timestamp="1586941825664">
+    <state x="614" y="112" key="CommitChangelistDialog2" timestamp="1586942016117">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="614" y="112" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1586941825664" />
-    <state x="740" y="276" key="FileChooserDialogImpl" timestamp="1586722182573">
+    <state x="614" y="112" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1586942016117" />
+    <state x="740" y="276" key="FileChooserDialogImpl" timestamp="1587025755728">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="740" y="276" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1586722182573" />
-    <state width="1899" height="143" key="GridCell.Tab.0.bottom" timestamp="1586941764697">
+    <state x="740" y="276" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1587025755728" />
+    <state width="1899" height="143" key="GridCell.Tab.0.bottom" timestamp="1586979811753">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="143" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1586941764697" />
-    <state width="1899" height="143" key="GridCell.Tab.0.center" timestamp="1586941764696">
+    <state width="1899" height="143" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1586979811753" />
+    <state width="1899" height="143" key="GridCell.Tab.0.center" timestamp="1586979811753">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="143" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1586941764696" />
-    <state width="1899" height="143" key="GridCell.Tab.0.left" timestamp="1586941764696">
+    <state width="1899" height="143" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1586979811753" />
+    <state width="1899" height="143" key="GridCell.Tab.0.left" timestamp="1586979811753">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="143" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1586941764696" />
-    <state width="1899" height="143" key="GridCell.Tab.0.right" timestamp="1586941764697">
+    <state width="1899" height="143" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1586979811753" />
+    <state width="1899" height="143" key="GridCell.Tab.0.right" timestamp="1586979811753">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="143" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1586941764697" />
+    <state width="1899" height="143" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1586979811753" />
     <state width="1899" height="343" key="GridCell.Tab.1.bottom" timestamp="1586879355814">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -517,18 +526,18 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="498" height="446" key="SwitcherDM/0.0.1920.1040@0.0.1920.1040" timestamp="1586074503065" />
-    <state x="552" y="254" key="Vcs.Push.Dialog.v2" timestamp="1586874311323">
+    <state x="552" y="254" key="Vcs.Push.Dialog.v2" timestamp="1586942018460">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="552" y="254" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1586874311323" />
+    <state x="552" y="254" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1586942018460" />
     <state width="968" height="528" key="XDebugger.FullValuePopup" timestamp="1586682076678">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="968" height="528" key="XDebugger.FullValuePopup/0.0.1920.1040@0.0.1920.1040" timestamp="1586682076678" />
-    <state x="1074" y="362" key="com.intellij.ide.util.TipDialog" timestamp="1586933151065">
+    <state x="1074" y="362" key="com.intellij.ide.util.TipDialog" timestamp="1587025731270">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="1074" y="362" key="com.intellij.ide.util.TipDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1586933151065" />
+    <state x="1074" y="362" key="com.intellij.ide.util.TipDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1587025731270" />
     <state x="769" y="438" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1586940268280">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

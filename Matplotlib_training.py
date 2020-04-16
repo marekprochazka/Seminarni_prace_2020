@@ -180,6 +180,6 @@ a.bar(names[0],values[0],color="k")
 a.bar(names[1],values[1],color="r")
 a.bar(names[2],values[2],color="y")
 
-
+plt.savefig("jo.png")
 
 plt.show()
