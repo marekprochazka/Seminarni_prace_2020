@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ea9c3f51-27bf-4d67-87b1-2583643052bd" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,6 +21,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="5050cb67695ca62c3e4ca92b8fddf717f0f9ffdd" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="UPDATE_TYPE" value="MERGE" />
   </component>
@@ -359,7 +364,70 @@
       <option name="project" value="LOCAL" />
       <updated>1586868301035</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="ver. Alpha 1.1">
+      <created>1586868556160</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1586868556160</updated>
+    </task>
+    <task id="LOCAL-00026" summary="made autosave for math">
+      <created>1586870973592</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1586870973592</updated>
+    </task>
+    <task id="LOCAL-00027" summary="snapshot 1.0 - Math and Pie Autosave">
+      <created>1586874302691</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1586874302691</updated>
+    </task>
+    <task id="LOCAL-00028" summary="save as img ver 0.1">
+      <created>1586939239227</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1586939239227</updated>
+    </task>
+    <task id="LOCAL-00029" summary="fixed pie error, save img moved to another branch">
+      <created>1586939646875</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1586939646875</updated>
+    </task>
+    <task id="LOCAL-00030" summary="added choice of grid and cancel button">
+      <created>1586941436342</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1586941436342</updated>
+    </task>
+    <task id="LOCAL-00031" summary="corections in grid layout">
+      <created>1586941545549</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1586941545549</updated>
+    </task>
+    <task id="LOCAL-00032" summary="Save as img ver 1.0">
+      <created>1586941826178</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1586941826178</updated>
+    </task>
+    <task id="LOCAL-00033" summary="Snapshot 1.1 - save as img (ver 1), memory on math and PIE">
+      <created>1586942016976</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1586942016976</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -376,12 +444,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="přidán pozdrav" />
-    <MESSAGE value="defined function input in 'func_input'" />
-    <MESSAGE value="fixed &quot;limit&quot; za použití obechcávky" />
-    <MESSAGE value="last update" />
-    <MESSAGE value="destroy_value has to be repaired, bug in function add" />
-    <MESSAGE value="added console with delete function" />
     <MESSAGE value="delete console command" />
     <MESSAGE value="added help,markers and mktype to console" />
     <MESSAGE value="added col and size command to console" />
@@ -398,53 +460,68 @@
     <MESSAGE value="ver. Alpha 1.02 (addon: added index counter to table)" />
     <MESSAGE value="Added basic grid setings and layout" />
     <MESSAGE value="finished grid settings/fixed bar bug" />
-    <option name="LAST_COMMIT_MESSAGE" value="finished grid settings/fixed bar bug" />
+    <MESSAGE value="ver. Alpha 1.1" />
+    <MESSAGE value="made autosave for math" />
+    <MESSAGE value="snapshot 1.0 - Math and Pie Autosave" />
+    <MESSAGE value="save as img ver 0.1" />
+    <MESSAGE value="fixed pie error, save img moved to another branch" />
+    <MESSAGE value="added choice of grid and cancel button" />
+    <MESSAGE value="corections in grid layout" />
+    <MESSAGE value="Save as img ver 1.0" />
+    <MESSAGE value="Snapshot 1.1 - save as img (ver 1), memory on math and PIE" />
+    <option name="LAST_COMMIT_MESSAGE" value="Snapshot 1.1 - save as img (ver 1), memory on math and PIE" />
   </component>
   <component name="WindowStateProjectService">
     <state x="1153" y="330" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1584536909928">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="1153" y="330" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1584536909928" />
-    <state x="614" y="112" key="CommitChangelistDialog2" timestamp="1586868300067">
+
+    <state x="690" y="268" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1587041756238">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="614" y="112" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1586868300067" />
-    <state x="740" y="276" key="FileChooserDialogImpl" timestamp="1586722182573">
+    <state x="690" y="268" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1587041756238" />
+    <state x="614" y="112" key="CommitChangelistDialog2" timestamp="1586942016117">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="740" y="276" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1586722182573" />
-    <state width="1899" height="271" key="GridCell.Tab.0.bottom" timestamp="1586868497286">
+    <state x="614" y="112" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1586942016117" />
+    <state x="740" y="276" key="FileChooserDialogImpl" timestamp="1587025755728">
+
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="271" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1586868497286" />
-    <state width="1899" height="271" key="GridCell.Tab.0.center" timestamp="1586868497285">
+    <state x="740" y="276" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1587025755728" />
+    <state width="1899" height="143" key="GridCell.Tab.0.bottom" timestamp="1587051210591">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="271" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1586868497285" />
-    <state width="1899" height="271" key="GridCell.Tab.0.left" timestamp="1586868497285">
+    <state width="1899" height="143" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1587051210591" />
+    <state width="1899" height="143" key="GridCell.Tab.0.center" timestamp="1587051210590">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="271" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1586868497285" />
-    <state width="1899" height="271" key="GridCell.Tab.0.right" timestamp="1586868497286">
+    <state width="1899" height="143" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1587051210590" />
+    <state width="1899" height="143" key="GridCell.Tab.0.left" timestamp="1587051210590">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="271" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1586868497286" />
-    <state width="1899" height="343" key="GridCell.Tab.1.bottom" timestamp="1586867723496">
+    <state width="1899" height="143" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1587051210590" />
+    <state width="1899" height="143" key="GridCell.Tab.0.right" timestamp="1587051210591">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="343" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1586867723496" />
-    <state width="1899" height="343" key="GridCell.Tab.1.center" timestamp="1586867723495">
+    <state width="1899" height="143" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1587051210591" />
+    <state width="1899" height="343" key="GridCell.Tab.1.bottom" timestamp="1586879355814">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="343" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1586867723495" />
-    <state width="1899" height="343" key="GridCell.Tab.1.left" timestamp="1586867723495">
+    <state width="1899" height="343" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1586879355814" />
+    <state width="1899" height="343" key="GridCell.Tab.1.center" timestamp="1586879355814">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="343" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1586867723495" />
-    <state width="1899" height="343" key="GridCell.Tab.1.right" timestamp="1586867723496">
+    <state width="1899" height="343" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1586879355814" />
+    <state width="1899" height="343" key="GridCell.Tab.1.left" timestamp="1586879355814">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="343" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1586867723496" />
+    <state width="1899" height="343" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1586879355814" />
+    <state width="1899" height="343" key="GridCell.Tab.1.right" timestamp="1586879355814">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1899" height="343" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1586879355814" />
     <state x="461" y="163" key="SettingsEditor" timestamp="1584536841824">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -453,37 +530,30 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="498" height="446" key="SwitcherDM/0.0.1920.1040@0.0.1920.1040" timestamp="1586074503065" />
-    <state x="552" y="254" key="Vcs.Push.Dialog.v2" timestamp="1586868302436">
+
+    <state x="552" y="254" key="Vcs.Push.Dialog.v2" timestamp="1586942018460">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="552" y="254" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1586868302436" />
+    <state x="552" y="254" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1586942018460" />
+
     <state width="968" height="528" key="XDebugger.FullValuePopup" timestamp="1586682076678">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="968" height="528" key="XDebugger.FullValuePopup/0.0.1920.1040@0.0.1920.1040" timestamp="1586682076678" />
-    <state x="1074" y="362" key="com.intellij.ide.util.TipDialog" timestamp="1586866900177">
+    <state x="1074" y="362" key="com.intellij.ide.util.TipDialog" timestamp="1587025731270">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="1074" y="362" key="com.intellij.ide.util.TipDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1586866900177" />
-    <state x="769" y="438" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1586615238039">
+    <state x="1074" y="362" key="com.intellij.ide.util.TipDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1587025731270" />
+    <state x="769" y="438" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1586940268280">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="769" y="438" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1040@0.0.1920.1040" timestamp="1586615238039" />
+    <state x="769" y="438" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1040@0.0.1920.1040" timestamp="1586940268280" />
     <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1586674371643">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1586674371643" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/app.py</url>
-          <line>467</line>
-          <option name="timeStamp" value="6" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
     <watches-manager>
       <configuration name="PythonConfigurationType">
         <watch expression="coordinates_scatter" />
