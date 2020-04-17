@@ -52,5 +52,6 @@ Just simply download repo and run **app.py**
 m.prochazka2002@gmail.com
 
 ### Note for english speakers
-App frontend is writen in my primary language. 
-<br /> *Beause first purpose of this app was to present it as my seminar labor in school* 
+App frontend is writen in my primary language.
+<br />*Beause first purpose of this app was to present it as my seminar labor in school* 
+<br / >English version will come soon.
