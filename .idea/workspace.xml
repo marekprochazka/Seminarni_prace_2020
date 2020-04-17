@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ea9c3f51-27bf-4d67-87b1-2583643052bd" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -426,7 +427,14 @@
       <option name="project" value="LOCAL" />
       <updated>1586942016976</updated>
     </task>
-    <option name="localTasksCounter" value="34" />
+    <task id="LOCAL-00034" summary="quick update - alpha 1.31 (added messege to wrong console input)">
+      <created>1587129446495</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1587129446495</updated>
+    </task>
+    <option name="localTasksCounter" value="35" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -443,7 +451,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="delete console command" />
     <MESSAGE value="added help,markers and mktype to console" />
     <MESSAGE value="added col and size command to console" />
     <MESSAGE value="console optimised and added secret actions" />
@@ -468,7 +475,8 @@
     <MESSAGE value="corections in grid layout" />
     <MESSAGE value="Save as img ver 1.0" />
     <MESSAGE value="Snapshot 1.1 - save as img (ver 1), memory on math and PIE" />
-    <option name="LAST_COMMIT_MESSAGE" value="Snapshot 1.1 - save as img (ver 1), memory on math and PIE" />
+    <MESSAGE value="quick update - alpha 1.31 (added messege to wrong console input)" />
+    <option name="LAST_COMMIT_MESSAGE" value="quick update - alpha 1.31 (added messege to wrong console input)" />
   </component>
   <component name="WindowStateProjectService">
     <state x="1153" y="330" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1584536909928">
