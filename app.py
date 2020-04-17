@@ -15,7 +15,7 @@ from matplotlib import style as st
 from matplotlib.figure import Figure
 import matplotlib.pyplot as plt
 
-# Ver. Alpha 1.3
+# Ver. Alpha 1.31
 #
 
 
@@ -880,6 +880,8 @@ class MarkoGebra(Tk):
 
         else:
             Label(frame, text="Neplatný příkaz!", bg="black", fg="red", font=fonts()["SMALL_FONT"], anchor="w").pack(
+                fill=BOTH)
+            Label(frame, text="Zadej 'help' nebo '?' pro vypsání možných příkazů", bg="black", fg="red", font=fonts()["SMALL_FONT"], anchor="w").pack(
                 fill=BOTH)
             entry.delete(0, END)
 
