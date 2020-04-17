@@ -9,7 +9,7 @@ uživatel jednoduše vytvářet a upravovat grafy mnoha druhů a posléze je ukl
 
 ### Metody grafování:
 ```
-Mathematická: možnost 2 různých vstupů (součadnice bodu a funkce) 
+Matematická: možnost 2 různých vstupů (součadnice bodu a funkce) 
 ```
 ```
 Koláč: Statistické grafování do koláče
