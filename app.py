@@ -16,7 +16,7 @@ from matplotlib.figure import Figure
 import matplotlib.pyplot as plt
 
 # Ver. Alpha 1.2
-# 
+#
 
 
 MAX_WIDTH = 1600
@@ -62,6 +62,7 @@ def fonts():
     return {"LARGE_FONT": ("Verdana", 12), "SMALL_FONT": ("Verdana", 9), "TINY_FONT": ('Roboto', 7),
             "ITALIC_SMALL": ("Verdana", 9, "italic")}
 
+COMMAND_HISTORY = []
 
 coordinates_scatter = []
 coordinates_plot = []
@@ -552,9 +553,9 @@ class MarkoGebra(Tk):
         canvas.pack(side="left", fill="both", expand=True)
         scrollbar.pack(side="right", fill="y")
 
-        top.bind("<Return>", lambda event: self.command_entered(types, scrollable_Frame))
+        top.bind("<Return>", lambda event: self.command_entered(types, scrollable_Frame,top))
 
-    def command_entered(self, entry, frame):
+    def command_entered(self, entry, frame,top):
         command = entry.get().split(" ")
         if command[0] == "del":
             try:
@@ -583,7 +584,7 @@ class MarkoGebra(Tk):
         elif command[0] == "col":
             try:
                 if int(command[1]) <= len(coordinates_all_list):
-                    self.changeColor(int(command[1]))
+                    self.changeColor(int(command[1]),top)
                     Label(frame, text=f"{' '.join(command)}", bg="black", fg="yellow", font=fonts()["SMALL_FONT"],
                           anchor="w").pack(fill=BOTH)
                     Label(frame, text=f"Barva indexu {command[1]} změněna!", bg="black", fg="green",
@@ -924,7 +925,7 @@ class MarkoGebra(Tk):
             raise BlockingIOError
 
     # DONE
-    def changeColor(self, index):
+    def changeColor(self, index,top):
         if TO_ANIMATE == 1:
             if coordinates_all_list[index][0][0] == "f(x)":
                 for indx, val in enumerate(coordinates_plot):
@@ -934,6 +935,7 @@ class MarkoGebra(Tk):
                         coordinates_plot[indx][3] = color[1]
                         coordinates_all_list[index][2] = color[1]
                         self.update_table()
+                        top.lift()
 
             else:
 
@@ -943,6 +945,7 @@ class MarkoGebra(Tk):
                         coordinates_scatter[indx][3] = color[1]
                         coordinates_all_list[index][2] = color[1]
                         self.update_table()
+                        top.lift()
 
 
         elif TO_ANIMATE == 2:
@@ -950,17 +953,20 @@ class MarkoGebra(Tk):
             cols[index] = color[1]
             coordinates_all_list[index][2] = color[1]
             self.update_table()
+            top.lift()
         elif TO_ANIMATE == 3:
             color = col.askcolor()
             bars[index][2] = color[1]
             coordinates_all_list[index][2] = color[1]
             self.update_table()
+            top.lift()
         elif TO_ANIMATE == 4:
             color = col.askcolor()
             for coord in noises[index + 1]:
                 coord[3] = color[1]
             coordinates_all_list[index][3] = color[1]
             self.update_table()
+            top.lift()
 
     # DONE
     def changeSize(self, index, size):
