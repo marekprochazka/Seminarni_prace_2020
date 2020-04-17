@@ -62,7 +62,9 @@ def fonts():
     return {"LARGE_FONT": ("Verdana", 12), "SMALL_FONT": ("Verdana", 9), "TINY_FONT": ('Roboto', 7),
             "ITALIC_SMALL": ("Verdana", 9, "italic")}
 
+
 COMMAND_HISTORY = []
+HISTORY_MOVES = 0
 
 coordinates_scatter = []
 coordinates_plot = []
@@ -319,9 +321,8 @@ class MarkoGebra(Tk):
         if TO_ANIMATE == 3:
             with(open("bar.json", "w")) as save:
                 save.truncate()
-                data = [bars,coordinates_all_list]
+                data = [bars, coordinates_all_list]
                 json.dump(data, save)
-
 
         if TO_ANIMATE == 4:
             with(open("noise.json", "w")) as save:
@@ -377,7 +378,7 @@ class MarkoGebra(Tk):
         elif TO_ANIMATE == 3:
             with(open("bar.json", "r")) as save:
                 data = json.loads(save.read())
-                if data !=[[],[]]:
+                if data != [[], []]:
                     bars = data[0]
                     coordinates_all_list = data[1]
 
@@ -553,10 +554,41 @@ class MarkoGebra(Tk):
         canvas.pack(side="left", fill="both", expand=True)
         scrollbar.pack(side="right", fill="y")
 
-        top.bind("<Return>", lambda event: self.command_entered(types, scrollable_Frame,top))
+        top.bind("<Return>", lambda event: self.command_entered(types, scrollable_Frame, top))
+        top.bind("<Up>",lambda event:self.history_move_up(types))
+        top.bind("<Down>",lambda event:self.history_move_down(types))
 
-    def command_entered(self, entry, frame,top):
+    def history_move_up(self, entry):
+
+        global HISTORY_MOVES
+        if COMMAND_HISTORY != []:
+            if HISTORY_MOVES < len(COMMAND_HISTORY):
+                HISTORY_MOVES += 1
+                entry.delete(0,END)
+                entry.insert(0,COMMAND_HISTORY[-HISTORY_MOVES])
+
+
+    def history_move_down(self, entry):
+        global HISTORY_MOVES
+        HISTORY_MOVES -= 1
+        if HISTORY_MOVES >0:
+            entry.delete(0,END)
+            entry.insert(0,COMMAND_HISTORY[-HISTORY_MOVES])
+        else:
+            HISTORY_MOVES = 1
+
+
+    def command_entered(self, entry, frame, top):
+        global HISTORY_MOVES
+        HISTORY_MOVES = 0
         command = entry.get().split(" ")
+        if COMMAND_HISTORY != []:
+            if command != COMMAND_HISTORY[-1]:
+                if command in COMMAND_HISTORY:
+                    COMMAND_HISTORY.remove(command)
+                COMMAND_HISTORY.append(command)
+        else:
+            COMMAND_HISTORY.append(command)
         if command[0] == "del":
             try:
                 if int(command[1]) <= len(coordinates_all_list):
@@ -584,13 +616,14 @@ class MarkoGebra(Tk):
         elif command[0] == "col":
             try:
                 if int(command[1]) <= len(coordinates_all_list):
-                    self.changeColor(int(command[1]),top)
+                    self.changeColor(int(command[1]), top)
                     Label(frame, text=f"{' '.join(command)}", bg="black", fg="yellow", font=fonts()["SMALL_FONT"],
                           anchor="w").pack(fill=BOTH)
                     Label(frame, text=f"Barva indexu {command[1]} změněna!", bg="black", fg="green",
                           font=fonts()["SMALL_FONT"], anchor="w").pack(fill=BOTH)
 
                     entry.delete(0, END)
+                    entry.focus()
                 else:
                     Label(frame, text="Neplatný index!", bg="black", fg="red", font=fonts()["SMALL_FONT"],
                           anchor="w").pack(
@@ -925,7 +958,7 @@ class MarkoGebra(Tk):
             raise BlockingIOError
 
     # DONE
-    def changeColor(self, index,top):
+    def changeColor(self, index, top):
         if TO_ANIMATE == 1:
             if coordinates_all_list[index][0][0] == "f(x)":
                 for indx, val in enumerate(coordinates_plot):
