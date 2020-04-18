@@ -195,6 +195,8 @@ class MarkoGebra(Tk):
         self.settings_container.grid_columnconfigure(0, weight=2)
         self.save_but = t.Button(self.settings_container, text="uložit jako orázek", command=lambda: self.saver())
         self.save_but.grid(row=6, column=0, sticky="we")
+        self.deleteAll_button  =t.Button(self.settings_container,text="Smazat vše",command=lambda: self.delete_all())
+        self.deleteAll_button.grid(row=7,column=0,sticky="we")
         # Combobox - 2
         self.CBB2 = t.Combobox(self, values=["Matematické", "Koláč", "Sloupcový", "Náhodný šum"],
                                state="readonly")
@@ -550,6 +552,36 @@ class MarkoGebra(Tk):
 
             except IndexError:
                 pass
+
+    def delete_all(self):
+        global coordinates_all_list
+        if TO_ANIMATE == 1:
+            global coordinates_scatter, coordinates_plot
+            coordinates_all_list = []
+            coordinates_plot = []
+            coordinates_scatter = []
+            self.update_table()
+        elif TO_ANIMATE == 2:
+            global slices, cols, activities, explode
+            slices = []
+            cols = []
+            activities = []
+            explode = []
+            coordinates_all_list = []
+            self.update_table()
+        elif TO_ANIMATE == 3:
+            global bars
+            bars = []
+            coordinates_all_list = []
+            self.update_table()
+        elif TO_ANIMATE == 4:
+            global noises, dispersion, number, basic_gen
+            coordinates_all_list = []
+            noises = []
+            dispersion = []
+            number = []
+            basic_gen = []
+            self.update_table()
 
     def console_controller(self):
         global coordinates_all_list, coordinates_scatter, coordinates_plot
