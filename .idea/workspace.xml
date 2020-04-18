@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ea9c3f51-27bf-4d67-87b1-2583643052bd" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -39,7 +38,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../Projects/GTHR" />
     <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.General" />
   </component>
   <component name="RecentsManager">
@@ -498,26 +497,26 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="614" y="112" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1587129667058" />
-    <state x="740" y="276" key="FileChooserDialogImpl" timestamp="1587025755728">
+    <state x="740" y="276" key="FileChooserDialogImpl" timestamp="1587147970792">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="740" y="276" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1587025755728" />
-    <state width="1899" height="143" key="GridCell.Tab.0.bottom" timestamp="1587128857950">
+    <state x="740" y="276" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1587147970792" />
+    <state width="1899" height="143" key="GridCell.Tab.0.bottom" timestamp="1587147971774">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="143" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1587128857950" />
-    <state width="1899" height="143" key="GridCell.Tab.0.center" timestamp="1587128857950">
+    <state width="1899" height="143" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1587147971774" />
+    <state width="1899" height="143" key="GridCell.Tab.0.center" timestamp="1587147971774">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="143" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1587128857950" />
-    <state width="1899" height="143" key="GridCell.Tab.0.left" timestamp="1587128857950">
+    <state width="1899" height="143" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1587147971774" />
+    <state width="1899" height="143" key="GridCell.Tab.0.left" timestamp="1587147971774">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="143" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1587128857950" />
-    <state width="1899" height="143" key="GridCell.Tab.0.right" timestamp="1587128857950">
+    <state width="1899" height="143" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1587147971774" />
+    <state width="1899" height="143" key="GridCell.Tab.0.right" timestamp="1587147971774">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="143" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1587128857950" />
+    <state width="1899" height="143" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1587147971774" />
     <state width="1899" height="343" key="GridCell.Tab.1.bottom" timestamp="1586879355814">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -550,10 +549,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="968" height="528" key="XDebugger.FullValuePopup/0.0.1920.1040@0.0.1920.1040" timestamp="1586682076678" />
-    <state x="1074" y="362" key="com.intellij.ide.util.TipDialog" timestamp="1587126663372">
+    <state x="1074" y="362" key="com.intellij.ide.util.TipDialog" timestamp="1587144274943">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="1074" y="362" key="com.intellij.ide.util.TipDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1587126663372" />
+    <state x="1074" y="362" key="com.intellij.ide.util.TipDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1587144274943" />
     <state x="769" y="438" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1586940268280">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
