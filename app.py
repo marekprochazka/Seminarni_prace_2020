@@ -15,7 +15,7 @@ from matplotlib import style as st
 from matplotlib.figure import Figure
 import matplotlib.pyplot as plt
 
-# Ver. Alpha 1.31
+# Ver. Alpha 1.4
 #
 
 
@@ -403,22 +403,34 @@ class MarkoGebra(Tk):
     def line_grid(self, line):
         a.grid(linestyle=line)
 
-    def add_point_scatter(self, x, y, marker=".", color="blue", size="1"):
+    def add_point_scatter(self, x, y, marker=".", color="blue", size="1", error=None, entry1=None, entry2=None):
         global coordinates_scatter, coordinates_all_list, lim1, lim2
-        if x > lim1:
-            lim1 = x
-        if x < lim2:
-            lim2 = x
-        if y > lim1:
-            lim1 = y
-        if y < lim2:
-            lim2 = y
-        if [x, y] not in coordinates_scatter:
-            coordinates_scatter.append([x, y, marker, color, size])
-            coordinates_all_list.append([[x, y], marker, color, size])
-            self.update_table()
+        try:
+            x = int(x)
+            y = int(y)
+            if x > lim1:
+                lim1 = x
+            if x < lim2:
+                lim2 = x
+            if y > lim1:
+                lim1 = y
+            if y < lim2:
+                lim2 = y
+            if [x, y] not in coordinates_scatter:
+                coordinates_scatter.append([x, y, marker, color, size])
+                coordinates_all_list.append([[x, y], marker, color, size])
+                if error != None:
+                    error["text"] = ""
+                    entry1.delete(0, END)
+                    entry2.delete(0, END)
+                    self.update_table()
+        except:
+            if error != None:
+                error["text"] = "chyba"
+                entry1.delete(0, END)
+                entry2.delete(0, END)
 
-    def add_plot_from_function(self, function, line="solid", color="blue", size="1"):
+    def add_plot_from_function(self, function, line="solid", color="blue", size="1", error=None, entry=None):
         global coordinates_plot, coordinates_all_list
         is_all_fine = True
         for char in function:
@@ -437,10 +449,17 @@ class MarkoGebra(Tk):
             if checnk:
                 coordinates_plot.append([x, y, line, color, size, function])
                 coordinates_all_list.append([["f(x)", function], line, color, size])
-
+            if error != None:
+                error["text"] = ""
+                entry.delete(0, END)
             self.update_table()
+        else:
+            if error != None:
+                entry.delete(0, END)
 
-    def add_pie_data(self, data, expl=0, entry1=None, entry2=None, cbb=None):
+                error["text"] = "chyba"
+
+    def add_pie_data(self, data, expl=0, entry1=None, entry2=None, cbb=None, error=None):
         global slices, cols, activities, coordinates_all_list
 
         try:
@@ -454,16 +473,19 @@ class MarkoGebra(Tk):
                 entry2.delete(0, END)
                 cbb.set("")
             coordinates_all_list.append([data[1], data[0], data[2]])
+            error["text"] = ""
+
             self.update_table()
         except:
             if entry1 != None:
                 entry1.delete(0, END)
                 entry2.delete(0, END)
+                error["text"] = "Chyba"
                 cbb.set("")
             else:
                 pass
 
-    def add_bar_data(self, name, value, color, entry1, entry2, cbb):
+    def add_bar_data(self, name, value, color, entry1, entry2, cbb, error):
         try:
 
             float(value)
@@ -473,10 +495,13 @@ class MarkoGebra(Tk):
             entry1.delete(0, END)
             entry2.delete(0, END)
             cbb.set("")
+            error["text"] = ""
+
             self.update_table()
         except:
             entry1.delete(0, END)
             entry2.delete(0, END)
+            error["text"] = "Chyba"
             cbb.set("")
 
     def create_basic_gen(self, number, dispersion, col):
@@ -555,8 +580,8 @@ class MarkoGebra(Tk):
         scrollbar.pack(side="right", fill="y")
 
         top.bind("<Return>", lambda event: self.command_entered(types, scrollable_Frame, top))
-        top.bind("<Up>",lambda event:self.history_move_up(types))
-        top.bind("<Down>",lambda event:self.history_move_down(types))
+        top.bind("<Up>", lambda event: self.history_move_up(types))
+        top.bind("<Down>", lambda event: self.history_move_down(types))
 
     def history_move_up(self, entry):
 
@@ -564,19 +589,17 @@ class MarkoGebra(Tk):
         if COMMAND_HISTORY != []:
             if HISTORY_MOVES < len(COMMAND_HISTORY):
                 HISTORY_MOVES += 1
-                entry.delete(0,END)
-                entry.insert(0,COMMAND_HISTORY[-HISTORY_MOVES])
-
+                entry.delete(0, END)
+                entry.insert(0, COMMAND_HISTORY[-HISTORY_MOVES])
 
     def history_move_down(self, entry):
         global HISTORY_MOVES
         HISTORY_MOVES -= 1
-        if HISTORY_MOVES >0:
-            entry.delete(0,END)
-            entry.insert(0,COMMAND_HISTORY[-HISTORY_MOVES])
+        if HISTORY_MOVES > 0:
+            entry.delete(0, END)
+            entry.insert(0, COMMAND_HISTORY[-HISTORY_MOVES])
         else:
             HISTORY_MOVES = 1
-
 
     def command_entered(self, entry, frame, top):
         global HISTORY_MOVES
@@ -881,7 +904,8 @@ class MarkoGebra(Tk):
         else:
             Label(frame, text="Neplatný příkaz!", bg="black", fg="red", font=fonts()["SMALL_FONT"], anchor="w").pack(
                 fill=BOTH)
-            Label(frame, text="Zadej 'help' nebo '?' pro vypsání možností", bg="black", fg="red", font=fonts()["SMALL_FONT"], anchor="w").pack(
+            Label(frame, text="Zadej 'help' nebo '?' pro vypsání možností", bg="black", fg="red",
+                  font=fonts()["SMALL_FONT"], anchor="w").pack(
                 fill=BOTH)
             entry.delete(0, END)
 
@@ -1086,8 +1110,11 @@ class Mathematical(Frame):
         self.EntryY.grid(row=0, column=3, sticky="we")
         # place button
         self.placeButtonScatter = t.Button(self, text="Vložit",
-                                           command=lambda: controller.add_point_scatter(int(self.EntryX.get()),
-                                                                                        int(self.EntryY.get())))
+                                           command=lambda: controller.add_point_scatter(self.EntryX.get(),
+                                                                                        self.EntryY.get(),
+                                                                                        error=self.ErrorWarning,
+                                                                                        entry1=self.EntryX,
+                                                                                        entry2=self.EntryY))
         self.placeButtonScatter.grid(row=0, column=4, sticky="we")
 
         # Funkce
@@ -1102,9 +1129,14 @@ class Mathematical(Frame):
 
         # place button
         self.placeButtonPlot = t.Button(self, text="Odložit",
-                                        command=lambda: controller.add_plot_from_function(self.EntryFun.get()))
+                                        command=lambda: controller.add_plot_from_function(self.EntryFun.get(),
+                                                                                          error=self.ErrorWarning,
+                                                                                          entry=self.EntryFun))
 
         self.placeButtonPlot.grid(row=1, column=4, sticky="we", pady=20)
+
+        self.ErrorWarning = Label(self, text="", font=fonts()["SMALL_FONT"], fg="red")
+        self.ErrorWarning.grid(row=2, column=2)
 
         self.grid_columnconfigure(1, weight=3)
         self.grid_columnconfigure(3, weight=3)
@@ -1129,8 +1161,10 @@ class Pie(Frame):
         self.add_value = t.Button(self, text="Přidat hodnotu", command=lambda: controller.add_pie_data(
             [self.slice.get(), self.label.get(), self.basic_colors[self.color.current()]], entry1=self.slice,
             entry2=self.label,
-            cbb=self.color))
+            cbb=self.color, error=self.errorText))
 
+        self.errorText = Label(self, text="", fg="red")
+        self.errorText.grid(row=4, column=0)
         self.txt1.grid(row=0, column=0, sticky="we")
         self.txt2.grid(row=1, column=0, sticky="we")
         self.txt3.grid(row=2, column=0, sticky="we")
@@ -1159,7 +1193,10 @@ class Bar(Frame):
         self.go = t.Button(self, text="Zapsat hodnotu",
                            command=lambda: controller.add_bar_data(self.name.get(), self.value.get(),
                                                                    self.basic_colors[self.color.current()], self.name,
-                                                                   self.value, self.color))
+                                                                   self.value, self.color, self.errorText))
+
+        self.errorText = Label(self, text="", fg="red")
+        self.errorText.grid(row=4, column=0)
 
         self.txt1.grid(row=0, column=0, sticky="we")
         self.txt2.grid(row=1, column=0, sticky="we")
