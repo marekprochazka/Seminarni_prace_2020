@@ -23,8 +23,7 @@ Náhodný šum: Generován podle zadaného počtu bodů a jejich rozptylu
 ### Jak spustit program:
 Stačí si jednoduše stáhnout tohle úložiště a spustit **app.py**
 
-### Jakékoliv chyby v aplikaci prosím hlaste na pište sem:
-m.prochazka2002@gmail.com<br /><br />
+
 ## **--EN--**
 Seminar labor (canceled but still in work) of highschool student.
 
@@ -48,8 +47,6 @@ Random noice: Number of points and dispersion
 ### How to run app
 Just simply download repo and run **app.py**
 
-### Please repport any buggs or other issues in my app on this adress: 
-m.prochazka2002@gmail.com
 
 ### Note for english speakers
 App frontend is writen in my primary language.
