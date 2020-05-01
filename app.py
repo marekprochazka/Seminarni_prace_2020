@@ -7,7 +7,7 @@ from math import floor
 from tkinter import filedialog
 from PIL import Image
 import json
-
+from numpy import sin,cos,tan,pi
 import matplotlib as mp
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2Tk
 import matplotlib.animation as anim
@@ -22,7 +22,7 @@ import matplotlib.pyplot as plt
 MAX_WIDTH = 1600
 MAX_HEIGHT = 600
 
-FUNCTION_ALLOWED_MARKS = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "x", "+", "-", "*", "/", "(", ")"]
+FUNCTION_ALLOWED_MARKS = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "x", "+", "-", "*", "/", "(", ")","s","c","t","p"]
 
 POINT_MARKERS = ['.', ',', 'o', 'v', '^', '<', '>', '1', '2', '3', '4', '8', 's', 'p', 'P', '*', 'h', 'H', '+', 'x',
                  'X', 'D', 'd', '|', '_']
@@ -432,14 +432,19 @@ class MarkoGebra(Tk):
                 entry1.delete(0, END)
                 entry2.delete(0, END)
 
-    def add_plot_from_function(self, function, line="solid", color="blue", size="1", error=None, entry=None):
+    def add_plot_from_function(self, function:str, line="solid", color="blue", size="1", error=None, entry=None):
         global coordinates_plot, coordinates_all_list
         is_all_fine = True
         for char in function:
             if char not in FUNCTION_ALLOWED_MARKS:
                 is_all_fine = False
 
+
         if is_all_fine:
+            function = function.replace("s","sin")
+            function = function.replace("c","cos")
+            function = function.replace("t","tan")
+            function = function.replace("p","pi")
             x = np.arange(lim2, lim1, 0.5)
             y = function
 
