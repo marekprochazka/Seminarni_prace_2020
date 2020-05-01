@@ -4,7 +4,10 @@
     <list default="true" id="ea9c3f51-27bf-4d67-87b1-2583643052bd" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bar.json" beforeDir="false" afterPath="$PROJECT_DIR$/bar.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/math.json" beforeDir="false" afterPath="$PROJECT_DIR$/math.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/noise.json" beforeDir="false" afterPath="$PROJECT_DIR$/noise.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pie.json" beforeDir="false" afterPath="$PROJECT_DIR$/pie.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
