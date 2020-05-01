@@ -943,13 +943,19 @@ class MarkoGebra(Tk):
 
     # DONE
     def delete_value(self, index):
+        global coordinates_plot
         if TO_ANIMATE == 1:
             if coordinates_all_list[index][0][0] == "f(x)":
-                for val in coordinates_plot:
+                for indx,val in enumerate(coordinates_plot):
                     if val[1] == coordinates_all_list[index][0][1]:
-                        coordinates_plot.remove(val)
+
+                        del coordinates_plot[indx]
                         del coordinates_all_list[index]
                         self.update_table()
+
+
+
+
             else:
                 for coord in coordinates_scatter:
                     if coord[0:2] == coordinates_all_list[index][0]:
@@ -1119,6 +1125,7 @@ class MarkoGebra(Tk):
             self.update_table()
         else:
             raise SyntaxError
+
 
 
 class Mathematical(Frame):
