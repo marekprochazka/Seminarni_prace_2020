@@ -171,7 +171,7 @@ plt.show()"""
 cols = ["b","r","pink","c"]
 activities = ["sleeping", "eating", "working", "playing"]"""
 
-values=[110,220,180]
+"""values=[110,220,180]
 names = ["jo","ne","ach"]
 
 f = plt.figure()
@@ -179,7 +179,5 @@ a = plt.subplot2grid((1,1),(0,0))
 a.bar(names[0],values[0],color="k")
 a.bar(names[1],values[1],color="r")
 a.bar(names[2],values[2],color="y")
+"""
 
-plt.savefig("jo.png")
-
-plt.show()
