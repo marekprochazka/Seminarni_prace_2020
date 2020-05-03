@@ -14,7 +14,7 @@ import matplotlib.animation as anim
 from matplotlib import style as st
 from matplotlib.figure import Figure
 import matplotlib.pyplot as plt
-
+import webbrowser
 # Ver. Alpha 1.6
 #
 
@@ -160,6 +160,9 @@ class MarkoGebra(Tk):
         canvas.draw()
         canvas.get_tk_widget().place(bordermode=OUTSIDE, x=MAX_WIDTH - 470, y=MAX_HEIGHT - 470)
 
+        self.hint = t.Button(self,command=lambda :self.openHelp(),text="Nápověda")
+        self.hint.place(bordermode=OUTSIDE,x=MAX_WIDTH*.94,width=MAX_WIDTH*.06,y=0,height=MAX_HEIGHT*.04)
+
         # TODO settings
         self.settings_container = Frame(self)
         self.settings_container.place(bordermode=OUTSIDE, x=MAX_WIDTH * .55, y=MAX_HEIGHT * .22, width=MAX_WIDTH * .14,
@@ -242,6 +245,10 @@ class MarkoGebra(Tk):
     def on_exit(self):
         self.show_Setup_Frame()
         self.destroy()
+
+    def openHelp(self):
+        webbrowser.open(url="https://gist.github.com/RandomResourceWeb/93e887facdb98937ab5d260d1a0df270",new=1)
+        webbrowser.open(url="D:\Věci\Programování\Dlohodoba_prace_main_2020\web\index.html",new=1)
 
     @staticmethod
     def __callback():

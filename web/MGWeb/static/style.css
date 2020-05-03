@@ -1,0 +1,54 @@
+
+
+@media (max-width: 1000px) {
+    .navbar-collapse
+      {
+          background-color:#353a40;
+
+      }
+  }
+
+footer > div{
+    height: 100%;
+    width:100%;
+    vertical-align: middle;
+    display: table;
+}
+
+footer > div> p{
+    height: 100%;
+    margin: 0;
+      color:white;
+    display: table-cell;
+    vertical-align: middle;
+
+
+  }
+
+footer{
+    height: 3%;
+    width: 100%;
+    clear: both;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    font-size: 7pt;
+    text-align: right;
+    padding-right: 1%;
+}
+
+footer div p a{
+    color:white;
+}
+footer div p a:hover{
+    color:rgb(253, 173, 173);
+    font-weight: bold;
+    text-decoration: none;
+}
+div > h5{
+    margin-top: 10px;
+}
+
+div > p{
+    margin-top: 15px;
+}
