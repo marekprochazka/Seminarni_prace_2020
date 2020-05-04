@@ -6,5 +6,5 @@ app_name = 'App'
 urlpatterns = [
 
     path("",home,name='home'),
-
+    path("env",env,name='env')
 ]
