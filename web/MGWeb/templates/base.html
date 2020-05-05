@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MarkoGebra Help</title>
-    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link rel="stylesheet" href="{% static 'newStyle.css' %}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
@@ -25,14 +25,16 @@
                   Grafovací metody
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                  <a class="dropdown-item {% block ac3 %}{% endblock %}" href="#">Matematické</a>
-                  <a class="dropdown-item {% block ac4 %}{% endblock %}" href="#">Koláč</a>
-                  <a class="dropdown-item {% block ac5 %}{% endblock %}" href="#">Sloupcový</a>
-                  <a class="dropdown-item {% block ac6 %}{% endblock %}" href="#">Náhodný šum</a>
+                  <a class="dropdown-item {% block ac3 %}{% endblock %}" href="{% url 'App:gmMat' %}">Matematické</a>
+                  <a class="dropdown-item {% block ac4 %}{% endblock %}" href="{% url 'App:gmPie' %}">Koláč</a>
+                  <a class="dropdown-item {% block ac5 %}{% endblock %}" href="{% url 'App:gmBar' %}">Sloupcový</a>
+                  <a class="dropdown-item {% block ac6 %}{% endblock %}" href="{% url 'App:gmNo' %}">Náhodný šum</a>
                 </div>
             </li>
-            <a class="nav-item nav-link {% block ac7 %}{% endblock %}" href="#">Konzole<span class="sr-only">(current)</span></a>
-            <a class="nav-item nav-link " href="#">O autorovi<span class="sr-only">(current)</span></a>
+            <a class="nav-item nav-link {% block ac7 %}{% endblock %}" href="{% url 'App:cons' %}">Konzole<span class="sr-only">(current)</span></a>
+            <a class="nav-item nav-link {% block ac8 %}{% endblock %}" href="{% url 'App:down' %}">Stažení<span class="sr-only">(current)</span></a>
+            <a class="nav-item nav-link {% block ac10 %}{% endblock %}" href="{% url 'App:disk' %}">Diskuze<span class="sr-only">(current)</span></a>
+            <a class="nav-item nav-link {% block ac9 %}{% endblock %}" href="{% url 'App:boutMe' %}">O autorovi<span class="sr-only">(current)</span></a>
 
           </div>
         </div>
