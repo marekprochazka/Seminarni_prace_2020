@@ -4,5 +4,48 @@
 {% block ac3 %}active{% endblock %}
 
 {% block content %}
-<p>GM-mat</p>
+<div class="container-lxg mt-5 ml-5 mr-5 ">
+    <h3>Matematické grafování</h3>
+    <h4 class="mt-5 ">Druhy vstupů</h4>
+    <p>Matematiacké grafování má v současné době 2 možnosti  vstupu a to <strong>Bodový</strong> a <strong>Funkcionální</strong> vstup.</p>
+    <h4 class="mt-5">Bodový vstup</h4>
+    <p>Jednoduché zadání souřadnic <strong>X</strong> a <strong>Y</strong>.</p>
+    <p>Výsledný bod se po vložení vykreslí na grafu, zapíše se do tabulky pod vstupy a obdrží index (Přidělené číslo v tabulce).</p>
+    <p>Bod lze posléze upravit za pomocí konzole, kde je přístupný za pomocí indexu.</p>
+    <h4 class="mt-5">Funkcionální vstup</h4>
+    <p>Zadává se vždy jen pravá strana funkce.</p>
+    <p>Pro příklad u funkce f(x) = (x**2)/2 bude na vstupu uvedena pouze pravá strana.</p>
+    <p>Aplikace bere na vstup specificky psané operátory často podobné jako pro jazyk python:</p>
+    <ul class="ml-3 ">
+        <li>
+            <p>* = krát</p>
+        </li>
+        <li>
+            <p>/ = děleno</p>
+        </li>
+        <li>
+            <p>+/- zachováno</p>
+        </li>
+        <li>
+            <p>s = sinus</p>
+        </li>
+        <li>
+            <p>c = cosinus</p>
+        </li>
+        <li>
+            <p>t = tangens</p>
+        </li>
+        <li>
+            <p>p - Pí</p>
+        </li>
+        <li>
+            <p>() = Jediné podporované závorky</p>
+        </li>
+    </ul>
+    <p >Ostatní operátory program zatím nepodporuje</p>
+    <p class="last">V případě zlomku je třeba vždy vložit čitatel a jmenovatel do vlastní závorky: <i>(x-2)/(x*7)</i> </p>
+
+
+
+</div>
 {% endblock %}
