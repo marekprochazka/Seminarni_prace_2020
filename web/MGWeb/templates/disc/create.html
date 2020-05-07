@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block ac10 %}active{% endblock %}
+
+{% block content %}
+<div class="container-xl mt-5 ml-5">
+    <form action="{% url 'Discussion:create' %}" class="site-form" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{form}}
+    <input type="submit" value="Create">
+    </form>
+
+</div>
+{% endblock %}

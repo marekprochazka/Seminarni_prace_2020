@@ -5,6 +5,7 @@ app_name = 'Discussion'
 
 urlpatterns = [
 
-  path("",home, name="home")
+  path("",home, name="home"),
+  path("Tvorba",create,name="create")
 
 ]
