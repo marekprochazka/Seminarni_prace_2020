@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block ac10 %}active{% endblock %}
+
+{% block content %}
+<div class="container-xl mt-5 ml-5">
+    <h3>{{post.title}}</h3>
+    <p>{{post.text|linebreaks}}</p>
+    <p>{{post.author}}</p>
+    <p>{{post.date}}</p>
+</div>
+{% endblock %}

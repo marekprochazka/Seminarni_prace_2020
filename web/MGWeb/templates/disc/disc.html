@@ -14,7 +14,7 @@
             <p class="card-text">{{post.snippet}}</p>
             <p class="card-text">{{post.author}}</p>
             <p class="card-text">{{post.date}}</p>
-            <a href="#" class="btn btn-primary stretched-link">Celý příspěvek</a>
+            <a href="{% url 'Discussion:detail' slug=post.slug %}" class="btn btn-primary stretched-link">Celý příspěvek</a>
           </div>
         </div>
     {% endfor %}

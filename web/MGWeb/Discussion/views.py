@@ -18,3 +18,7 @@ def create(request):
     else:
         form = MakePost()
     return render(request,"disc/create.html",{"form":form})
+
+def detail(request,slug):
+    post = Post.objects.get(slug=slug)
+    return render(request,"disc/post.html",{"post":post})
