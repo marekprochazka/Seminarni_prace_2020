@@ -12,6 +12,8 @@ def create(request):
         if form.is_valid():
             form.save()
             return redirect("Discussion:home")
+
+
     else:
         form = MakePost()
-        return render(request,"disc/create.html",{"form":form})
+    return render(request,"disc/create.html",{"form":form})

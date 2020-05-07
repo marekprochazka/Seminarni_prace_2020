@@ -4,10 +4,12 @@
 
 {% block content %}
 <div class="container-xl mt-5 ml-5">
+    <a class="btn btn-primary" href="{% url 'Discussion:home' %}" role="button">Zpět na přispěvky</a>
+
     <form action="{% url 'Discussion:create' %}" class="site-form" method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{form}}
-    <input type="submit" value="Create">
+    <input type="submit" value="Zveřejnit" class="btn btn-primary">
     </form>
 
 </div>
