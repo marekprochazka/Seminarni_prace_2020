@@ -1,0 +1,75 @@
+[33m44f1b11[m[33m ([m[1;36mHEAD -> [m[1;32mhelpSite[m[33m)[m finished pie and bar page
+[33m221df5d[m finished math input page
+[33mb20344c[m[33m ([m[1;31morigin/helpSite[m[33m)[m finished site skelet
+[33m601b127[m imgs to env site¨
+[33mefad440[m started Django project, made homepage
+[33mdce19dc[m[33m ([m[1;31morigin/master[m[33m, [m[1;32mmaster[m[33m)[m ver 1.6 alpha
+[33md2ee4ca[m ver 1.6 alpha - goniometric functions
+[33mc207b89[m Merge pull request #8 from marekprochazka/goniomFunc
+[33m5a2bcb7[m[33m ([m[1;31morigin/goniomFunc[m[33m, [m[1;32mgoniomFunc[m[33m)[m added goniometric functions
+[33m909d21c[m Merge pull request #7 from marekprochazka/bugfixes_1.5.1
+[33me6806ea[m[33m ([m[1;31morigin/bugfixes_1.5.1[m[33m, [m[1;32mbugfixes_1.5.1[m[33m)[m ver 1.5.1 alpha - del bugfix
+[33ma7c1076[m fixed del bug
+[33m9404fdd[m blank commit
+[33m5cbd9ae[m Merge pull request #6 from marekprochazka/update_1.5_delete_all_option
+[33ma676205[m[33m ([m[1;31morigin/update_1.5_delete_all_option[m[33m, [m[1;32mupdate_1.5_delete_all_option[m[33m)[m aplha 1.5 - added delete all button
+[33m8ae55e4[m Update README.md
+[33m9dbdf19[m ver 1.4 Alpha - error messeges
+[33m3309e1d[m idea commit
+[33m46ee730[m Merge branch 'master' of https://github.com/marekprochazka/Seminarni_prace_2020
+[33m8b8aadf[m updated .gitignore
+[33md90ec0d[m Update README.md
+[33m55be6d3[m Update README.md
+[33mc5e44f1[m Added readme file
+[33md0f8384[m quick update - alpha 1.31 (added messege to wrong console input)
+[33mb5c14b7[m Merge pull request #4 from marekprochazka/update_1.3
+[33mf59bc5b[m update 1.3 - console history
+[33m9f4f189[m[33m ([m[1;32mconsole_history[m[33m)[m finished console history
+[33m5c6ad27[m console on top after color choice
+[33me91a609[m ver 1.2 aplha
+[33ma471193[m Merge pull request #3 from marekprochazka/update_1.2
+[33maa5ec44[m[33m ([m[1;31morigin/update_1.2[m[33m)[m Merge branch 'master' into update_1.2
+[33m424b7ee[m updated .gitignore
+[33m01d2d59[m[33m ([m[1;32msnapshot_1.2_finished_memory[m[33m)[m finished memory with JSON
+[33m63e060f[m pre-snapshot 1.2
+[33mea57cb9[m Merge pull request #2 from marekprochazka/update_1.1
+[33mc561e80[m Snapshot 1.1 - save as img (ver 1), memory on math and PIE
+[33mb1e3e39[m[33m ([m[1;32msave_as_img[m[33m)[m save as img v 1.0 packed
+[33m050d892[m Save as img ver 1.0
+[33m31c7abb[m corections in grid layout
+[33m3c5c46a[m added choice of grid and cancel button
+[33mf76e200[m fixed pie error, save img moved to another branch
+[33m954b79c[m save as img ver 0.1
+[33md4696b3[m useless comit
+[33mab587a3[m snapshot 1.0 - Math and Pie Autosave
+[33m9f0932b[m added autosave to pie chart
+[33m0f348d0[m made autosave for math
+[33m960dcf7[m ver. Alpha 1.1
+[33m845acb8[m[33m ([m[1;31morigin/update_1.1[m[33m, [m[1;32mupdate_1.1[m[33m)[m blank commit
+[33md399bfa[m Merge pull request #1 from marekprochazka/update_1.1
+[33mf9c2e37[m finished grid settings/fixed bar bug
+[33ma1f1e54[m Added basic grid setings and layout
+[33md5565f5[m ver. Alpha 1.02 (addon: added index counter to table)
+[33mb1d4fc6[m ver. Alpha 1.01 (bug fix: increased table limit)
+[33m4b22681[m ver. Alpha 1.0 (bug fix in function input)
+[33mb4c2a60[m changed coord_all list and corected console in all METHODS
+[33m2aaceb2[m changed coord_all list and corected console
+[33md702f40[m useless commit
+[33mb9e9333[m added console commands for all methods
+[33mb6ce364[m added bar frontend and backend
+[33m76ed678[m made noise generator
+[33mb325f8b[m console pie command and noise frontend
+[33m0de4ff6[m made grid layout and pie call
+[33m7fcd67a[m console optimised and added secret actions
+[33m38c50bb[m added col and size command to console
+[33ma558d99[m added help,markers and mktype to console
+[33me5e3d5a[m delete console command
+[33meffc912[m added console with delete function
+[33me21c439[m destroy_value has to be repaired, bug in function add
+[33mc3d31fe[m last update
+[33m1c4bfc0[m fixed "limit" za použití obechcávky
+[33m5e39da1[m defined function input in 'func_input'
+[33m6f6948f[m defined function input in 'func_input'
+[33m8739e56[m přidán pozdrav
+[33m6fe93fe[m přidán pozdrav
+[33m5050cb6[m first commit
