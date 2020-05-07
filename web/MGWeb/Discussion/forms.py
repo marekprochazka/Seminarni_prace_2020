@@ -9,4 +9,3 @@ class MakePost(forms.ModelForm):
             title = self.cleaned_data["title"]
             if Post.objects.filter(title=title).exists():
                 raise forms.ValidationError("Title already exists")
-            return title

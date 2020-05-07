@@ -9,6 +9,7 @@ def home(request):
 def create(request):
     if request.method == "POST":
         form = MakePost(request.POST)
+        print(form)
         if form.is_valid():
             form.save()
             return redirect("Discussion:home")
