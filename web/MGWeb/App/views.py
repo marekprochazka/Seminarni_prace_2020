@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect,reverse
 from django.http import HttpResponse
 
 
@@ -34,7 +34,7 @@ def down(request):
     return render(request,"down.html")
 
 def disc(request):
-    return render(request,"disc.html")
+    return redirect("Diskuze/")
 
 def boutMe(request):
     return render(request,"boutme.html")

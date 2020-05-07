@@ -13,7 +13,7 @@ urlpatterns = [
     path("Metody/Nahodny-sum",gmNo,name="gmNo"),
     path("Konzole",cons,name="cons"),
     path("Stazeni",down,name="down"),
-    path("Diskuze",disc,name="disk"),
+    path("Diskuze-red",disc,name="disk"),
     path("O-autorovi",boutMe,name="boutMe")
 
 ]
