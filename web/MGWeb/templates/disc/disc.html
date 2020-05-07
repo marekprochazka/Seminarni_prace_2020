@@ -5,15 +5,17 @@
 {% block content %}
 <div class="container-xl mt-5 ml-5">
 
- 
-
+    <a class="btn btn-primary" href="#" role="button">Vytvořit příspěvek</a>
+    <div class="d-flex p-2 bd-highlight">
     {% for post in posts %}
-        <div class="post mt-5">
-            <p>{{post.author}}</p>
-            <p>{{post.title}}</p>
-            <p>{{post.snippet}}</p>
-            <p>{{post.date}}</p>
+        <div class="card mr-5 " style="width: 18rem;">
+          <div class="card-body">
+            <h5 class="card-title">{{post.title}}</h5>
+            <p class="card-text">{{post.snippet}}</p>
+            <a href="#" class="btn btn-primary stretched-link">{{post.author}}</a>
+          </div>
         </div>
     {% endfor %}
+    </div>
 </div>
 {% endblock %}

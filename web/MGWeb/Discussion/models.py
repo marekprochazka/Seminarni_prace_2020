@@ -13,3 +13,4 @@ class Post(models.Model):
 
     def snippet(self):
         return f"{self.text[:50]}..."
+
