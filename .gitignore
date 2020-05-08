@@ -1,3 +1,4 @@
 .idea
 .idea/workspace.xml
 Matplotlib_training.py
+db.sqlite3
