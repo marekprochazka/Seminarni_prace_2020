@@ -1,5 +1,5 @@
 from django import forms
-from .models import Post
+from .models import Post,Comment
 class MakePost(forms.ModelForm):
     class Meta:
         model = Post
@@ -9,3 +9,9 @@ class MakePost(forms.ModelForm):
             title = self.cleaned_data["title"]
             if Post.objects.filter(title=title).exists():
                 raise forms.ValidationError("Title already exists")
+
+
+class MakeComment(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ["author","text"]

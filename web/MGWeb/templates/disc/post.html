@@ -8,5 +8,26 @@
     <p>{{post.text|linebreaks}}</p>
     <p>{{post.author}}</p>
     <p>{{post.date}}</p>
+
+    <div class="comments">
+        <h5>Komentáře</h5>
+        <form action="{% url 'Discussion:detail' slug=post.slug %}" class="comment-form" method="post">
+            {% csrf_token %}
+            {{form}}
+            <input type="submit" value="Zveřejnit komentář" class="btn btn-primary">
+
+        </form>
+        {% for comment in comments %}
+            <div class="comm pl-2 ">
+                <p class="pt-1">{{comment.text|linebreaks}}</p>
+                <p class="text-right pr-2"><strong> {{comment.author}}</strong></p>
+                <p class="small text-right pr-2 pb-2">{{comment.date}}</p>
+            </div>
+        {% endfor %}
+    </div>
 </div>
+<div class="last"></div>
+
+
+
 {% endblock %}
