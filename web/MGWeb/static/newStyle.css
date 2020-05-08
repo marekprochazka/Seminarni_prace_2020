@@ -1,11 +1,3 @@
-@media (max-width: 1000px) {
-    .navbar-collapse
-      {
-          background-color:#353a40;
-
-      }
-  }
-
 footer > div{
     height: 100%;
     width:100%;
@@ -105,11 +97,39 @@ box-shadow: 0px 0px 22px 5px rgba(0,0,0,0.75);
     margin-bottom: 5%;
 }
 
+.last{
+    margin-bottom: 5%;
+}
+
+.comments{
+    margin-left: 3%;
+    margin-top: 30pt;
+}
+
+.comm{
+    margin-top: 20pt;
+    width: 50%;
+    -webkit-box-shadow: 0px 0px 10px 2px rgba(0,0,0,0.75);
+-moz-box-shadow: 0px 0px 10px 2px rgba(0,0,0,0.75);
+box-shadow: 0px 0px 10px 2px rgba(0,0,0,0.75);
+
+}
 
 @media (max-width:836px){
-    p,h3,h4{
+    p,h3,h4,h5{
         text-align: center;
 
     }
     
 }
+
+@media (max-width: 1000px) {
+    .navbar-collapse
+      {
+          background-color:#353a40;
+
+      }
+    .last{
+        margin-bottom: 15%;
+    }
+  }
