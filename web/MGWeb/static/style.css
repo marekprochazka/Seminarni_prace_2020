@@ -50,6 +50,16 @@ div > p{
     -webkit-box-shadow: 0px 0px 22px 5px rgba(0,0,0,0.75);
 -moz-box-shadow: 0px 0px 22px 5px rgba(0,0,0,0.75);
 box-shadow: 0px 0px 22px 5px rgba(0,0,0,0.75);
+width: 90%;
+
+}
+
+.responsive_img_small{
+    -webkit-box-shadow: 0px 0px 22px 5px rgba(0,0,0,0.75);
+-moz-box-shadow: 0px 0px 22px 5px rgba(0,0,0,0.75);
+box-shadow: 0px 0px 22px 5px rgba(0,0,0,0.75);
+width: 40%;
+
 }
 
 
@@ -60,6 +70,7 @@ box-shadow: 0px 0px 22px 5px rgba(0,0,0,0.75);
 
 #h-methods{
     border:2px solid #ff01ff;
+    
 }
 
 #h-input{
@@ -104,7 +115,17 @@ box-shadow: 0px 0px 22px 5px rgba(0,0,0,0.75);
 }
 
 .comments{
-    margin-left: 50px;
+    margin-left: 3%;
+    margin-top: 30pt;
+}
+
+.comm{
+    margin-top: 20pt;
+    width: 50%;
+    -webkit-box-shadow: 0px 0px 10px 2px rgba(0,0,0,0.75);
+-moz-box-shadow: 0px 0px 10px 2px rgba(0,0,0,0.75);
+box-shadow: 0px 0px 10px 2px rgba(0,0,0,0.75);
+
 }
 
 @media (max-width:836px){
@@ -112,6 +133,19 @@ box-shadow: 0px 0px 22px 5px rgba(0,0,0,0.75);
         text-align: center;
 
     }
+    nav{
+        width: 100%!important;
+        margin-left: 0;
+        margin-right: 0;
+    }
+    
+    .responsive_img_small{
+        width: 70%;
+    }
+    
+
+
+    
     
 }
 

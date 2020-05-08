@@ -4,6 +4,7 @@
 
 {% block content %}
 <div class="container-xl mt-5 ml-5">
+    <a class="btn btn-primary" href="{% url 'Discussion:home' %}" role="button">Zpět na přispěvky</a>
     <h3>{{post.title}}</h3>
     <p>{{post.text|linebreaks}}</p>
     <p>{{post.author}}</p>
