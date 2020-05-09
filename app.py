@@ -31,11 +31,10 @@ EXTRA_POINT_MARKERS = ['0 (TICKLEFT)', '1 (TICKRIGHT)', '2 (TICKUP)', '3 (TICKDO
                        '10 (CARETUPBASE)', '11 (CARETDOWNBASE)', 'None', '$TEXT$']
 LINE_MARKERS = ['-', '--', '-.', ':', 'None', ' ', '', 'solid', 'dashed', 'dashdot', 'dotted']
 
-AVALIBLE_STYLES = ['Solarize_Light2', '_classic_test_patch', 'bmh', 'classic', 'dark_background', 'fast',
-                   'fivethirtyeight', 'ggplot', 'grayscale', 'seaborn', 'seaborn-bright', 'seaborn-colorblind',
-                   'seaborn-dark', 'seaborn-dark-palette', 'seaborn-darkgrid', 'seaborn-deep', 'seaborn-muted',
-                   'seaborn-notebook', 'seaborn-paper', 'seaborn-pastel', 'seaborn-poster', 'seaborn-talk',
-                   'seaborn-ticks', 'seaborn-white', 'seaborn-whitegrid', 'tableau-colorblind10']
+AVALIBLE_STYLES = ['Solarize_Light2', '_classic_test_patch', 'classic', 'dark_background',
+                   'fivethirtyeight', 'ggplot', 'seaborn', 'seaborn-bright',
+                   'seaborn-dark','seaborn-poster',
+                   'seaborn-ticks', 'seaborn-whitegrid']
 
 GRAPHING_METHOD = {
     "matematical": 1,

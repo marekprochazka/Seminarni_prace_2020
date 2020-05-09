@@ -3,5 +3,134 @@
 {% block ac7 %}active{% endblock %}
 
 {% block content %}
-<p>CONS</p>
+<div class="container-xl mt-5 ml-5 mr-5 ">
+    <h3>Konzole</h3>
+    <p>Konzole slouží k následné úpravě vzhledu uživatelských vstupů.</p>
+    <h5 class="mt-5">Příkazy</h5>
+    <ul class="mt-5">
+        <li class="mt-3"><a href="#delete">Odstranění</a></li>
+        <li class="mt-3"><a href="#markers">Změna značky</a></li>
+        <li class="mt-3"><a href="#color">Změna barvy</a></li>
+        <li class="mt-3"><a href="#size">Změna velikosti</a></li>
+        <li class="mt-3"><a href="#gpstyle">Styl grafu</a></li>
+        <li class="mt-3"><a href="#pie">Speciální příkazy koláčového grafování</a></li>
+        <li class="mt-3"><a href="#other">Ostatní příkazy konzole</a></li>
+    </ul>
+</div>
+<div class="container-xl mt-5 ml-5 mr-5" id="delete" >
+    <h4 class="mt-4">Odstranění</h4>
+    <h5>Příkaz: <i>del {index}</i></h5>
+    <h5>Použitelné v metodách: všechny</h5>
+    <p>Odstraní konkrétní vstup</p>
+    <p>Index = pořadové číslo v seznamu vstupů</p>
+
+</div>
+<div class="container-xl mt-5 ml-5 mr-5" id="markers" >
+    <h4>Změna značky</h4>
+    <h5>Příkaz: <i>del {index} {značka}</i></h5>
+    <h5>Použitelné v metodách: Matematická, Náhodný šum</h5>
+    <p>Mění značku daného vstupu</p>
+    <p>Index = pořadové číslo v seznamu vstupů</p>
+    <p>Příkaz pro vypsání značek v konzoli: <i>markers</i></p>
+    <h5>Značky pro bodový vstup, náhodný šum:</h5>
+    <ul class="ml-3">
+        <li class="mt-2"><i>ponz.: Některé značky při větší velikosti ztrácí svůj tvar</i></li>
+        <li class="mt-2">. = Malý kruh</li>
+        <li class="mt-2">, = Čtverec</li>
+        <li class="mt-2">o = Velký kruh</li>
+        <li class="mt-2">v = Trojúhelník (špička směřuje dolů)</li>
+        <li class="mt-2">^ = Trojúhelník (špička směřuje nahoru)</li>
+        <li class="mt-2">< = Trojúhelník (špička směřuje doleva)</li>
+        <li class="mt-2">> = Trojúhelník (špička směřuje doprava)</li>
+        <li class="mt-2">1 = Tvar podobný písmenu Y</li>
+        <li class="mt-2">2 = Tvar podobný písmenu Y (orientovaný dolů)</li>
+        <li class="mt-2">3 = Tvar podobný písmenu Y (orientovaný doprava)</li>
+        <li class="mt-2">4 = Tvar podobný písmenu Y (orientovaný doleva)</li>
+        <li class="mt-2">8 = Osmistěn (velmi podobný kruhu)</li>
+        <li class="mt-2">s = Čtverec (se zakulacenými rohy)</li>
+        <li class="mt-2">p = Pentagon</li>
+        <li class="mt-2">P = Tučné plus</li>
+        <li class="mt-2">* = Hvězda</li>
+        <li class="mt-2">h = Hexagon</li>
+        <li class="mt-2">H = Hexagon (ležící)</li>
+        <li class="mt-2">+ = Plus</li>
+        <li class="mt-2">x = Písmeno x</li>
+        <li class="mt-2">X = Písmeno x (tučné)</li>
+        <li class="mt-2">D = Diamant (rovnostranný)</li>
+        <li class="mt-2">d = Diamant (úzký)</li>
+        <li class="mt-2">| = Svislá čára</li>
+        <li class="mt-2">_ = Vodorovná čára</li>
+    </ul>
+    <h5>Značky pro vstup z funkce:</h5>
+    <ul class="ml-3">
+        <li class="mt-2">- NEBO solid = Plná čára</li>
+        <li class="mt-2">-- NEBO dashed = Přerušovaná čára</li>
+        <li class="mt-2">-. NEBO dashdot = Čerchovaná čára</li>
+        <li class="mt-2">: NEBO dotted = Tečkovaná čára</li>
+        <li class="mt-2">(None = Bez značky)</li>
+    </ul>
+</div>
+<div class="container-xl mt-5 ml-5 mr-5" id="color" >
+    <h4>Změna barvy</h4>
+    <h5>Příkaz: <i>col {index}</i></h5>
+    <h5>Použitelné v metodách: všechny</h5>
+    <p>Mění barvu daného vstupu</p>
+    <p>Index = pořadové číslo v seznamu vstupů</p>
+    <p>Po odelsání příkazu se otevře nové okno s volbou barvy</p>
+
+</div>
+<div class="container-xl mt-5 ml-5 mr-5" id="size" >
+    <h4>Změna velikosti</h4>
+    <h5>Příkaz: <i>size {index} {velikost}</i></h5>
+    <h5>Použitelné v metodách: Matematická, Sloupcová, Náhodný šum</h5>
+    <p>Mění velikost (tlušťku čar/šířku) daného vstupu</p>
+    <p>Index = pořadové číslo v seznamu vstupů</p>
+    <p>Velikost = celé číslo/desetinné číslo</p>
+</div>
+<div class="container-xl mt-5 ml-5 mr-5" id="gpstyle" >
+ <h4>Změna stylu grafu</h4>
+    <h5>Příkaz: <i>GPstyle {style}</i></h5>
+    <h5>Použitelné v metodách: Matematická</h5>
+    <p>Mění pozadí grafu</p>
+    <p>Příkaz pro vypsání stylů v konzoli: <i>ShowMeStyles</i></p>
+    <p>Změna se projeví po restartu aplikace</p>
+    <p>Dostupné styly:</p>
+    <ul class="ml-3">
+        <li class="mt-2">Solarize_Light2 = Nažloutlý základní graf (ggplot)</li>
+        <li class="mt-2">seaborn-bright = graf bez mřížky</li>
+        <li class="mt-2">classic = bez mřížky, šedé okolí</li>
+        <li class="mt-2">dark_background = černé pozadí, bez mřížky </li>
+        <li class="mt-2">fivethirtyeight = roztažený základní (bez okrajů)</li>
+        <li class="mt-2">ggplot = základní graf</li>
+        <li class="mt-2">seaborn = modernější font, světle modré pozadí grafu</li>
+        <li class="mt-2">seaborn-whitegrid = seaborn, bílé pozadí</li>
+        <li class="mt-2">seaborn-dark = seaborn bez mřížky</li>
+        <li class="mt-2">seaborn-poster = seaborn bez mřížky, bílé pozadí, popisy os velmým písmem</li>
+
+    </ul>
+
+</div>
+<div class="container-xl mt-5 ml-5 mr-5" id="pie" >
+ <h4>Speciální příkazy koláčového grafování</h4>
+    <h5>Příkaz: <i>explode {index} {value}</i></h5>
+    <h5>Použitelné v metodách: Koláč</h5>
+    <p>Vysune hodnotu z grafu</p>
+    <p>Index = pořadové číslo v seznamu vstupů</p>
+    <p>Value = celé číslo/desetinné číslo</p>
+
+    <h5>Příkaz: <i>stAngle {angle}</i></h5>
+    <h5>Použitelné v metodách: Koláč</h5>
+    <p>Otočí graf (změní jeho počáteční úhel)</p>
+    <p>Angle = celé číslo/desetinné číslo (úhel -> 0-360)</p>
+
+</div>
+<div class="container-xl mt-5 ml-5 mr-5" id="other" >
+    <h4>Ostatní příkazy konzole</h4>
+    <h5>Příkaz: <i>clear</i></h5>
+    <h5>Vyčištění konzole</h5>
+</div>
+
+
+
+<div class="last"></div>
 {% endblock %}
