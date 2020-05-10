@@ -26,9 +26,7 @@ FUNCTION_ALLOWED_MARKS = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "x",
 
 POINT_MARKERS = ['.', ',', 'o', 'v', '^', '<', '>', '1', '2', '3', '4', '8', 's', 'p', 'P', '*', 'h', 'H', '+', 'x',
                  'X', 'D', 'd', '|', '_']
-EXTRA_POINT_MARKERS = ['0 (TICKLEFT)', '1 (TICKRIGHT)', '2 (TICKUP)', '3 (TICKDOWN)', '4 (CARETLEFT)',
-                       '5 (CARETRIGHT)', '6 (CARETUP)', '7 (CARETDOWN)', '8 (CARETLEFTBASE)', '9 (CARETRIGHTBASE)',
-                       '10 (CARETUPBASE)', '11 (CARETDOWNBASE)', 'None', '$TEXT$']
+
 LINE_MARKERS = ['-', '--', '-.', ':', 'None', ' ', '', 'solid', 'dashed', 'dashdot', 'dotted']
 
 AVALIBLE_STYLES = ['Solarize_Light2', '_classic_test_patch', 'bmh', 'classic', 'dark_background', 'fast',
@@ -873,18 +871,7 @@ class MarkoGebra(Tk):
             Label(frame, text=f"Body: {'; '.join(POINT_MARKERS)}", bg="black", fg="green", font=fonts()["SMALL_FONT"],
                   anchor="w").pack(
                 fill=BOTH)
-            Label(frame, text=f"Body Extra: {'; '.join(EXTRA_POINT_MARKERS[0:7])},", bg="black", fg="green",
-                  font=fonts()["SMALL_FONT"],
-                  anchor="w").pack(
-                fill=BOTH)
-            Label(frame, text=f"{'; '.join(EXTRA_POINT_MARKERS[7:13])};", bg="black", fg="green",
-                  font=fonts()["SMALL_FONT"],
-                  anchor="w").pack(
-                fill=BOTH)
-            Label(frame, text=f"{'; '.join(EXTRA_POINT_MARKERS[13:])}; ", bg="black", fg="green",
-                  font=fonts()["SMALL_FONT"],
-                  anchor="w").pack(
-                fill=BOTH)
+           
             Label(frame, text=f"Funkce: {'; '.join(LINE_MARKERS)} ", bg="black", fg="green", font=fonts()["SMALL_FONT"],
                   anchor="w").pack(
                 fill=BOTH)
@@ -1003,7 +990,7 @@ class MarkoGebra(Tk):
                     raise SyntaxError
 
             else:
-                if (linetype in EXTRA_POINT_MARKERS + POINT_MARKERS) or ((linetype[0] and linetype[-1]) == "$"):
+                if (linetype in POINT_MARKERS) or ((linetype[0] and linetype[-1]) == "$"):
 
                     for indx, val in enumerate(coordinates_scatter):
                         if val[0:2] == coordinates_all_list[index][0]:
@@ -1015,7 +1002,7 @@ class MarkoGebra(Tk):
                     raise SyntaxError
 
         elif TO_ANIMATE == 4:
-            if (linetype in EXTRA_POINT_MARKERS + POINT_MARKERS) or ((linetype[0] and linetype[-1]) == "$"):
+            if (linetype in POINT_MARKERS) or ((linetype[0] and linetype[-1]) == "$"):
                 for coord in noises[index + 1]:
                     coord[2] = linetype
                 coordinates_all_list[index][2] = linetype
