@@ -792,6 +792,15 @@ class MarkoGebra(Tk):
                       anchor="w").pack(
                     fill=BOTH)
                 entry.delete(0, END)
+            except IndexError:
+                Label(frame, text="Neplatný styl!", bg="black", fg="red", font=fonts()["SMALL_FONT"],
+                      anchor="w").pack(
+                    fill=BOTH)
+                Label(frame, text="Použij 'ShowMeStyles' pro zobrazení dostupných stylů", bg="black", fg="aqua",
+                      font=fonts()["ITALIC_SMALL"],
+                      anchor="w").pack(
+                    fill=BOTH)
+                entry.delete(0, END)
 
         # pie specials
         elif command[0] == "explode":
@@ -871,7 +880,7 @@ class MarkoGebra(Tk):
             Label(frame, text=f"Body: {'; '.join(POINT_MARKERS)}", bg="black", fg="green", font=fonts()["SMALL_FONT"],
                   anchor="w").pack(
                 fill=BOTH)
-           
+
             Label(frame, text=f"Funkce: {'; '.join(LINE_MARKERS)} ", bg="black", fg="green", font=fonts()["SMALL_FONT"],
                   anchor="w").pack(
                 fill=BOTH)
