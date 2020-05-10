@@ -26,9 +26,7 @@ FUNCTION_ALLOWED_MARKS = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "x",
 
 POINT_MARKERS = ['.', ',', 'o', 'v', '^', '<', '>', '1', '2', '3', '4', '8', 's', 'p', 'P', '*', 'h', 'H', '+', 'x',
                  'X', 'D', 'd', '|', '_']
-EXTRA_POINT_MARKERS = ['0 (TICKLEFT)', '1 (TICKRIGHT)', '2 (TICKUP)', '3 (TICKDOWN)', '4 (CARETLEFT)',
-                       '5 (CARETRIGHT)', '6 (CARETUP)', '7 (CARETDOWN)', '8 (CARETLEFTBASE)', '9 (CARETRIGHTBASE)',
-                       '10 (CARETUPBASE)', '11 (CARETDOWNBASE)', 'None', '$TEXT$']
+
 LINE_MARKERS = ['-', '--', '-.', ':', 'None', ' ', '', 'solid', 'dashed', 'dashdot', 'dotted']
 
 AVALIBLE_STYLES = ['Solarize_Light2', '_classic_test_patch', 'classic', 'dark_background',
