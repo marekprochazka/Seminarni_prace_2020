@@ -47,4 +47,4 @@ Random noice: Number of points and dispersion
 ### Note for english speakers
 App frontend is writen in my primary language.
 <br />*Beause first purpose of this app was to present it as my seminar labor in school* 
-<br / >English version will come soon.
+<br />English version will come soon.
