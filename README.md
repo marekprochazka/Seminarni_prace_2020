@@ -20,8 +20,6 @@ Sloupcový: Stejný vstup jako Koláčový graf, vástup do sloupcového grafu
 ```
 Náhodný šum: Generován podle zadaného počtu bodů a jejich rozptylu 
 ```
-### Jak spustit program:
-Stačí si jednoduše stáhnout tohle úložiště a spustit **app.py**
 
 
 ## **--EN--**
@@ -44,8 +42,6 @@ Bar: same input as Pie but graph is bar
 ```
 Random noice: Number of points and dispersion
 ```
-### How to run app
-Just simply download repo and run **app.py**
 
 
 ### Note for english speakers
