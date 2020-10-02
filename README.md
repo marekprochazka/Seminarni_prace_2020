@@ -1,3 +1,6 @@
+# PROJECT CONTINUES AT: https://github.com/marekprochazka/V2_MarkoGebra
+
+
 # **MarkoGebra**
 
 ## **--CZ--**
